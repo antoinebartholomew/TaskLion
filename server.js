@@ -1,3 +1,4 @@
+// *** Dependencies =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
 
@@ -18,8 +19,7 @@ app.use(express.static("public"));
 // app.set("view engine", "handlebars");
 
 
-//Start of Routes (Place code between ====)
-//====================================================================================================
+// Routes ====================================================================================================
 
 // var taskrs = require("./routes/taskrs-api-routes")
 // var taskees = require("./routes/taskees-api-routes");
@@ -27,21 +27,15 @@ app.use(express.static("public"));
 // app.use(taskees);
 
 //need html routes if not using handlebars.
+require("./routes/taskrs-api-routes.js")(app);
+// require("./routes/taskees-api-routes.js")(app);
+require("./routes/html-routes.js")(app);
 
 
-
-
-
-
-
-//End Routes
-//=====================================================================================================
+// Initialize the Express app =====================================================================================================
 
 db.sequelize.sync({ force: true }).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
 });
-
-
-
