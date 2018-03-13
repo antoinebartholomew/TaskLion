@@ -1,6 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Postings = sequelize.define("Postings", {
-    // Giving the Author model a name of type STRING
+  var Task = sequelize.define("Task", {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -51,18 +50,17 @@ module.exports = function(sequelize, DataTypes) {
     requesterMarkComplete: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-    },        
+    },
   });
 
- Postings.associate = function(models) {
-    // Associating postings with with Taskrs
-    // A Postings can't be created without an Tasker due to the foreign key constraint
-    Postings.belongsTo(models.Taskr, {
+ Task.associate = function(models) {
+   // A Task must belong to a Taskr; a Task can't be created without a Taskr due to the foreign key constraint
+    Task.belongsTo(models.Taskr, {
       foreignKey:{
         allowNull: false
       }
     });
   };
 
-  return Postings;
+  return Task;
 };
