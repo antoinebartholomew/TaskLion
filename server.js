@@ -9,14 +9,22 @@ var db = require("./models");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.set("views", "views");
+app.set("view engine", "jade");
+
 app.use(express.static("public"));
+app.use(express.static("nodules/bootstrap/dist"));
+
+
 
 
 // Set Handlebars  (May be valid. Would like to use Handlebars)
 // var exphbs = require("express-handlebars");
 
 // app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-// app.set("view engine", "handlebars");
+// app.set("views", "views")
+// app.set("view engine", "jade");
 
 
 // Routes ====================================================================================================
