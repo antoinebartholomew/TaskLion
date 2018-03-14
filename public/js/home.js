@@ -1,33 +1,39 @@
 
 $(document).ready(function () {
 
-    // #username
-    // #userPassword
-    // #loginSubmit
+  //Start of user login ========================================================================================================
+  
+    $("#loginSubmit").on("click", function(event){
+        event.preventDefault();
+        if($("#username").val() && $("#userPassword").val()){ 
+            var submittedPassword = $("#userPassword").val()
+            
+            var username = $("#username").val();
+            console.log(username);
+            
+            
+        //query taskrs for username and password and check if they match
+            $.ajax("/api/taskrs/"+ username, {
+                type: "GET",
+                data: username
+            }).then(function(dbTaskr) {
+                    console.log(dbTaskr);
+                    console.log("My password is" + dbTaskr.password);
+                    var dbPassword = dbTaskr.password;
+                    var userDbID = dbTaskr.id;
 
-    // $("#loginSubmit").on("click", function(event){
-    //     event.preventDefault();
-    //     if($("#username").val() && $("#userPassword").val()){              
-    //         var checkUser = {
-    //             username = $("#username").val(),
-    //             password = $("#userPassword").val()
-    //         }
-    //     //query taskrs for username and password and check if they match
-    //         $.ajax("/api/users", {
-    //             type: "GET",
-    //             data: checkUser
-    //         }).then(
-    //             function () {
-    //                 console.log("user passed");
-    //                 // Reload the page to get the updated list
-    //                 location.href="/home";
-    //             }
-    //         );
-    //     }
-    //     //end of if statement
+                    if (submittedPassword === dbPassword){
+                        alert("YES")
+                    }else 
+                    alert("NO")
+                    // Reload the page to get the updated list
+                    // location.href="/home";
+                });
+        }
+        //end of if statement
+    })
 
-    // })
-
+//End of user login ========================================================================================================
 
 
 
@@ -48,7 +54,7 @@ $(document).ready(function () {
                 secQuestionTwoAnswer: $("#secQuestionTwoAnswer").val(),
                 secQuestionThree: $("#secQuestionThree").val(),
                 secQuestionThreeAnswer: $("#secQuestionThreeAnswer").val(),
-                loggedIn: false 
+                loggedIn: true
             }
             console.log(createUser)
             //query taskrs for username and password and check if they match
@@ -59,7 +65,7 @@ $(document).ready(function () {
                 function () {
                     console.log("user created");
                     // Reload the page to get the updated list
-                    location.href = "/home";
+                    location.href = "/home/:id";
                 }
             );
         }
