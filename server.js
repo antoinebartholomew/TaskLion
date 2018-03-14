@@ -21,15 +21,16 @@ app.use(express.static("public"));
 
 // Routes ====================================================================================================
 
-// var taskrs = require("./routes/taskrs-api-routes")
-// var taskees = require("./routes/taskees-api-routes");
-// app.use(taskrs);
-// app.use(taskees);
+var taskrs = require("./routes/taskrs-api-routes.js")
+var taskees = require("./routes/taskees-api-routes.js");
+var htmlRoutes = require("./routes/html-routes.js")
+app.use(taskrs);
+app.use(taskees);
+app.use(htmlRoutes);
 
-//need html routes if not using handlebars.
-require("./routes/taskrs-api-routes.js")(app);
+// require("./routes/taskrs-api-routes.js")(app);
 // require("./routes/taskees-api-routes.js")(app);
-require("./routes/html-routes.js")(app);
+// require("./routes/html-routes.js")(app);
 
 
 // Initialize the Express app =====================================================================================================

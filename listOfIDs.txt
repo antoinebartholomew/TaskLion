@@ -1,0 +1,13 @@
+1. Login Page:
+
+2. Home Page:
+
+3. Registration Page
+
+4. Forgot Password Page
+
+5. Create Task
+
+6. Edit Task
+
+

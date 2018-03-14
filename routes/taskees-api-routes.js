@@ -1,9 +1,11 @@
 var express = require("express");
 var _ = require("lodash");
-module.exports = router;
+var db = require("../models");
+
 
 var router = express.Router();
-var db = require("../models");
+module.exports = router;
+
 
 //Start of routes  (Place code between ====)
 //=================================================================================================
