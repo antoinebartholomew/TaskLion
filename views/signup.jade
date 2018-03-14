@@ -1,0 +1,56 @@
+                            //Signup page to register for an account
+
+//extent layout.jade ============================================================================== 
+extends layout
+//importing everything below into block content1 on layout.jade ===================================
+block content1  
+    .container
+      .jumbotron
+        h1.text-center TASKR!
+      .row
+        .offset-md-3.col-md-6
+          form
+            .form-group
+              label(for='username') Username
+              input#userNameCreate.form-control(type='name', placeholder='Create a Username')
+              small.form-text.text-muted Must be atleast 3 characters min
+            .form-group
+              label(for='password') Password
+              input#userPasswordCreate.form-control(type='password', placeholder='Password')
+              small.form-text.text-muted Must be atleast 3 characters min
+            .form-group
+              label(for='secQuestionOne') Example select
+              select#secQuestionOne.form-control
+                option What is you mothers maiden name?
+                option Name of your childhood best friend?
+                option Make of your first car?
+            .form-group
+              label(for='secQuestionOneAnswer') Password
+              input#secQuestionOneAnswer.form-control(type='text', placeholder='Enter your Answer')
+            .form-group
+              label(for='secQuestionTwo') Example select
+              select#secQuestionTwo.form-control
+                option Name of your first pet?
+                option Name of your high school mascot?
+                option City of your birth?
+            .form-group
+              label(for='secQuestionTwoAnswer') Password
+              input#secQuestionTwoAnswer.form-control(type='text', placeholder='Enter your Answer')
+            .form-group
+              label(for='secQuestionThree') Example select
+              select#secQuestionThree.form-control
+                option What is your favorite color?
+                option Name of the street you grew up on?
+                option Apple or Samsung?
+            .form-group
+              label(for='secQestionOneAnswer') Password
+              input#secQuestionThreeAnswer.form-control(type='text', placeholder='Enter your Answer')
+            .form-check
+              input#exampleCheck1.form-check-input(type='checkbox')
+              label.form-check-label(for='exampleCheck1') Check me out
+        .offset-md-7.col-md-1    
+            buttonbutton#signupSubmit.btn.btn-primary Submit
+        .col-md-1        
+            a.btn.btn-primary(href='/') Cancel
+
+

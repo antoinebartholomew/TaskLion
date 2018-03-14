@@ -1,10 +1,24 @@
 1. Login Page:
+    #username
+    #userPassword
+    #loginSubmit
 
 2. Home Page:
 
-3. Registration Page
+3. Signup Page
+    #userNameCreate
+    #userPasswordCreate
+    #secQuestionOne
+    #secQuestionOneAnswer
+    #secQuestionTwo
+    #secQuestionTwoAnswer
+    #secQuestionThree
+    #secQuestionThreeAnswer
+    #signupSubmit
 
 4. Forgot Password Page
+    #usernameForgotPass
+    #forgotPassSubmit
 
 5. Create Task
 
