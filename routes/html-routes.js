@@ -11,7 +11,17 @@ module.exports = router;
 
   // index route for home page
   router.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/home.html"));
+    res.render("../views/homepage.jade");
+  });
+
+  // route for signup page
+  router.get("/signup", function(req, res) {
+    res.render("../views/signup.jade");
+  });
+
+  // route for forgot password
+  router.get("/forgotpassword", function(req, res) {
+    res.render("../views/forgotpassword.jade");
   });
 
   // route for list of all tasks

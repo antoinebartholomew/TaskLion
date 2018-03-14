@@ -1,0 +1,29 @@
+                                //Homepage to login account
+
+//extent layout.jade ============================================================================== 
+extends layout
+//importing everything below into block content1 on layout.jade ===================================
+block content1
+    .container
+      .jumbotron
+        h1.text-center TASKR!
+      .row
+        .offset-md-3.col-md-3
+            .form-group
+              input#username.form-control.text-center(type='name', placeholder='Username')
+        .col-md-3
+         .form-group
+              input#userPassword.form-control.text-center(type='password', placeholder='Password')
+
+        .col-md-2
+         .form-group
+            buttonbutton#loginSubmit.btn.btn-primary Submit
+      .row
+        .offset-md-3.col-md-3.text-center
+          a(href='/signup') Register for an Account
+        .col-md-3.text-center
+          a(href='/forgotpassword') Forgot Password
+           
+          
+
+      
