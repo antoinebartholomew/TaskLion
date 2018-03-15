@@ -1,0 +1,62 @@
+                                    //Create Post page
+
+//extent layout.jade ============================================================================== 
+extends layout
+//importing everything below into block content1 on layout.jade ===================================
+block content1
+    .container
+      .jumbotron
+        h1.text-center CREATE A TASK!
+      .row
+        .offset-md-3.col-md-6
+          form
+            .form-group
+              label(for='tasker') Taskr ID
+              input#taskrId.form-control(type='name', placeholder='Foreign KEY Taskr ID')
+            .form-group
+              label(for='Title') Task Name
+              input#taskName.form-control(type='text', placeholder='Task Title')
+              small.form-text.text-muted Enter the name of your task
+            .form-group
+              label(for='Price') Price
+              input#taskPrice.form-control(type='number', placeholder='$0.00 Price')
+            .form-group
+              label(for='Categories') Category
+              select#taskCategories.form-control
+                option(selected='') Instruction
+                option Home Maintenance
+                option Auto Maintenance
+                option Culinary
+                option Childcare
+                option Event Planning
+            .form-group
+              label(for='Body') Task Description
+              textarea#taskBody.form-control(type='text', placeholder='Task Description')
+              small.form-text.text-muted Enter your Task Description               
+            .form-group
+              label(for='dayOfWeek') Day of Week
+              select#taskDayOfWeek.form-control
+                option(selected='') Sunday
+                option Monday
+                option Tuesday
+                option Wednesday
+                option Thursday
+                option Friday
+                option Saturday
+        .offset-md-7.col-md-1    
+            button#taskSubmit.btn.btn-primary(type='submit') Submit
+        .col-md-1        
+            a.btn.btn-primary(href='/') Cancel
+
+
+
+                $("#taskSubmit").on("click", function(event) {
+      event.preventDefault();
+      if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
+        var taskCreate = { 
+            title: $("#taskName").val(), 
+            price: $("#taskPrice").val(), 
+            category: $("#taskCategories").val(), 
+            body: $("#taskBody").val(), 
+            dayofWeek: $("#taskDayOfWeek").val(), 
+        };
