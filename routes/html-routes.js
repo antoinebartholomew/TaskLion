@@ -29,10 +29,15 @@ module.exports = router;
     res.render("../views/createPost.jade");
   });
 
+  // route for users homepage
+  router.get("/home", function(req, res) {
+    res.render("../views/users_home.jade");
+  });
+  
 
   // route for list of all tasks
   router.get("/tasks", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/tasks.html"));
+    res.render(path.join("../views/tasks.jade"));
   });
 
   // route for create task page

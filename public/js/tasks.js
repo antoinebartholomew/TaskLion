@@ -12,7 +12,7 @@
 //   var taskr;
 //   // Sets a flag for whether or not we're updating a task to be false initially
 //   var updating = false;
-//
+
 //   // If we have this section in our url, we pull out the task id from the url
 //   // In '?task_id=1', taskId is 1
 //   if (url.indexOf("?task_id=") !== -1) {
@@ -23,10 +23,10 @@
 //   else if (url.indexOf("?taskr=") !== -1) {
 //     taskr = url.split("=")[1];
 //   }
-//
+
 //   // Getting the taskrs, and their tasks
 //   getTaskrs();
-//
+
 //   // A function for handling what happens when the form to create a new task is submitted
 //   function handleFormSubmit(event) {
 //     event.preventDefault();
@@ -44,7 +44,7 @@
 //         .trim(),
 //       Taskr: taskrSelect.val()
 //     };
-//
+
 //     // If we're updating a task run updateTask to update a task
 //     // Otherwise run submitTask to create a whole new task
 //     if (updating) {
@@ -55,14 +55,14 @@
 //       submitTask(newTask);
 //     }
 //   }
-//
+
 //   // Submits a new task and brings user to tasks page upon completion
 //   function submitTask(task) {
 //     $.post("/api/tasks", task, function() {
 //       window.location.href = "/tasks";
 //     });
 //   }
-//
+
 //   // Gets task data for the current task if we're editing, or if we're adding to an taskr's existing tasks
 //   function getPostData(id, type) {
 //     var queryUrl;
@@ -89,7 +89,7 @@
 //       }
 //     });
 //   }
-//
+
 //   // A function to get Taskrs and then render our list of Taskrs
 //   function getTaskrs() {
 //     $.get("/api/taskrs", renderTaskrList);
@@ -111,7 +111,7 @@
 //     taskrSelect.append(rowsToAdd);
 //     taskrSelect.val(taskrId);
 //   }
-//
+
 //   // Creates the taskr options in the dropdown
 //   function createTaskrRow(taskr) {
 //     var listOption = $("<option>");
@@ -119,7 +119,7 @@
 //     listOption.text(taskr.name);
 //     return listOption;
 //   }
-//
+
 //   // Update a given task, bring user to the tasks page when done
 //   function updateTask(task) {
 //     $.ajax({
