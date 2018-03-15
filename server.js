@@ -18,13 +18,16 @@ app.use(express.static("nodules/bootstrap/dist"));
 
 // Routes ====================================================================================================
 
-var taskrs = require("./routes/taskrs-api-routes.js")
+var taskrs = require("./routes/taskrs-api-routes.js");
+var test = require("./routes/test-api.js");
 var taskees = require("./routes/taskees-api-routes.js");
-var tasks = require("./routes/tasks-api-routes.js");
-var htmlRoutes = require("./routes/html-routes.js")
+// var tasks = require("./routes/tasks-api-routes.js");
+var htmlRoutes = require("./routes/html-routes.js");
 app.use(taskrs);
+app.use(test);
+// app.use(tasks);
 app.use(taskees);
-app.use(tasks);
+
 app.use(htmlRoutes);
 
 // Initialize the Express app =====================================================================================================
