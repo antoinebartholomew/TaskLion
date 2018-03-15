@@ -20,9 +20,11 @@ app.use(express.static("nodules/bootstrap/dist"));
 
 var taskrs = require("./routes/taskrs-api-routes.js")
 var taskees = require("./routes/taskees-api-routes.js");
+var tasks = require("./routes/tasks-api-routes.js");
 var htmlRoutes = require("./routes/html-routes.js")
 app.use(taskrs);
 app.use(taskees);
+app.use(tasks);
 app.use(htmlRoutes);
 
 // Initialize the Express app =====================================================================================================
