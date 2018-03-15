@@ -1,0 +1,12 @@
+//extent layout.jade ============================================================================== 
+extends layout
+//importing everything below into block content1 on layout.jade ===================================
+block content1
+    .container
+      .row
+        .offset-md-7.col-md-2
+          a.btn.btn-primary(href='/create') Create Task
+        .col-md-2
+          a.btn.btn-primary(href='/user/settings/:user') Account Settings
+        .col-md-1
+          button#logoutSubmit.btn.btn-primary(type='submit') Log Out
