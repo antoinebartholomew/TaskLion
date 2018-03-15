@@ -1,6 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
   var Taskr = sequelize.define("Taskr", {
-    // Giving the Author model a name of type STRING
     username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -46,9 +45,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
  Taskr.associate = function(models) {
-    // Associating taskrs with posted tasks
-    // When an taskr is deleted, also delete any associated tasks
-    Taskr.hasMany(models.Postings, {
+   // A Task must belong to a Taskr; a Task can't be created without a Taskr due to the foreign key constraint
+    Taskr.hasMany(models.Task, {
       onDelete: "cascade"
     });
   };

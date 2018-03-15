@@ -1,0 +1,165 @@
+body{
+   /* background-color: rgba(255, 255, 255, 0.85);; */
+  background-color: #D4E5E8;
+}
+.container{
+width: 100%;
+text-align: center;
+height: auto;
+border: 0.5px color:#4f7b86;
+}
+.swiper-container {
+    width: 600px;
+    height: 300px;
+}
+
+.ml8 letters-left{
+  text-align: center;
+}
+h1.ml8 {
+  /* font-weight: 500px; */
+  font-size: 2.5em;
+  color: #fff;
+  width: 3em;
+  height: 3em;
+  text-align: center;
+}
+/* taskr qui est a l'interieur du rond */
+.ml8 .letters-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  height: 1em;
+  text-align: center;
+}
+.ml8 .letters {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  line-height: 0.7em;
+  right: -0.12em;
+  top: -0.2em;
+}
+/* le point d'exclamation */
+.ml8 .bang {
+  font-size: 2.4em;
+  top: auto;
+  left: -0.06em;
+}
+/*la direction du cercle opaque vert  */
+.ml8 .circle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+}
+/*  le rond blanc qui disparait*/
+.ml8 .circle-white {
+  width: 5em;
+  height: 5em;
+  border: 2px dashed white;
+  border-radius: 2em;
+}
+/* le rond ver */
+.ml8 .circle-dark {
+  width: 3.4em;
+  height: 3.4em;
+  background-color: #4f7b86;
+  border-radius: 3em;
+  z-index: 1;
+}
+/* le rond avec les points  */
+.ml8 .circle-dark-dashed {
+  border-radius: 5.5em;
+  background-color: transparent;
+  border: 2px dashed #4f7b86;
+  width: 3.6em;
+  height: 3.6em;
+}
+a:hover {
+  color: #e478e8;
+}
+#tab-1, #tab-2 {
+  position: relative;
+  bottom: 15px;
+  right: 35px;
+}
+/*  les link, distance entre les mots*/
+.links a {
+  margin: 0px 85px;
+  color: black;
+  /*font-size: 24px;*/
+  background-color: rgba(255, 255, 255, 0.0);
+  border: 0.5px solid rgba(255, 255, 255, 0.0);
+  transition: color 1s, background-color 1s;
+}
+.links a, .platforms a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.13em;
+  border-radius: 1px;
+  text-decoration: none;
+  padding: 3px 10px;
+  padding-top: 6px;
+}
+.links a:hover, .platforms a:hover {
+  color: #287ee6;
+  background-color: #e5f9ff;
+  border: 0.5px solid #4f7b86;
+  text-decoration: none;
+}
+/* footer */
+/* .footer {
+    margin-bottom: 0;
+    background-color: #4f7b86;
+    color: white;
+    padding: 2%;
+    position:;
+  }
+.footerTitle {
+    color: rgba(153, 243, 17, 0.637);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+.copy {
+    margin-top: 2%;
+    text-align: center;
+    color:#fff;
+    font-family: 'Montserrat', sans-serif;
+} */
+footer,
+.push {
+  height: 100px;
+}
+footer {
+  /* Box-model */
+  padding: 30px 0;
+  /* Positioning */
+  clear: both;
+  font-size: 12px;
+  /* Typography */
+  color: #ccc;
+  text-align: center;
+  /* Visual */
+  background: #666;
+  border-top: 8px solid #4aaaa5;
+}
+.hover-image {
+    margin: 5px;
+    height: 75px;
+    width: 75px;
+    -webkit-transition: all 1s ease-in-out;
+    color: green;
+  }
+  .hover-image:hover {
+    height: 75px;
+    width: 75px;
+    filter: none;
+    -webkit-transform: scale(1.25);
+    color: green;
+  }
