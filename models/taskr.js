@@ -14,42 +14,42 @@ module.exports = function(sequelize, DataTypes) {
             len: [1]
         }
     },
-    secQuestionOne: {
+    secQuestion1: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             len: [1]
         }
     },
-    secQuestionOneAnswer: {
+    secQuestionAnswer1: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
              len: [1]
         }
     },
-    secQuestionTwo: {
+    secQuestion2: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             len: [1]
         }
     },
-    secQuestionTwoAnswer: {
+    secQuestionAnswer2: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
              len: [1]
         }
     },
-    secQuestionThree: {
+    secQuestion3: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
             len: [1]
         }
     },
-    secQuestionThreeAnswer: {
+    secQuestionAnswer3: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {

@@ -49,3 +49,17 @@ router.delete("/api/taskrs/:id", function(req, res) {
     res.json(dbTaskr);
   });
 });
+
+
+// PUT route for updating password
+router.put("/api/update/password", function(req, res) {
+  db.Taskr.update(req.body,
+    {
+      where: {
+        id: req.body.id
+      }
+    })
+    .then(function(dbTask) {
+      res.json(dbTask);
+    });
+});

@@ -16,8 +16,12 @@ block content1
               small.form-text.text-muted Must be atleast 3 characters min
             .form-group
               label(for='password') Password
-              input#userPasswordCreate.form-control(type='password', placeholder='Password')
+              input#userPasswordCreate.form-control(type='name', placeholder='Password')
               small.form-text.text-muted Must be atleast 3 characters min
+            .form-group
+              label(for='password') Confirm Password
+              input#userPasswordCreate2.form-control(type='name', placeholder='Confirm Password')
+              small.form-text.text-muted Must be atleast 3 characters min              
             .form-group
               label(for='secQuestionOne') Security Question 1
               select#secQuestionOne.form-control
@@ -45,9 +49,6 @@ block content1
             .form-group
               label(for='secQestionOneAnswer') Answer
               input#secQuestionThreeAnswer.form-control(type='text', placeholder='Enter your Answer')
-            .form-check
-              input#exampleCheck1.form-check-input(type='checkbox')
-              label.form-check-label(for='exampleCheck1') Check me out
         .offset-md-7.col-md-1    
             buttonbutton#signupSubmit.btn.btn-primary Submit
         .col-md-1        
