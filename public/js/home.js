@@ -65,7 +65,7 @@ $(document).ready(function () {
                 function () {
                     console.log("user created");
                     // Reload the page to get the updated list
-                    location.href = "/home/:id";
+                    // location.href = "/home/:id";
                 }
             );
         }
@@ -78,7 +78,34 @@ $(document).ready(function () {
 //End of create user account ========================================================================================================
 
 
-
+// Start of create Post ========================================================================================================
+    $("#taskSubmit").on("click", function(event) {
+      event.preventDefault();
+      if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
+        var taskCreate = { 
+            title: $("#taskName").val(), 
+            price: $("#taskPrice").val(), 
+            category: $("#taskCategories").val(), 
+            body: $("#taskBody").val(), 
+            dayofWeek: $("#taskDayOfWeek").val(),
+            TaskrId: $("#taskrId").val(),
+        };
+        console.log(taskCreate);
+        //query taskrs for username and password and check if they match
+        $.ajax("/api/taskrs", {
+            type: "POST",
+            data: taskCreate
+            }).then(function(dbTaskr) {
+            console.log(dbTaskr);
+          // Reload the page to get the updated list
+          //   location.href = "/home/:id";
+        });
+      } else {
+        //end of if statement
+            alert("Fill out all the boxes.");
+      }
+    });
+// End of create Post ========================================================================================================
 
 
 

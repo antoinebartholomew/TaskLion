@@ -24,6 +24,12 @@ module.exports = router;
     res.render("../views/forgotpassword.jade");
   });
 
+  // route for Task creation
+  router.get("/create", function(req, res) {
+    res.render("../views/createPost.jade");
+  });
+
+
   // route for list of all tasks
   router.get("/tasks", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/tasks.html"));

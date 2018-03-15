@@ -18,12 +18,10 @@ router.get("/api/taskrs", function(req, res) {
 
 router.get("/api/taskrs/:username", function(req, res) {
   // Find one Taskr with the id in req.params.id and return them to the user with res.json
-  console.log("**************************");
-  
+  console.log("**************************");  
   console.log(req.params);
-  console.log(req.body);
-  
-console.log("**************************");
+  console.log(req.body);  
+  console.log("**************************");
   db.Taskr.findOne({
     where: {
       username: req.params.username
