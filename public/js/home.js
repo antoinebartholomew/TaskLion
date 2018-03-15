@@ -2,16 +2,16 @@
 $(document).ready(function () {
 
   //Start of user login ========================================================================================================
-  
+
     $("#loginSubmit").on("click", function(event){
         event.preventDefault();
-        if($("#username").val() && $("#userPassword").val()){ 
+        if($("#username").val() && $("#userPassword").val()){
             var submittedPassword = $("#userPassword").val()
-            
+
             var username = $("#username").val();
             console.log(username);
-            
-            
+
+
         //query taskrs for username and password and check if they match
             $.ajax("/api/taskrs/"+ username, {
                 type: "GET",
@@ -24,7 +24,7 @@ $(document).ready(function () {
 
                     if (submittedPassword === dbPassword){
                         alert("YES")
-                    }else 
+                    }else
                     alert("NO")
                     // Reload the page to get the updated list
                     // location.href="/home";
@@ -42,9 +42,9 @@ $(document).ready(function () {
 //Start of create user account ========================================================================================================
     $("#signupSubmit").on("click", function (event) {
         event.preventDefault();
-        if ($("#userNameCreate").val() && $("#userPasswordCreate").val() 
+        if ($("#userNameCreate").val() && $("#userPasswordCreate").val()
             && $("#secQuestionOneAnswer").val() && $("#secQuestionTwoAnswer").val() && $("#secQuestionThreeAnswer").val() ) {
-            
+
                 var createUser = {
                 username: $("#userNameCreate").val(),
                 password: $("#userPasswordCreate").val(),
@@ -82,17 +82,17 @@ $(document).ready(function () {
     $("#taskSubmit").on("click", function(event) {
       event.preventDefault();
       if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
-        var taskCreate = { 
-            title: $("#taskName").val(), 
-            price: $("#taskPrice").val(), 
-            category: $("#taskCategories").val(), 
-            body: $("#taskBody").val(), 
+        var taskCreate = {
+            title: $("#taskName").val(),
+            price: $("#taskPrice").val(),
+            category: $("#taskCategories").val(),
+            body: $("#taskBody").val(),
             dayofWeek: $("#taskDayOfWeek").val(),
             TaskrId: $("#taskrId").val(),
         };
         console.log(taskCreate);
         //query taskrs for username and password and check if they match
-        $.ajax("/api/taskrs", {
+        $.ajax("/api/tasks", {
             type: "POST",
             data: taskCreate
             }).then(function(dbTaskr) {
