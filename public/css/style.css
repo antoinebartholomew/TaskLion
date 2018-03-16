@@ -61,12 +61,25 @@ body {
     width: 100%;
     text-align: center;
     height: auto;
-    border: 0.5px color:#4f7b86;
+    border: 0.5px color:green;
 }
 
 .swiper-container {
     width: 600px;
     height: 300px;
+}
+
+.wrapper{
+    width: 825px;
+    overflow-x:scroll;
+    white-space: nowrap;
+}
+
+.slide{
+    background: #ccc;
+    height: 200px;
+    display: inline-block;
+    width: 205px;
 }
 
 .ml8 letters-left {
@@ -257,3 +270,81 @@ footer {
     -webkit-transform: scale(1.25);
     color: green;
 }
+
+
+/*Home Page Table CSS*/
+
+
+.responsive-card-table {
+  border-collapse: collapse;
+}
+
+.responsive-card-table.unstriped tbody {
+  background-color: green;
+  min-width: 900px;
+}
+
+.responsive-card-table th {
+  background-color: #e6e6e6;
+}
+
+.responsive-card-table tr,
+.responsive-card-table th,
+.responsive-card-table td {
+  border: 3px solid #0a0a0a;
+}
+
+@media screen and (max-width: 640px) {
+  .responsive-card-table {
+
+  }
+  .responsive-card-table thead tr {
+    position: absolute;
+    top: -9999em;
+    left: -9999em;
+  }
+  .responsive-card-table tr {
+    border: 3px solid #0a0a0a;
+    display: block;
+  }
+  .responsive-card-table tr + tr {
+    margin-top: 1.5rem;
+  }
+  .responsive-card-table td {
+    border: none;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-bottom: 1px solid #0a0a0a;
+    padding-left: 15%;
+    position: relative;
+  }
+  .responsive-card-table td:before {
+    content: attr(data-label);
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-left: -50%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  .responsive-card-table td:after {
+    content: '';
+    position: absolute;
+    background: #e6e6e6;
+    width: 100%;
+    height: 95%;
+    left: 1px;
+    top: 1px;
+    z-index: 0;
+  }
+}
+
+/*End Home Page CSS*/

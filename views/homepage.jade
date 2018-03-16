@@ -6,7 +6,19 @@ extends layout
 block content1
     .container
       .jumbotron
-        h1.text-center TASKR!
+        #tab-1.links
+          h1.ml8
+            span.letters-container
+              span.letters.letters-left Taskr
+              span.letters.bang !
+            span.circle.circle-white
+            span.circle.circle-dark
+            span.circle.circle-container
+              span.circle.circle-dark-dashed
+      
+      br
+      br  
+          
       .row
         .offset-md-3.col-md-3
             .form-group
@@ -23,7 +35,84 @@ block content1
           a(href='/signup') Register for an Account
         .col-md-3.text-center
           a(href='/forgotpassword') Forgot Password
-           
+        br
+        br
+      .text-content
+        h3
+          | It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
           
+        br
+        br     
+        .wrapper
+          #slider4.text-center
+            .slide
+              | 1
+              p Auto Labor
+              img(src='/public/images/AutoWork.jpeg')
+                        
+            .slide
+              | 2
+              p Skiller Labor
+              img(src='/public/images/carpenter.jpeg')
+            
+            .slide
+              | 3
+              p Medical
+              img(src='/public/images/doctor.jpeg')
+            
+            .slide
+              | 4
+              p Event Planning
+              img(src='/public/images/paint.jpeg')
+          br
+          br
+          
+          
+   
+        
+            
+    
+    // Footer
+    #bottom.jumbotron.jumbotron-fluid.footer
+      
+      .container
+      table.responsive-card-table.unstriped
+        thead
+          tr
+            th Taskr
+            th Description 
+            th Price
+            th Day of Week
+            th Catagory
+            th Edit/Delete
+            tbody
+              tr
+                td(data-label='Taskr') Cooking
+                td(data-label='Description ') Learn to Cook W Keka
+                td(data-label='Price') 20.00
+                td(data-label='Day of Week') Monday
+                td(data-label='Category') Fast Food
+                td(data-label='Edit/Delete') NA
+              tr
+                td(data-label='Taskr') Singing Lessions
+                td(data-label='Description ') Learn to Sing from Gabe
+                td(data-label='Price') 65.00
+                td(data-label='Day of Week') Friday
+                td(data-label='Category') Self Improvment
+                td(data-label='Edit/Delete')  
+              tr
+                td(data-label='Taskr') Auto Labor
+                td(data-label='Description ') Head Light Repair w Antoine
+                td(data-label='Price') Free
+                td(data-label='Day of Week') Tuesday
+                td(data-label='Category') Auto
+                td(data-label='Edit/Delete')   
+              tr
+                td(data-label='Taskr') Cooking
+                td(data-label='Description ') Learn to Cook w Duane
+                td(data-label='Price') 368.00
+                td(data-label='Day of Week') Monday
+                td(data-label='Category') In Food
+                td(data-label='Edit/Delete')  
 
       
