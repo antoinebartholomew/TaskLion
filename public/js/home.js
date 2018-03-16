@@ -62,13 +62,18 @@ $(document).ready(function () {
    id: sessionStorage.getItem("id")
  }).then(function(dbTaskr) {
      console.log("HELLO")
-            console.log("I am title " , dbTaskr)
+            console.log(dbTaskr)
             var choiceArray = [];
             for (let i = 0; i < dbTaskr.length; i++) {
-                choiceArray.push(dbTaskr.price[i])        
-            }
-            console.log(choiceArray);
-            
+                let title = dbTaskr.title[i];
+                let body = dbTaskr.body[i];
+                let price = dbTaskr.price[i];
+                let day = dbTaskr.dayofWeek[i];
+                let category = dbTaskr.category[i];
+                
+                      
+            }  
+                  
 
  });
 
