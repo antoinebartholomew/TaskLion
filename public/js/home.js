@@ -61,21 +61,117 @@ $(document).ready(function () {
    type: "GET",
    id: sessionStorage.getItem("id")
  }).then(function(dbTaskr) {
-     console.log("HELLO")
-            console.log(dbTaskr)
-            var choiceArray = [];
-            for (let i = 0; i < dbTaskr.length; i++) {
-                let title = dbTaskr.title[i];
-                let body = dbTaskr.body[i];
-                let price = dbTaskr.price[i];
-                let day = dbTaskr.dayofWeek[i];
-                let category = dbTaskr.category[i];
-                
-                      
-            }  
-                  
-
+   console.log(dbTaskr);
+   var tasksArray = [];
+   var in_progressArray = [];
+   var completedArray = [];
+   for (let i = 0; i < dbTaskr.length; i++) {
+     if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+       tasksArray.push(dbTaskr[i]);
+     } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+       in_progressArray.push(dbTaskr[i]);
+     } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true) {
+       completedArray.push(dbTaskr[i]);
+     }
+   }
+   for (let i = 0; i < tasksArray[i].length; i++) {
+     let title = tasksArray[i].title;
+     let body = tasksArray[i].body;
+     let price = tasksArray[i].price;
+     let dow = tasksArray[i].dayofWeek;
+     let cat = tasksArray[i].category;
+     $("#userPostedTask").append(`
+            <div class="row">
+                <div class="col-md-2">
+                    <h6>Task:</h6>
+                        <p>${title}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Description:</h6> 
+                        <p>${body}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>$$ Price:</h6> 
+                        <p>${price}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Day of Week:</h6> 
+                        <p>${dow}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Category:</h6> 
+                        <p>${cat}</p>           
+                </div>
+            </div>
+        `);
+   }
+   for (let i = 0; i < in_progressArray.length; i++) {
+     let title = in_progressArray[i].title;
+     let body = in_progressArray[i].body;
+     let price = in_progressArray[i].price;
+     let dow = in_progressArray[i].dayofWeek;
+     let cat = in_progressArray[i].category;
+     $("#userPendingTask").append(`
+            <div class="row">
+                <div class="col-md-2">
+                    <h6>Task:</h6>
+                        <p>${title}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Description:</h6> 
+                        <p>${body}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>$$ Price:</h6> 
+                        <p>${price}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Day of Week:</h6> 
+                        <p>${dow}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Category:</h6> 
+                        <p>${cat}</p>           
+                </div>
+            </div>
+            `);
+   }
+   for (let i = 0; i < completedArray.length; i++) {
+     let title = completedArray[i].title;
+     let body = completedArray[i].body;
+     let price = completedArray[i].price;
+     let dow = completedArray[i].dayofWeek;
+     let cat = completedArray[i].category;
+     $("#userCompletedTask").append(`
+            <div class="row">
+                <div class="col-md-2">
+                    <h6>Task:</h6>
+                        <p>${title}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Description:</h6> 
+                        <p>${body}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>$$ Price:</h6> 
+                        <p>${price}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Day of Week:</h6> 
+                        <p>${dow}</p>           
+                    </div>
+                    <div class="col-md-2">
+                        <h6>Category:</h6> 
+                        <p>${cat}</p>           
+                </div>
+            </div>
+            `);
+   }
+   console.log(tasksArray);
+   console.log(in_progressArray);
+   console.log(completedArray);
  });
+
 
                           
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&   
