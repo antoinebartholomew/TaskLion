@@ -34,7 +34,7 @@ $(document).ready(function () {
                     if (submittedPassword === dbPassword){
                         alert("User successfully confirmed")
                         //Redirect to Homepage                                
-                        // location.href="/home";
+                        location.href="/home";
                         // $("#userName").append("Hello " + sessionStorage.getItem("username"));
                         // AJax Put to update LoggedIn to True 
                         var login = {
@@ -57,20 +57,121 @@ $(document).ready(function () {
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&                        
 
 
- $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
-   type: "GET",
-   id: sessionStorage.getItem("id")
- }).then(function(dbTaskr) {
-     console.log("HELLO")
-            console.log("I am title " , dbTaskr)
-            var choiceArray = [];
-            for (let i = 0; i < dbTaskr.length; i++) {
-                choiceArray.push(dbTaskr.price[i])        
-            }
-            console.log(choiceArray);
-            
+//  $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
+//    type: "GET",
+//    id: sessionStorage.getItem("id")
+//  }).then(function(dbTaskr) {
+//    console.log(dbTaskr);
+//    var tasksArray = [];
+//    var in_progressArray = [];
+//    var completedArray = [];
+//    for (let i = 0; i < dbTaskr.length; i++) {
+//      if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+//        tasksArray.push(dbTaskr[i]);
+//      } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+//        in_progressArray.push(dbTaskr[i]);
+//      } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true) {
+//        completedArray.push(dbTaskr[i]);
+//      }
+//    }
+//    for (let i = 0; i < tasksArray[i].length; i++) {
+//      let title = tasksArray[i].title;
+//      let body = tasksArray[i].body;
+//      let price = tasksArray[i].price;
+//      let dow = tasksArray[i].dayofWeek;
+//      let cat = tasksArray[i].category;
+//      $("#userPostedTask").append(`
+//             <div class="row">
+//                 <div class="col-md-2">
+//                     <h6>Task:</h6>
+//                         <p>${title}</p>
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Description:</h6> 
+//                         <p>${body}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>$$ Price:</h6> 
+//                         <p>${price}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Day of Week:</h6> 
+//                         <p>${dow}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Category:</h6> 
+//                         <p>${cat}</p>           
+//                 </div>
+//             </div>
+//         `);
+//    }
+//    for (let i = 0; i < in_progressArray.length; i++) {
+//      let title = in_progressArray[i].title;
+//      let body = in_progressArray[i].body;
+//      let price = in_progressArray[i].price;
+//      let dow = in_progressArray[i].dayofWeek;
+//      let cat = in_progressArray[i].category;
+//      $("#userPendingTask").append(`
+//             <div class="row">
+//                 <div class="col-md-2">
+//                     <h6>Task:</h6>
+//                         <p>${title}</p>
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Description:</h6> 
+//                         <p>${body}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>$$ Price:</h6> 
+//                         <p>${price}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Day of Week:</h6> 
+//                         <p>${dow}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Category:</h6> 
+//                         <p>${cat}</p>           
+//                 </div>
+//             </div>
+//             `);
+//    }
+//    for (let i = 0; i < completedArray.length; i++) {
+//      let title = completedArray[i].title;
+//      let body = completedArray[i].body;
+//      let price = completedArray[i].price;
+//      let dow = completedArray[i].dayofWeek;
+//      let cat = completedArray[i].category;
+//      $("#userCompletedTask").append(`
+//             <div class="row">
+//                 <div class="col-md-2">
+//                     <h6>Task:</h6>
+//                         <p>${title}</p>
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Description:</h6> 
+//                         <p>${body}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>$$ Price:</h6> 
+//                         <p>${price}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Day of Week:</h6> 
+//                         <p>${dow}</p>           
+//                     </div>
+//                     <div class="col-md-2">
+//                         <h6>Category:</h6> 
+//                         <p>${cat}</p>           
+//                 </div>
+//             </div>
+//             `);
+//    }
+//    console.log(tasksArray);
+//    console.log(in_progressArray);
+//    console.log(completedArray);
+//  });
 
- });
 
                           
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&   
@@ -172,7 +273,7 @@ $(document).ready(function () {
 //End of create user account ========================================================================================================
 
 
-// Start of create Post ========================================================================================================
+// Start of create Task ========================================================================================================
     $("#taskSubmit").on("click", function(event) {
       event.preventDefault();
       if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
@@ -182,14 +283,13 @@ $(document).ready(function () {
             category: $("#taskCategories").val(),
             body: $("#taskBody").val(),
             dayofWeek: $("#taskDayOfWeek").val(),
-            TaskrId: $("#taskrId").val(),
+            TaskrId: sessionStorage.getItem("id"),
         };
             $("#taskName").val(""),
             $("#taskPrice").val(""),
             $("#taskCategories").val(""),
             $("#taskBody").val(""),
             $("#taskDayOfWeek").val(""),
-            $("#taskrId").val(""),
 
         console.log(taskCreate);
         //query taskrs for username and password and check if they match
@@ -208,6 +308,15 @@ $(document).ready(function () {
     });
 // End of create Post ========================================================================================================
 
-
-
 });
+
+
+
+
+
+
+
+
+
+
+

@@ -31,7 +31,7 @@ module.exports = router;
 
   // route for users homepage
   router.get("/home", function(req, res) {
-    res.render("../views/users_home.jade");
+    res.sendFile(path.join(__dirname, "../public/usersHomePage.html"));
   });
   
 
