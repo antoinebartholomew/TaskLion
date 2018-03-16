@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script src="js/home.js"></script>
+    <script src="js/forgotPass.js"></script>
+    <script src="js/taskrs.js"></script>
+    <script src="js/tasks.js"></script>
+    <!--body content ===============================================================================================-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-8 col-md-1">
+                <a class="btn btn-primary" href="/tasks">All Tasks</a>
+            </div>
+            <div class="col-md-1">
+                <a class="btn btn-primary" href="/user/settings/:user">Settings</a>
+            </div>
+            <div class="col-md-1">
+                <a class="btn btn-primary" href="/create">Create</a>
+            </div>
+            <div class="col-md-1">
+                <button id="logoutSubmit" class="btn btn-primary">Logout</button>
+            </div>
+        </div>
+</div>
+
+
+<div class="container rowBackground ">
+        <div class="row">
+            <div id="userPostedTask"></div>
+        </div>
+        <div class="row">
+            <div id="userPendingTask"></div>
+        </div>
+        <div class="row">
+            <div id="userCompletedTask"></div>
+    
+        </div>
+    
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript-->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+    <script>
+        $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
+            type: "GET",
+            id: sessionStorage.getItem("id")
+        }).then(function (dbTaskr) {
+            console.log(dbTaskr);
+            var tasksArray = [];
+            var in_progressArray = [];
+            var completedArray = [];
+            for (let i = 0; i < dbTaskr.length; i++) {
+                if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+                    tasksArray.push(dbTaskr[i]);
+                } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+                    in_progressArray.push(dbTaskr[i]);
+                } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true) {
+                    completedArray.push(dbTaskr[i]);
+                }
+            }
+            for (let i = 0; i < tasksArray.length; i++) {
+                let title = tasksArray[i].title;
+                let body = tasksArray[i].body;
+                let price = tasksArray[i].price;
+                let dow = tasksArray[i].dayofWeek;
+                let cat = tasksArray[i].category;
+                $("#userPostedTask").append(`
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h6>Task:</h6>
+                                <p>${title}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Description:</h6> 
+                                <p>${body}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>$$ Price:</h6> 
+                                <p>${price}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Day of Week:</h6> 
+                                <p>${dow}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Category:</h6> 
+                                <p>${cat}</p>           
+                        </div>
+                    </div>
+                `);
+            }
+            for (let i = 0; i < in_progressArray.length; i++) {
+                let title = in_progressArray[i].title;
+                let body = in_progressArray[i].body;
+                let price = in_progressArray[i].price;
+                let dow = in_progressArray[i].dayofWeek;
+                let cat = in_progressArray[i].category;
+                $("#userPendingTask").append(`
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h6>Task:</h6>
+                                <p>${title}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Description:</h6> 
+                                <p>${body}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>$$ Price:</h6> 
+                                <p>${price}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Day of Week:</h6> 
+                                <p>${dow}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Category:</h6> 
+                                <p>${cat}</p>           
+                        </div>
+                    </div>
+                    `);
+            }
+            for (let i = 0; i < completedArray.length; i++) {
+                let title = completedArray[i].title;
+                let body = completedArray[i].body;
+                let price = completedArray[i].price;
+                let dow = completedArray[i].dayofWeek;
+                let cat = completedArray[i].category;
+                $("#userCompletedTask").append(`
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h6>Task:</h6>
+                                <p>${title}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Description:</h6> 
+                                <p>${body}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>$$ Price:</h6> 
+                                <p>${price}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Day of Week:</h6> 
+                                <p>${dow}</p>           
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Category:</h6> 
+                                <p>${cat}</p>           
+                        </div>
+                    </div>
+                    `);
+            }
+            console.log(tasksArray);
+            console.log(in_progressArray);
+            console.log(completedArray);
+        });
+    </script>
+</html>

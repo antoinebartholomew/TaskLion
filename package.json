@@ -13,6 +13,7 @@
   "author": "Gabe, Keka, Duane, Antoine",
   "license": "ISC",
   "dependencies": {
+    "animejs": "^2.2.0",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
     "dotenv": "^5.0.1",
@@ -22,7 +23,9 @@
     "mysql": "^2.15.0",
     "mysql2": "^1.5.2",
     "nodemon": "^1.17.2",
-    "sequelize": "^4.36.1",
+    "react-anime": "^2.1.0",
+    "sequelize": "^4.36.1"
     "swiper": "^4.1.6"
+
   }
 }
