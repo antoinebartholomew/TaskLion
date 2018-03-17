@@ -103,6 +103,7 @@
                 let price = tasksArray[i].price;
                 let dow = tasksArray[i].dayofWeek;
                 let cat = tasksArray[i].category;
+
                 let taskid = tasksArray[i].id;
                 // let glypicon1 = (<span onclick="editTask()"><i class="fas fa-edit glypiconSpace"></i></span>)
                 var newrow = $("<tr>");
@@ -114,8 +115,6 @@
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
                 newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
                 $("#userTasks").append(newrow);
-
-
             }
         })
 
@@ -223,5 +222,6 @@
         })   
         
     
-    </script>
+
+    </script> 
 </html>
