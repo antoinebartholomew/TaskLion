@@ -55,7 +55,7 @@ module.exports = router;
 
 
   // GET rotue for retrieving a single task
-  router.get("/api/tasks/:id", function(req, res) {
+  router.get("/api/tasks1/:id", function(req, res) {
     db.Task.findOne({
       where: {
         id: req.params.id

@@ -67,6 +67,15 @@
     </div>
 
 
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="editOneTask"></div>
+        </div>
+    
+    </div>
+
 
     <!-- Optional JavaScript-->
     <!-- jQuery first, then Popper.js, then Bootstrap JS-->
@@ -113,26 +122,11 @@
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
                 newrow.append($("<td class='text-left'>" + dow + "</td>"));
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
+                newrow.append($("<td><span onclick=editTask("+ taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
                 $("#userTasks").append(newrow);
             }
         })
-
-  function editTask() {
-
-        console.log("edit")
-        // MODEL BOX
-        var id = ($(this).attr("data"));
-        console.log(id)
-    }
-
-    function deleteTask() {
-
-            console.log("delete")
-            // MODEL BOX
-            // var id = $(this).data("id");
-            // console.log(id)
-        }  
+        
 
         $("#userPostedTask").on("click", function (event) {
             $("#userTasks").empty()
@@ -151,7 +145,7 @@
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
                 newrow.append($("<td class='text-left'>" + dow + "</td>"));
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
+                newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
                 $("#userTasks").append(newrow);
             }
         })
@@ -175,18 +169,9 @@
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
                 newrow.append($("<td class='text-left'>" + dow + "</td>"));
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                newrow.append($("<td><span onclick=markDone() i class='fas fa-dollar-sign glypiconSpace' data='" + taskid + "'></i> Mark Done</span></td>"))
+                newrow.append($("<td><span onclick=markDone(" + taskid + ") i class='fas fa-dollar-sign glypiconSpace' data-key='" + taskid + "'></i> Mark Done</span></td>"))
                 $("#userTasks").append(newrow);
-                // $("#userTasks").append(`
-                //     <tr class="text-left">
-                //         <td>${title}</td>
-                //         <td>${body}</td>
-                //         <td>${price}</td>
-                //         <td>${dow}</td>
-                //         <td>${cat}</td>        
-                //         <td><a href="#"><span i class="fas fa-dollar-sign glypiconSpace"></i> Mark Done</span></a></td>                                         
-                //     </tr>
-                //     `);
+
             }
         })
 
@@ -209,19 +194,278 @@
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
                 // newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
                 $("#userTasks").append(newrow);
-                // $("#userTasks").append(`
-                //     <tr class="text-left">
-                //         <td>${title}</td>
-                //         <td>${body}</td>
-                //         <td>${price}</td>
-                //         <td>${dow}</td>
-                //         <td>${cat}</td>   
-                //     </tr>
-                //     `);
             }
         })   
-        
-    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+ //Edit Task================================================================================
+
+        let title = $("#taskName1");
+        let body = $("#taskBody1");
+        let price = $("#taskPrice1");
+        let dow = $("#taskDayOfWeek1");
+        let cat = $("#taskCategories1");
+        let taskid = $("#taskid1");
+
+        function editTask(taskid) {
+            $("#editOneTask").empty();
+            modal.style.display = "block"; 
+            var id = taskid;
+            console.log("The id is: " +id)
+            $.ajax("/api/tasks1/" + id, {
+                type: "GET",
+                data: id
+            }).then(function (dbTaskr) {
+                console.log("LINE 25", dbTaskr);               
+                    $("#editOneTask").append(`
+                        <h5 class="text-center">EDIT TASK!</h5>
+                        <div id="taskid1"></div>
+                        <div class="row">
+                        <div class="offset-md-3 col-md-6">
+                        <form>
+                            <div class="form-group">
+                            <label for="Title">Task Name</label>
+                            <input class="form-control" id="taskName1" type="text" placeholder=""/><small class="form-text text-muted">Enter the name of your task</small>
+                            </div>
+                            <div class="form-group">
+                            <label for="Price">Price</label>
+                            <input class="form-control" id="taskPrice1" type="number" placeholder=""/>
+                            </div>
+                            <div class="form-group">
+                            <label for="Categories">Category</label>
+                            <select class="form-control" id="taskCategories1">
+                                <option selected="">Instruction</option>
+                                <option>Home Maintenance</option>
+                                <option>Auto Maintenance</option>
+                                <option>Culinary</option>
+                                <option>Childcare</option>
+                                <option>Event Planning</option>
+                            </select>
+                            </div>
+                            <div class="form-group">
+                            <label for="Body">Task Description</label>
+                            <textarea class="form-control" id="taskBody1" type="text" placeholder="" maxlength="250"></textarea><small class="form-text text-muted">Enter your Task Description. 250 Character Max.              </small>
+                            </div>
+                            <div class="form-group">
+                            <label for="dayOfWeek">Day of Week</label>
+                            <select class="form-control" id="taskDayOfWeek1">
+                                <option selected="">Sunday</option>
+                                <option>Monday</option>
+                                <option>Tuesday</option>
+                                <option>Wednesday</option>
+                                <option>Thursday</option>
+                                <option>Friday</option>
+                                <option>Saturday</option>
+                            </select>
+                            </div>
+                        </form>
+                        </div>
+                        <div class="offset-md-7 col-md-1">   
+                        <button class="btn btn-primary" id="updateTask" type="submit">Submit</button>
+                        </div>
+                        <div class="col-md-1">   <a class="btn btn-primary" href="/home">Cancel</a></div>
+                    </div>
+                `)
+
+                     title = $("#taskName1");
+                     body = $("#taskBody1");
+                     price = $("#taskPrice1");
+                     dow = $("#taskDayOfWeek1");
+                     cat = $("#taskCategories1");
+                     taskid = $("#taskid1");
+
+                    title.val(dbTaskr.title) ;
+                    body.val(dbTaskr.body);
+                    price.val(dbTaskr.price);
+                    dow.val(dbTaskr.dayofWeek);
+                    cat.val(dbTaskr.category);
+                    taskid.val(dbTaskr.id); 
+                    console.log(taskid.val())
+            });
+        }
+
+     $("#editOneTask").on("click", "#updateTask", function (event) {
+            event.preventDefault();
+
+            var newTask = {
+                     title: $("#taskName1").val(),
+                     body: $("#taskBody1").val(),
+                     price: $("#taskPrice1").val(),
+                     dayofWeek: $("#taskDayOfWeek1").val(),
+                     category: $("#taskCategories1").val(),
+                     id: $("#taskid1").val()
+            }
+            $.ajax("/api/tasks/", {
+                type: "PUT",
+                data: newTask
+            }).then(function (dbTaskr) {
+                location.href="/home";
+
+            })
+
+        })
+ //Edit Task================================================================================
+
+
+
+ //Delete Task================================================================================
+
+        function deleteTask(taskid) {
+            var id = taskid;
+            console.log("hi")
+            $.ajax("/api/tasks/" + id, {
+                type: "DELETE",
+                data: id
+            }).then(function (dbTaskr) {
+              location.href="/home";
+
+            })
+        }
+
+
+ //Delete Task================================================================================
+
+
+ //Mark Done================================================================================
+
+        function markDone(taskid) {
+            var id = taskid;
+            console.log(id)
+        }  
+ //Mark Done================================================================================
+
+   
+                
+ 
+                
+  //MODEL================================================================================  
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    // btn.onclick = function () {
+    //     modal.style.display = "block";
+    // }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+ //MODEL================================================================================
+
+
+
 
     </script> 
 </html>
