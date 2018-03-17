@@ -14,17 +14,32 @@ module.exports = router;
       }
     }).then(function(dbTask) {
       res.json(dbTask);
-      console.log("For Test" , dbTask);
+      // console.log("For Test" , dbTask);
     });
   });
 
   // GET route for getting all of the tasks
-  router.get("/api/tasks/", function(req, res) {
+  router.get("/api/tasks", function(req, res) {
     db.Task.findAll({})
       .then(function(dbTask) {
         res.json(dbTask);
       });
   });
+
+	// GET route for returning all available tasks
+  router.get("/api/availabletasks", function(req, res) {
+    db.Task.findAll({
+      where: {
+        taskrAccept: false,
+	      requesterAccept: false,
+        taskrMarkComplete: false
+      }
+    })
+      .then(function(dbTasks) {
+        res.json(dbTasks);
+      });
+  });
+
 
   // GET route for returning tasks of a specific category
   router.get("/api/tasks/category/:category", function(req, res) {
@@ -83,4 +98,3 @@ module.exports = router;
         res.json(dbTask);
       });
   });
-

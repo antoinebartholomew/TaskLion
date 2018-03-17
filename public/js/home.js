@@ -1,5 +1,3 @@
-
-
 $(document).ready(function () {
 
 
@@ -30,13 +28,13 @@ $(document).ready(function () {
                 // Store username and password to sessionStorage
                     sessionStorage.setItem("username", dbTaskr.username);
                     sessionStorage.setItem("id", dbTaskr.id);
-                    
+
                     if (submittedPassword === dbPassword){
                         alert("User successfully confirmed")
-                        //Redirect to Homepage                                
+                        //Redirect to Homepage
                         location.href="/home";
                         // $("#userName").append("Hello " + sessionStorage.getItem("username"));
-                        // AJax Put to update LoggedIn to True 
+                        // AJax Put to update LoggedIn to True
                         var login = {
                             loggedIn: true,
                             id: sessionStorage.getItem("id")
@@ -54,7 +52,7 @@ $(document).ready(function () {
 
 
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&                        
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 
 //  $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
@@ -87,20 +85,20 @@ $(document).ready(function () {
 //                         <p>${title}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Description:</h6> 
-//                         <p>${body}</p>           
+//                         <h6>Description:</h6>
+//                         <p>${body}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>$$ Price:</h6> 
-//                         <p>${price}</p>           
+//                         <h6>$$ Price:</h6>
+//                         <p>${price}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Day of Week:</h6> 
-//                         <p>${dow}</p>           
+//                         <h6>Day of Week:</h6>
+//                         <p>${dow}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Category:</h6> 
-//                         <p>${cat}</p>           
+//                         <h6>Category:</h6>
+//                         <p>${cat}</p>
 //                 </div>
 //             </div>
 //         `);
@@ -118,20 +116,20 @@ $(document).ready(function () {
 //                         <p>${title}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Description:</h6> 
-//                         <p>${body}</p>           
+//                         <h6>Description:</h6>
+//                         <p>${body}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>$$ Price:</h6> 
-//                         <p>${price}</p>           
+//                         <h6>$$ Price:</h6>
+//                         <p>${price}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Day of Week:</h6> 
-//                         <p>${dow}</p>           
+//                         <h6>Day of Week:</h6>
+//                         <p>${dow}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Category:</h6> 
-//                         <p>${cat}</p>           
+//                         <h6>Category:</h6>
+//                         <p>${cat}</p>
 //                 </div>
 //             </div>
 //             `);
@@ -149,20 +147,20 @@ $(document).ready(function () {
 //                         <p>${title}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Description:</h6> 
-//                         <p>${body}</p>           
+//                         <h6>Description:</h6>
+//                         <p>${body}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>$$ Price:</h6> 
-//                         <p>${price}</p>           
+//                         <h6>$$ Price:</h6>
+//                         <p>${price}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Day of Week:</h6> 
-//                         <p>${dow}</p>           
+//                         <h6>Day of Week:</h6>
+//                         <p>${dow}</p>
 //                     </div>
 //                     <div class="col-md-2">
-//                         <h6>Category:</h6> 
-//                         <p>${cat}</p>           
+//                         <h6>Category:</h6>
+//                         <p>${cat}</p>
 //                 </div>
 //             </div>
 //             `);
@@ -173,8 +171,8 @@ $(document).ready(function () {
 //  });
 
 
-                          
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&   
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 
 
@@ -195,7 +193,7 @@ $(document).ready(function () {
 //Start of Logout ========================================================================================================
     $("#logoutSubmit").on("click", function(event){
         event.preventDefault();
-          // AJax Put to update LoggedIn to False  
+          // AJax Put to update LoggedIn to False
             var logout = {
                 loggedIn: false,
                 id: sessionStorage.getItem("id")
@@ -211,7 +209,7 @@ $(document).ready(function () {
                 sessionStorage.clear();
             // Redirect to Login Page
             location.href="/";
-            });   
+            });
     })
 //End of Logout ========================================================================================================
 
@@ -309,14 +307,3 @@ $(document).ready(function () {
 // End of create Post ========================================================================================================
 
 });
-
-
-
-
-
-
-
-
-
-
-
