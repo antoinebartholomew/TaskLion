@@ -9,6 +9,10 @@
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P"
+        crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <script src="js/home.js"></script>
@@ -36,11 +40,19 @@
         </div>
 </div>
 
+
+<div class="container rowBackground ">
+    <div class="row marginTop">
+    <button id="userPostedTask" class="btn btn-primary" type="submit">Posted</button>
+    <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">Pending</button>
+    <button id="userCompletedTask" class="btn btn-primary padLeft" type="submit">Completed</button>
+    </div>
+    <div class="row">
 <table class="table rowBackground" >
     <thead>
-        <tr>
+        <tr class="text-left">
             <th scope="col">Task</th>
-            <th scope="col">Description</th>
+            <th style="width: 30%">Description</th>
             <th scope="col">Price</th>
             <th scope="col">Day of Week</th>
             <th scope="col">Category</th>
@@ -51,26 +63,8 @@
 
     </tbody>
 </table>
-
-
-<div class="container rowBackground ">
-        <div class="row">
-            <div id="userPostedTask"></div>
-        </div>
-        <div class="row">
-            <div id="userPendingTask"></div>
-        </div>
-        <div class="row">
-            <div id="userCompletedTask"></div>
-
-        </div>
-
     </div>
-
-
-
-
-
+    </div>
 
 
 
@@ -82,15 +76,18 @@
         crossorigin="anonymous"></script>
 
 </body>
-    <!-- <script>
+
+    <script>
+
+    var tasksArray = [];
+        var in_progressArray = [];
+        var completedArray = [];
+
         $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
             type: "GET",
             id: sessionStorage.getItem("id")
         }).then(function (dbTaskr) {
             console.log(dbTaskr);
-            var tasksArray = [];
-            var in_progressArray = [];
-            var completedArray = [];
             for (let i = 0; i < dbTaskr.length; i++) {
                 if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
                     tasksArray.push(dbTaskr[i]);
@@ -106,201 +103,125 @@
                 let price = tasksArray[i].price;
                 let dow = tasksArray[i].dayofWeek;
                 let cat = tasksArray[i].category;
-                $("#userPostedTask").append(`
-                    <div class="row">
-                        <div class="col-md-2">
-                            <h6>Task:</h6>
-                                <p>${title}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Description:</h6>
-                                <p>${body}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>$$ Price:</h6>
-                                <p>${price}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Day of Week:</h6>
-                                <p>${dow}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Category:</h6>
-                                <p>${cat}</p>
-                        </div>
-                    </div>
-                `);
+
+                let taskid = tasksArray[i].id;
+                // let glypicon1 = (<span onclick="editTask()"><i class="fas fa-edit glypiconSpace"></i></span>)
+                var newrow = $("<tr>");
+                // newrow.attr("data-key2", taskid)
+                newrow.append($("<td class='text-left'>" + title + "</td>"));
+                newrow.append($("<td class='text-left'>" + body + "</td>"));
+                newrow.append($("<td class='text-left'>" + price + "</td>"));
+                newrow.append($("<td class='text-left'>" + dow + "</td>"));
+                newrow.append($("<td class='text-left'>" + cat + "</td>"));
+                newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
+                $("#userTasks").append(newrow);
             }
+        })
+
+  function editTask() {
+
+        console.log("edit")
+        // MODEL BOX
+        var id = ($(this).attr("data"));
+        console.log(id)
+    }
+
+    function deleteTask() {
+
+            console.log("delete")
+            // MODEL BOX
+            // var id = $(this).data("id");
+            // console.log(id)
+        }  
+
+        $("#userPostedTask").on("click", function (event) {
+            $("#userTasks").empty()
+            event.preventDefault();
+            for (let i = 0; i < tasksArray.length; i++) {
+                let title = tasksArray[i].title;
+                let body = tasksArray[i].body;
+                let price = tasksArray[i].price;
+                let dow = tasksArray[i].dayofWeek;
+                let cat = tasksArray[i].category;
+                let taskid = tasksArray[i].id;
+                var newrow = $("<tr>");
+                // newrow.attr("data-key2", taskid)
+                newrow.append($("<td class='text-left'>" + title + "</td>"));
+                newrow.append($("<td class='text-left'>" + body + "</td>"));
+                newrow.append($("<td class='text-left'>" + price + "</td>"));
+                newrow.append($("<td class='text-left'>" + dow + "</td>"));
+                newrow.append($("<td class='text-left'>" + cat + "</td>"));
+                newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
+                $("#userTasks").append(newrow);
+            }
+        })
+
+
+
+        $("#userPendingTask").on("click", function (event) {
+            $("#userTasks").empty()
+            event.preventDefault();
             for (let i = 0; i < in_progressArray.length; i++) {
                 let title = in_progressArray[i].title;
                 let body = in_progressArray[i].body;
                 let price = in_progressArray[i].price;
                 let dow = in_progressArray[i].dayofWeek;
                 let cat = in_progressArray[i].category;
-                $("#userPendingTask").append(`
-                    <div class="row">
-                        <div class="col-md-2">
-                            <h6>Task:</h6>
-                                <p>${title}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Description:</h6>
-                                <p>${body}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>$$ Price:</h6>
-                                <p>${price}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Day of Week:</h6>
-                                <p>${dow}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Category:</h6>
-                                <p>${cat}</p>
-                        </div>
-                    </div>
-                    `);
+                let taskid = in_progressArray[i].id;
+                var newrow = $("<tr>");
+                // newrow.attr("data-key2", taskid)
+                newrow.append($("<td class='text-left'>" + title + "</td>"));
+                newrow.append($("<td class='text-left'>" + body + "</td>"));
+                newrow.append($("<td class='text-left'>" + price + "</td>"));
+                newrow.append($("<td class='text-left'>" + dow + "</td>"));
+                newrow.append($("<td class='text-left'>" + cat + "</td>"));
+                newrow.append($("<td><span onclick=markDone() i class='fas fa-dollar-sign glypiconSpace' data='" + taskid + "'></i> Mark Done</span></td>"))
+                $("#userTasks").append(newrow);
+                // $("#userTasks").append(`
+                //     <tr class="text-left">
+                //         <td>${title}</td>
+                //         <td>${body}</td>
+                //         <td>${price}</td>
+                //         <td>${dow}</td>
+                //         <td>${cat}</td>        
+                //         <td><a href="#"><span i class="fas fa-dollar-sign glypiconSpace"></i> Mark Done</span></a></td>                                         
+                //     </tr>
+                //     `);
             }
+        })
+
+        $("#userCompletedTask").on("click", function (event) {
+            $("#userTasks").empty()
+            event.preventDefault();
             for (let i = 0; i < completedArray.length; i++) {
                 let title = completedArray[i].title;
                 let body = completedArray[i].body;
                 let price = completedArray[i].price;
                 let dow = completedArray[i].dayofWeek;
                 let cat = completedArray[i].category;
-                $("#userCompletedTask").append(`
-                    <div class="row">
-                        <div class="col-md-2">
-                            <h6>Task:</h6>
-                                <p>${title}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Description:</h6>
-                                <p>${body}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>$$ Price:</h6>
-                                <p>${price}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Day of Week:</h6>
-                                <p>${dow}</p>
-                            </div>
-                            <div class="col-md-2">
-                                <h6>Category:</h6>
-                                <p>${cat}</p>
-                        </div>
-                    </div>
-                    `);
+                let taskid = completedArray[i].id;
+                var newrow = $("<tr>");
+                // newrow.attr("data-key2", taskid)
+                newrow.append($("<td class='text-left'>" + title + "</td>"));
+                newrow.append($("<td class='text-left'>" + body + "</td>"));
+                newrow.append($("<td class='text-left'>" + price + "</td>"));
+                newrow.append($("<td class='text-left'>" + dow + "</td>"));
+                newrow.append($("<td class='text-left'>" + cat + "</td>"));
+                // newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
+                $("#userTasks").append(newrow);
+                // $("#userTasks").append(`
+                //     <tr class="text-left">
+                //         <td>${title}</td>
+                //         <td>${body}</td>
+                //         <td>${price}</td>
+                //         <td>${dow}</td>
+                //         <td>${cat}</td>   
+                //     </tr>
+                //     `);
             }
-            console.log(tasksArray);
-            console.log(in_progressArray);
-            console.log(completedArray);
-        });
-    </script> -->
+        })   
+        
+    
 
-
-
-
-    <script>
-        $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
-            type: "GET",
-            id: sessionStorage.getItem("id")
-        }).then(function (dbTaskr) {
-            console.log(dbTaskr);
-            var tasksArray = [];
-            var in_progressArray = [];
-            var completedArray = [];
-            for (let i = 0; i < dbTaskr.length; i++) {
-                if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
-                    tasksArray.push(dbTaskr[i]);
-                } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
-                    in_progressArray.push(dbTaskr[i]);
-                } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true) {
-                    completedArray.push(dbTaskr[i]);
-                }
-            }
-            for (let i = 0; i < tasksArray.length; i++) {
-                let title = tasksArray[i].title;
-                let body = tasksArray[i].body;
-                let price = tasksArray[i].price;
-                let dow = tasksArray[i].dayofWeek;
-                let cat = tasksArray[i].category;
-                $("#userTasks").append(`
-                    <tr>
-                        <td>${title}</td>
-                        <td>${body}</td>
-                        <td>${price}</td>
-                        <td>${dow}</td>
-                        <td>${cat}</td>
-                    </tr>
-                    `);
-            }
-            // for (let i = 0; i < in_progressArray.length; i++) {
-            //     let title = in_progressArray[i].title;
-            //     let body = in_progressArray[i].body;
-            //     let price = in_progressArray[i].price;
-            //     let dow = in_progressArray[i].dayofWeek;
-            //     let cat = in_progressArray[i].category;
-            //     $("#userPendingTask").append(`
-            //             <div class="row">
-            //                 <div class="col-md-2">
-            //                     <h6>Task:</h6>
-            //                         <p>${title}</p>
-            //                     </div>
-            //                     <div class="col-md-2">
-            //                         <h6>Description:</h6>
-            //                         <p>${body}</p>
-            //                     </div>
-            //                     <div class="col-md-2">
-            //                         <h6>$$ Price:</h6>
-            //                         <p>${price}</p>
-            //                     </div>
-            //                     <div class="col-md-2">
-            //                         <h6>Day of Week:</h6>
-            //                         <p>${dow}</p>
-            //                     </div>
-            //                     <div class="col-md-2">
-            //                         <h6>Category:</h6>
-            //                         <p>${cat}</p>
-            //                 </div>
-            //             </div>
-            //             `);
-            // }
-            // for (let i = 0; i < completedArray.length; i++) {
-            //     let title = completedArray[i].title;
-            //     let body = completedArray[i].body;
-            //     let price = completedArray[i].price;
-            //     let dow = completedArray[i].dayofWeek;
-            //     let cat = completedArray[i].category;
-            //     $("#userCompletedTask").append(`
-            //             <div class="row">
-            //                 <div class="col-md-2">
-            //                     <h6>Task:</h6>
-            //                         <p>${title}</p>
-            //                     </div>
-            //                     <div class="col-md-2">
-            //                         <h6>Description:</h6>
-            //                         <p>${body}</p>
-            //                     </div>
-            //                     <div class="col-md-2">
-            //                         <h6>$$ Price:</h6>
-            //                         <p>${price}</p>
-            //                     </div>
-            //                     <div class="col-md-2">
-            //                         <h6>Day of Week:</h6>
-            //                         <p>${dow}</p>
-            //                     </div>
-            //                     <div class="col-md-2">
-            //                         <h6>Category:</h6>
-            //                         <p>${cat}</p>
-            //                 </div>
-            //             </div>
-            //             `);
-            // }
-            // console.log(tasksArray);
-            // console.log(in_progressArray);
-            // console.log(completedArray);
-        });
-    </script>
+    </script> 
 </html>
