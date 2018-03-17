@@ -2,34 +2,161 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Blog - Express</title>
-  <!-- Latest compiled and minified CSS & JS -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <title>Tasks</title>
+  <!-- Required meta tags-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="js/home.js"></script>
+  <script src="js/forgotPass.js"></script>
+  <script src="js/taskrs.js"></script>
+  <script src="js/tasks.js"></script>
+  <!--body content ===============================================================================================-->
 </head>
 
 <body>
-  <div class="container blog">
+  <div class="container">
     <div class="row">
-      <div class="col-md-2 col-sm-2">
-        <a class="btn btn-default" href="/create_task">New Post</a>
+      <form>
+        <div class="form-group">
+          <label for="categorySelect">Select Category</label>
+          <select class="form-control" id="categorySelect">
+            <option>Auto Maintenance</option>
+            <option>Childcare</option>
+            <option>Culinary</option>
+            <option>Event Planning</option>
+            <option>Home Maintenance</option>
+            <option>Instruction</option>
+          </select>
+        </div>
+        <button id='categorySubmit' type="submit" class="btn btn-primary submit">Filter</button>
+      </form>
+      <!-- <div class="col-md-2">
+        <button id="autoMaintenance" class="btn btn-primary">Auto Maintenance</button>
       </div>
-      <div class="col-md-2 col-sm-2">
-        <a class="btn btn-default" href="/taskrs">Manage Authors</a>
+      <div class="col-md-2">
+        <button id="childcare" class="btn btn-primary">Childcare</button>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 blog-container">
+      <div class="col-md-2">
+        <button id="culinary" class="btn btn-primary">Culinary</button>
       </div>
+      <div class="col-md-2">
+        <button id="eventPlanning" class="btn btn-primary">Event Planning</button>
+      </div>
+      <div class="col-md-2">
+        <button id="homeMaintenance" class="btn btn-primary">Home Maintenance</button>
+      </div>
+      <div class="col-md-2">
+        <button id="instruction" class="btn btn-primary">Instruction</button>
+      </div> -->
     </div>
   </div>
-  <!-- Custom Script -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" type="text/javascript"></script>
-  <script src="js/blog.js" type="text/javascript"></script>
+
+
+  <div class="container rowBackground ">
+    <div class="row">
+      <div id="userPostedTask"></div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript-->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
+<script>
+  // List all available tasks on page load
+  $.ajax("/api/availabletasks", {
+    type: "GET",
+  }).then(function(dbTasks) {
+    console.log('dbTasks', dbTasks);
+    var tasksArray = dbTasks;
+    for (let i = 0; i < tasksArray.length; i++) {
+      let title = tasksArray[i].title;
+      let body = tasksArray[i].body;
+      let price = tasksArray[i].price;
+      let dow = tasksArray[i].dayofWeek;
+      let cat = tasksArray[i].category;
+      $("#userPostedTask").append(
+        `
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h6>Task:</h6>
+                                <p>${title}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Description:</h6>
+                                <p>${body}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>$$ Price:</h6>
+                                <p>${price}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Day of Week:</h6>
+                                <p>${dow}</p>
+                            </div>
+                            <div class="col-md-2">
+                                <h6>Category:</h6>
+                                <p>${cat}</p>
+                        </div>
+                    </div>
+                `
+      );
+    }
+
+
+  }); // end AJAX, get all tasks
+
+  $("#categorySubmit").on("click", function(event) {
+    event.preventDefault();
+    $.ajax("/api/tasks/category/" + $('#categorySelect').val(), {
+      type: "GET",
+    }).then(function(dbTasks) {
+      console.log('dbTasks', dbTasks);
+      var tasksArray = dbTasks;
+      for (let i = 0; i < tasksArray.length; i++) {
+        let title = tasksArray[i].title;
+        let body = tasksArray[i].body;
+        let price = tasksArray[i].price;
+        let dow = tasksArray[i].dayofWeek;
+        let cat = tasksArray[i].category;
+        $("#userPostedTask").empty();
+        $("#userPostedTask").append(
+          `
+                      <div class="row">
+                          <div class="col-md-2">
+                              <h6>Task:</h6>
+                                  <p>${title}</p>
+                              </div>
+                              <div class="col-md-2">
+                                  <h6>Description:</h6>
+                                  <p>${body}</p>
+                              </div>
+                              <div class="col-md-2">
+                                  <h6>$$ Price:</h6>
+                                  <p>${price}</p>
+                              </div>
+                              <div class="col-md-2">
+                                  <h6>Day of Week:</h6>
+                                  <p>${dow}</p>
+                              </div>
+                              <div class="col-md-2">
+                                  <h6>Category:</h6>
+                                  <p>${cat}</p>
+                          </div>
+                      </div>
+                  `
+        );
+      }
+
+
+    }); // end AJAX, get all tasks
+  }); // end filter by category
+</script>
 
 </html>
