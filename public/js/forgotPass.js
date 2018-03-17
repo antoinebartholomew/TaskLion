@@ -71,10 +71,12 @@ $(document).ready(function () {
                             <button id="forgotPassSubmit1" class="btn btn-primary">Submit</button>
                         </div>
                         <div class="col-md-1">
-                            <button id="cancelBtn1" class="btn btn-primary">Cancel</button>
+                                <a id="cancelBtn1" class="btn btn-primary" href="/">Cancel</a>
                         </div>
                     </div>
                 `);
+
+
                 
 //STEP 4.  Gathering users entered answers and comparing them to the security questions answers
 
@@ -115,7 +117,7 @@ $(document).ready(function () {
                                     <button id="forgotPassSubmit2" class="btn btn-primary">Submit</button>
                                 </div>
                                 <div class="col-md-1">
-                                    <button id="cancelBtn2" class="btn btn-primary">Cancel</button>
+                                <a id="cancelBtn2" class="btn btn-primary" href="/">Cancel</a>
                                 </div>
                             </div>
                         `);
