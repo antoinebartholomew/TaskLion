@@ -49,22 +49,33 @@ button.edit {
 .rowBackground {
     background-color: white;
 }
-.padLeft{
+
+.padLeft {
     margin-left: 10px;
 }
-.glypiconSpace{
+
+.glypiconSpace {
     margin-left: 10px;
 }
+
 .glypiconSpace2 {
     margin-left: 30px;
 }
 
-.marginTop{
+.marginTop {
     margin-top: 40px;
+}
+
+.btnHeight {
+    height: 40px;
+    position: relative;
+    bottom: -6px;
+    right: 10px;
 }
 
 
 /* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
+
 body {
     /* background-color: rgba(255, 255, 255, 0.85);; */
     background-color: #D4E5E8;
