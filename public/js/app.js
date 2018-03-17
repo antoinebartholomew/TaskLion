@@ -1,4 +1,4 @@
-ml.timelines["ml8"] = anime.timeline({loop: true})
+anime.timeline({loop: true})
   .add({
     targets: ".ml8 .circle-white",
     scale: [0, 3],
@@ -48,9 +48,3 @@ anime({
   easing: "linear",
   loop: true
 });
-
-// Start Tasks Page JS
-
-
-
-// End Tasks Page JS

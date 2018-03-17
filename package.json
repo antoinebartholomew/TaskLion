@@ -24,7 +24,7 @@
     "mysql2": "^1.5.2",
     "nodemon": "^1.17.2",
     "react-anime": "^2.1.0",
-    "sequelize": "^4.36.1"
+    "sequelize": "^4.36.1",
     "swiper": "^4.1.6"
 
   }
