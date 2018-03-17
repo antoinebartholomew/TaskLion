@@ -171,8 +171,6 @@ $(document).ready(function () {
 //    console.log(in_progressArray);
 //    console.log(completedArray);
 //  });
-
-
                           
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&   
 
@@ -299,7 +297,7 @@ $(document).ready(function () {
             }).then(function(dbTaskr) {
             console.log(dbTaskr);
           // Reload the page to get the updated list
-          //   location.href = "/home/:id";
+            location.href = "/home";
         });
       } else {
         //end of if statement

@@ -31,8 +31,8 @@ block content1
                 option Event Planning
             .form-group
               label(for='Body') Task Description
-              textarea#taskBody.form-control(type='text', placeholder='Task Description')
-              small.form-text.text-muted Enter your Task Description               
+              textarea#taskBody.form-control(type='text', placeholder='Task Description', maxlength='250')
+              small.form-text.text-muted Enter your Task Description. 250 Character Max.              
             .form-group
               label(for='dayOfWeek') Day of Week
               select#taskDayOfWeek.form-control
@@ -46,4 +46,4 @@ block content1
         .offset-md-7.col-md-1    
             button#taskSubmit.btn.btn-primary(type='submit') Submit
         .col-md-1        
-            a.btn.btn-primary(href='/') Cancel
+            a.btn.btn-primary(href='/home') Cancel

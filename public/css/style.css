@@ -49,6 +49,19 @@ button.edit {
 .rowBackground {
     background-color: white;
 }
+.padLeft{
+    margin-left: 10px;
+}
+.glypiconSpace{
+    margin-left: 10px;
+}
+.glypiconSpace2 {
+    margin-left: 30px;
+}
+
+.marginTop{
+    margin-top: 40px;
+}
 
 
 /* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
