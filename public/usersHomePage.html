@@ -38,41 +38,32 @@
                 <button id="logoutSubmit" class="btn btn-primary">Logout</button>
             </div>
         </div>
-</div>
-
-
-<div class="container rowBackground ">
-
-    <div class="row marginTop">
-    <button id="userPostedTask" class="btn btn-primary col-md-1" type="submit">Posted</button>
-    <button id="userPendingTask" class="btn btn-primary padLeft col-md-1" type="submit">Pending</button>
-    <button id="userCompletedTask" class="btn btn-primary padLeft col-md-1" type="submit">Completed</button>
-    <div class="form-group btn offset-md-6 col-md-2">
-      <select id='taskType' class="form-control">
-        <option>My Tasks</option>
-        <option>Others' Tasks</option>
-      </select>
     </div>
-      <button id="taskSelect" type="submit" class="btn btn-primary btnHeight">Go</button>
 
-    </div>
-    <div class="row">
-<table class="table rowBackground" >
-    <thead>
-        <tr class="text-left">
-            <th scope="col">Task</th>
-            <th style="width: 30%">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">Day of Week</th>
-            <th scope="col">Category</th>
-            <th scope="col">Edit/Delete</th>
-        </tr>
-    </thead>
-    <tbody id="userTasks">
 
-    </tbody>
-</table>
-    </div>
+    <div class="container rowBackground ">
+        <div class="row marginTop">
+            <button id="userPostedTask" class="btn btn-primary" type="submit">Posted</button>
+            <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">Pending</button>
+            <button id="userCompletedTask" class="btn btn-primary padLeft" type="submit">Completed</button>
+        </div>
+        <div class="row">
+            <table class="table rowBackground">
+                <thead>
+                    <tr class="text-left">
+                        <th scope="col">Task</th>
+                        <th style="width: 30%">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Day of Week</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Edit/Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="userTasks">
+
+                </tbody>
+            </table>
+        </div>
     </div>
 
 
@@ -82,7 +73,7 @@
             <span class="close">&times;</span>
             <div id="editOneTask"></div>
         </div>
-    
+
     </div>
 
 
@@ -95,100 +86,116 @@
 
 </body>
 
-    <script>
+<script>
 
     var tasksArray = [];
-        var in_progressArray = [];
-        var completedArray = [];
+    var in_progressArray = [];
+    var completedArray = [];
 
-        categorizeMyTasks();
-
-  function editTask() {
-
-        console.log("edit")
-        // MODEL BOX
-        var id = ($(this).attr("data"));
-        console.log(id)
-    }
-
-    function deleteTask() {
-
-            console.log("delete")
-            // MODEL BOX
-            // var id = $(this).data("id");
-            // console.log(id)
+    $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
+        type: "GET",
+        id: sessionStorage.getItem("id")
+    }).then(function (dbTaskr) {
+        console.log(dbTaskr);
+        for (let i = 0; i < dbTaskr.length; i++) {
+            if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+                tasksArray.push(dbTaskr[i]);
+            } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+                in_progressArray.push(dbTaskr[i]);
+            } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true) {
+                completedArray.push(dbTaskr[i]);
+            }
         }
+        for (let i = 0; i < tasksArray.length; i++) {
+            let title = tasksArray[i].title;
+            let body = tasksArray[i].body;
+            let price = tasksArray[i].price;
+            let dow = tasksArray[i].dayofWeek;
+            let cat = tasksArray[i].category;
+
+            let taskid = tasksArray[i].id;
+            // let glypicon1 = (<span onclick="editTask()"><i class="fas fa-edit glypiconSpace"></i></span>)
+            var newrow = $("<tr>");
+            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'>" + title + "</td>"));
+            newrow.append($("<td class='text-left'>" + body + "</td>"));
+            newrow.append($("<td class='text-left'>" + price + "</td>"));
+            newrow.append($("<td class='text-left'>" + dow + "</td>"));
+            newrow.append($("<td class='text-left'>" + cat + "</td>"));
+            newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+            $("#userTasks").append(newrow);
+        }
+    })
 
-        $("#userPostedTask").on("click", function (event) {
-            $("#userTasks").empty()
-            event.preventDefault();
-            for (let i = 0; i < tasksArray.length; i++) {
-                let title = tasksArray[i].title;
-                let body = tasksArray[i].body;
-                let price = tasksArray[i].price;
-                let dow = tasksArray[i].dayofWeek;
-                let cat = tasksArray[i].category;
-                let taskid = tasksArray[i].id;
-                var newrow = $("<tr>");
-                // newrow.attr("data-key2", taskid)
-                newrow.append($("<td class='text-left'>" + title + "</td>"));
-                newrow.append($("<td class='text-left'>" + body + "</td>"));
-                newrow.append($("<td class='text-left'>" + price + "</td>"));
-                newrow.append($("<td class='text-left'>" + dow + "</td>"));
-                newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
-                $("#userTasks").append(newrow);
-            }
-        })
 
+    $("#userPostedTask").on("click", function (event) {
+        $("#userTasks").empty()
+        event.preventDefault();
+        for (let i = 0; i < tasksArray.length; i++) {
+            let title = tasksArray[i].title;
+            let body = tasksArray[i].body;
+            let price = tasksArray[i].price;
+            let dow = tasksArray[i].dayofWeek;
+            let cat = tasksArray[i].category;
+            let taskid = tasksArray[i].id;
+            var newrow = $("<tr>");
+            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'>" + title + "</td>"));
+            newrow.append($("<td class='text-left'>" + body + "</td>"));
+            newrow.append($("<td class='text-left'>" + price + "</td>"));
+            newrow.append($("<td class='text-left'>" + dow + "</td>"));
+            newrow.append($("<td class='text-left'>" + cat + "</td>"));
+            newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+            $("#userTasks").append(newrow);
+        }
+    })
 
 
-        $("#userPendingTask").on("click", function (event) {
-            $("#userTasks").empty()
-            event.preventDefault();
-            for (let i = 0; i < in_progressArray.length; i++) {
-                let title = in_progressArray[i].title;
-                let body = in_progressArray[i].body;
-                let price = in_progressArray[i].price;
-                let dow = in_progressArray[i].dayofWeek;
-                let cat = in_progressArray[i].category;
-                let taskid = in_progressArray[i].id;
-                var newrow = $("<tr>");
-                // newrow.attr("data-key2", taskid)
-                newrow.append($("<td class='text-left'>" + title + "</td>"));
-                newrow.append($("<td class='text-left'>" + body + "</td>"));
-                newrow.append($("<td class='text-left'>" + price + "</td>"));
-                newrow.append($("<td class='text-left'>" + dow + "</td>"));
-                newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                newrow.append($("<td><span onclick=markDone(" + taskid + ") i class='fas fa-dollar-sign glypiconSpace' data-key='" + taskid + "'></i> Mark Done</span></td>"))
-                $("#userTasks").append(newrow);
-            }
-        })
 
-        $("#userCompletedTask").on("click", function (event) {
-            $("#userTasks").empty()
-            event.preventDefault();
-            for (let i = 0; i < completedArray.length; i++) {
-                let title = completedArray[i].title;
-                let body = completedArray[i].body;
-                let price = completedArray[i].price;
-                let dow = completedArray[i].dayofWeek;
-                let cat = completedArray[i].category;
-                let taskid = completedArray[i].id;
-                var newrow = $("<tr>");
-                // newrow.attr("data-key2", taskid)
-                newrow.append($("<td class='text-left'>" + title + "</td>"));
-                newrow.append($("<td class='text-left'>" + body + "</td>"));
-                newrow.append($("<td class='text-left'>" + price + "</td>"));
-                newrow.append($("<td class='text-left'>" + dow + "</td>"));
-                newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                // newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
-                $("#userTasks").append(newrow);
-            }
-        })   
- 
+    $("#userPendingTask").on("click", function (event) {
+        $("#userTasks").empty()
+        event.preventDefault();
+        for (let i = 0; i < in_progressArray.length; i++) {
+            let title = in_progressArray[i].title;
+            let body = in_progressArray[i].body;
+            let price = in_progressArray[i].price;
+            let dow = in_progressArray[i].dayofWeek;
+            let cat = in_progressArray[i].category;
+            let taskid = in_progressArray[i].id;
+            var newrow = $("<tr>");
+            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'>" + title + "</td>"));
+            newrow.append($("<td class='text-left'>" + body + "</td>"));
+            newrow.append($("<td class='text-left'>" + price + "</td>"));
+            newrow.append($("<td class='text-left'>" + dow + "</td>"));
+            newrow.append($("<td class='text-left'>" + cat + "</td>"));
+            newrow.append($("<td><span onclick=markDone(" + taskid + ") i class='fas fa-dollar-sign glypiconSpace' data-key='" + taskid + "'></i> Mark Done</span></td>"))
+            $("#userTasks").append(newrow);
 
+        }
+    })
 
+    $("#userCompletedTask").on("click", function (event) {
+        $("#userTasks").empty()
+        event.preventDefault();
+        for (let i = 0; i < completedArray.length; i++) {
+            let title = completedArray[i].title;
+            let body = completedArray[i].body;
+            let price = completedArray[i].price;
+            let dow = completedArray[i].dayofWeek;
+            let cat = completedArray[i].category;
+            let taskid = completedArray[i].id;
+            var newrow = $("<tr>");
+            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'>" + title + "</td>"));
+            newrow.append($("<td class='text-left'>" + body + "</td>"));
+            newrow.append($("<td class='text-left'>" + price + "</td>"));
+            newrow.append($("<td class='text-left'>" + dow + "</td>"));
+            newrow.append($("<td class='text-left'>" + cat + "</td>"));
+            // newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
+            $("#userTasks").append(newrow);
+        }
+    })
 
 
 
@@ -285,27 +292,31 @@
 
 
 
-   
- //Edit Task================================================================================
 
-        let title = $("#taskName1");
-        let body = $("#taskBody1");
-        let price = $("#taskPrice1");
-        let dow = $("#taskDayOfWeek1");
-        let cat = $("#taskCategories1");
-        let taskid = $("#taskid1");
 
-        function editTask(taskid) {
-            $("#editOneTask").empty();
-            modal.style.display = "block"; 
-            var id = taskid;
-            console.log("The id is: " +id)
-            $.ajax("/api/tasks1/" + id, {
-                type: "GET",
-                data: id
-            }).then(function (dbTaskr) {
-                console.log("LINE 25", dbTaskr);               
-                    $("#editOneTask").append(`
+
+
+
+    //Edit Task================================================================================
+
+    let title = $("#taskName1");
+    let body = $("#taskBody1");
+    let price = $("#taskPrice1");
+    let dow = $("#taskDayOfWeek1");
+    let cat = $("#taskCategories1");
+    let taskid = $("#taskid1");
+
+    function editTask(taskid) {
+        $("#editOneTask").empty();
+        modal.style.display = "block";
+        var id = taskid;
+        console.log("The id is: " + id)
+        $.ajax("/api/tasks1/" + id, {
+            type: "GET",
+            data: id
+        }).then(function (dbTaskr) {
+            console.log("LINE 25", dbTaskr);
+            $("#editOneTask").append(`
                         <h5 class="text-center">EDIT TASK!</h5>
                         <div id="taskid1"></div>
                         <div class="row">
@@ -355,78 +366,78 @@
                     </div>
                 `)
 
-                     title = $("#taskName1");
-                     body = $("#taskBody1");
-                     price = $("#taskPrice1");
-                     dow = $("#taskDayOfWeek1");
-                     cat = $("#taskCategories1");
-                     taskid = $("#taskid1");
+            title = $("#taskName1");
+            body = $("#taskBody1");
+            price = $("#taskPrice1");
+            dow = $("#taskDayOfWeek1");
+            cat = $("#taskCategories1");
+            taskid = $("#taskid1");
 
-                    title.val(dbTaskr.title) ;
-                    body.val(dbTaskr.body);
-                    price.val(dbTaskr.price);
-                    dow.val(dbTaskr.dayofWeek);
-                    cat.val(dbTaskr.category);
-                    taskid.val(dbTaskr.id); 
-                    console.log(taskid.val())
-            });
+            title.val(dbTaskr.title);
+            body.val(dbTaskr.body);
+            price.val(dbTaskr.price);
+            dow.val(dbTaskr.dayofWeek);
+            cat.val(dbTaskr.category);
+            taskid.val(dbTaskr.id);
+            console.log(taskid.val())
+        });
+    }
+
+    $("#editOneTask").on("click", "#updateTask", function (event) {
+        event.preventDefault();
+
+        var newTask = {
+            title: $("#taskName1").val(),
+            body: $("#taskBody1").val(),
+            price: $("#taskPrice1").val(),
+            dayofWeek: $("#taskDayOfWeek1").val(),
+            category: $("#taskCategories1").val(),
+            id: $("#taskid1").val()
         }
-
-     $("#editOneTask").on("click", "#updateTask", function (event) {
-            event.preventDefault();
-
-            var newTask = {
-                     title: $("#taskName1").val(),
-                     body: $("#taskBody1").val(),
-                     price: $("#taskPrice1").val(),
-                     dayofWeek: $("#taskDayOfWeek1").val(),
-                     category: $("#taskCategories1").val(),
-                     id: $("#taskid1").val()
-            }
-            $.ajax("/api/tasks/", {
-                type: "PUT",
-                data: newTask
-            }).then(function (dbTaskr) {
-                location.href="/home";
-
-            })
+        $.ajax("/api/tasks/", {
+            type: "PUT",
+            data: newTask
+        }).then(function (dbTaskr) {
+            location.href = "/home";
 
         })
- //Edit Task================================================================================
+
+    })
+    //Edit Task================================================================================
 
 
 
- //Delete Task================================================================================
+    //Delete Task================================================================================
 
-        function deleteTask(taskid) {
-            var id = taskid;
-            console.log("hi")
-            $.ajax("/api/tasks/" + id, {
-                type: "DELETE",
-                data: id
-            }).then(function (dbTaskr) {
-              location.href="/home";
+    function deleteTask(taskid) {
+        var id = taskid;
+        console.log("hi")
+        $.ajax("/api/tasks/" + id, {
+            type: "DELETE",
+            data: id
+        }).then(function (dbTaskr) {
+            location.href = "/home";
 
-            })
-        }
-
-
- //Delete Task================================================================================
+        })
+    }
 
 
- //Mark Done================================================================================
+    //Delete Task================================================================================
 
-        function markDone(taskid) {
-            var id = taskid;
-            console.log(id)
-        }  
- //Mark Done================================================================================
 
-   
-                
- 
-                
-  //MODEL================================================================================  
+    //Mark Done================================================================================
+
+    function markDone(taskid) {
+        var id = taskid;
+        console.log(id)
+    }
+    //Mark Done================================================================================
+
+
+
+
+
+    //MODEL================================================================================  
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
@@ -455,96 +466,7 @@
 
 
 
-                // $("#userTasks").append(`
-                //     <tr class="text-left">
-                //         <td>${title}</td>
-                //         <td>${body}</td>
-                //         <td>${price}</td>
-                //         <td>${dow}</td>
-                //         <td>${cat}</td>
-                //     </tr>
-                //     `);
-        //     }
-        // });
 
-        $("#taskSelect").on("click", function (event) {
-          event.preventDefault();
-          console.log($("#taskType").val());
-          let taskTypeSelection = $("#taskType").val();
-          if (taskTypeSelection === 'My Tasks') {
-            $('#userTasks').empty();
-            categorizeMyTasks();
-          } else {
-            $('#userTasks').empty();
-            viewOthersTasks()
-          }
-        }); // end onClick, taskSelect
+</script>
 
-
-
-function categorizeMyTasks() {
-  $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
-      type: "GET",
-      id: sessionStorage.getItem("id")
-  }).then(function (dbTaskr) {
-      // console.log(dbTaskr);
-      for (let i = 0; i < dbTaskr.length; i++) {
-          if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
-              tasksArray.push(dbTaskr[i]);
-          } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
-              in_progressArray.push(dbTaskr[i]);
-          } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true) {
-              completedArray.push(dbTaskr[i]);
-          }
-      } // end loop to push data to appropriate arrays
-      for (let i = 0; i < tasksArray.length; i++) {
-          let title = tasksArray[i].title;
-          let body = tasksArray[i].body;
-          let price = tasksArray[i].price;
-          let dow = tasksArray[i].dayofWeek;
-          let cat = tasksArray[i].category;
-
-          let taskid = tasksArray[i].id;
-          // let glypicon1 = (<span onclick="editTask()"><i class="fas fa-edit glypiconSpace"></i></span>)
-          var newrow = $("<tr>");
-          // newrow.attr("data-key2", taskid)
-          newrow.append($("<td class='text-left'>" + title + "</td>"));
-          newrow.append($("<td class='text-left'>" + body + "</td>"));
-          newrow.append($("<td class='text-left'>" + price + "</td>"));
-          newrow.append($("<td class='text-left'>" + dow + "</td>"));
-          newrow.append($("<td class='text-left'>" + cat + "</td>"));
-          newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
-          $("#userTasks").append(newrow);
-      } // end loop
-  }); // end cb function to parse and display API result
-} // end function, categorizeMyTasks
-
-function viewOthersTasks() {
-    $.ajax("/api/availabletasks", {
-      type: "GET",
-    }).then(function(dbTasks) {
-      console.log('dbTasks', dbTasks);
-      var tasksArray = dbTasks;
-      for (let i = 0; i < tasksArray.length; i++) {
-        let title = tasksArray[i].title;
-        let body = tasksArray[i].body;
-        let price = tasksArray[i].price;
-        let dow = tasksArray[i].dayofWeek;
-        let cat = tasksArray[i].category;
-        let taskid = tasksArray[i].id;
-        // let glypicon1 = (<span onclick="editTask()"><i class="fas fa-edit glypiconSpace"></i></span>)
-        var newrow = $("<tr>");
-        // newrow.attr("data-key2", taskid)
-        newrow.append($("<td class='text-left'>" + title + "</td>"));
-        newrow.append($("<td class='text-left'>" + body + "</td>"));
-        newrow.append($("<td class='text-left'>" + price + "</td>"));
-        newrow.append($("<td class='text-left'>" + dow + "</td>"));
-        newrow.append($("<td class='text-left'>" + cat + "</td>"));
-        newrow.append($("<td><span onclick=bookTask() i class='fas fa-check-square glypiconSpace' data='" + taskid + "'></i></td>"))
-        $("#userTasks").append(newrow);
-      } // end for loop, parse and display
-  }) // end cb function to parse and display API result
-}
-
-    </script>
 </html>
