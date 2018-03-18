@@ -52,7 +52,20 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: false
     },
     taskeeId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
+    },
+    taskPaid: {
+      type: DataTypes.BOOLEAN
+    },
+    taskComment: {
+      type: DataTypes.TEXT,
+      validate: {
+        len: [1, 250]
+      }
+    },
+    taskCommentTrue: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   });
 

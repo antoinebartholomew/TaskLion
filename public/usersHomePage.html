@@ -396,9 +396,8 @@
             } else if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == false) {
                 newrow.append($("<td><span onclick=markComplete(" + taskid + ") i class='fas fa-check-circle glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
             }             
-            // if (purchasedArray[i].TaskrId === purchasedArray[i].taskeeId) {
-            //     $("#userPurchasedTasks").append(newrow);    
-            // }
+                $("#userPurchasedTasks").append(newrow);    
+            
         }
     })
 
@@ -733,6 +732,7 @@
             var payCash = {
                 id: id,
                 requesterMarkComplete: true,
+                taskPaid: true
             }
             console.log(payCash)
             $.ajax("/api/updateTaskee", {
