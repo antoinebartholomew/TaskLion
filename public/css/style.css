@@ -73,6 +73,12 @@ button.edit {
     right: 10px;
 }
 
+.btnHeight2 {
+    height: 40px;
+    position: relative;
+    bottom: -6px;
+}
+
 
 /* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
 

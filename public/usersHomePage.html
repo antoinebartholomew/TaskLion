@@ -25,14 +25,14 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="offset-md-8 col-md-1">
-                <a class="btn btn-primary" href="/tasks">All Tasks</a>
+            <div class="offset-md-7 col-md-1">
+                <!-- <a class="btn btn-primary" href="/tasks">All Tasks</a> -->
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-primary" href="/create">Create Task</a>
             </div>
             <div class="col-md-1">
                 <a class="btn btn-primary" href="/user/settings/:user">Settings</a>
-            </div>
-            <div class="col-md-1">
-                <a class="btn btn-primary" href="/create">Create</a>
             </div>
             <div class="col-md-1">
                 <button id="logoutSubmit" class="btn btn-primary">Logout</button>
@@ -42,13 +42,29 @@
 
 
     <div class="container rowBackground ">
-        <div class="row marginTop">
+        <div id="taskrHomeView" class="row marginTop">
             <button id="userPostedTask" class="btn btn-primary" type="submit">Posted</button>
             <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">Pending</button>
             <button id="userCompletedTask" class="btn btn-primary padLeft" type="submit">Completed</button>
+            <button id="viewAllTasks" class="btn btn-primary padLeft" type="submit">View All Tasks</button>
         </div>
-        <div class="row">
-            <table class="table rowBackground">
+        <div id="taskeeHomeView" class="row marginTop">
+            <button id="taskrTasks" class="btn btn-primary btnHeight2" type="submit">Your Tasks</button>
+            <div class="form-group btn">
+                <select class="form-control" id="categorySelect">
+                    <option>Auto Maintenance</option>
+                    <option>Childcare</option>
+                    <option>Culinary</option>
+                    <option>Event Planning</option>
+                    <option>Home Maintenance</option>
+                    <option>Instruction</option>
+                </select>
+            </div>
+            <button id='categorySubmit' type="submit" class="btn btn-primary btnHeight">Filter</button>
+        </div>
+
+        <div class="row">      
+            <table id="taskrRowView" class="table rowBackground">
                 <thead>
                     <tr class="text-left">
                         <th scope="col">Task</th>
@@ -60,9 +76,22 @@
                     </tr>
                 </thead>
                 <tbody id="userTasks">
-
                 </tbody>
             </table>
+                <table id="allTasksRowView" class="table rowBackground">
+                    <thead>
+                        <tr id="allTasksTableHeadings" class="text-left">
+                            <th scope="col">Task</th>
+                            <th style="width: 30%">Description</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Day of Week</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Book</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allTasksTable">               
+                    </tbody>
+                </table>
         </div>
     </div>
 
@@ -73,7 +102,6 @@
             <span class="close">&times;</span>
             <div id="editOneTask"></div>
         </div>
-
     </div>
 
 
@@ -88,6 +116,10 @@
 
 <script>
 
+
+//Getting all task associated with Taskr =====================================================================================================================================================
+    $("#taskeeHomeView").hide() 
+    $("#allTasksRowView").hide() 
     var tasksArray = [];
     var in_progressArray = [];
     var completedArray = [];
@@ -127,6 +159,9 @@
         }
     })
 
+//END=======================================================================================================================================================================================================================================================================================
+
+//On click getting all task associated with Taskr =====================================================================================================================================================
 
     $("#userPostedTask").on("click", function (event) {
         $("#userTasks").empty()
@@ -139,7 +174,6 @@
             let cat = tasksArray[i].category;
             let taskid = tasksArray[i].id;
             var newrow = $("<tr>");
-            // newrow.attr("data-key2", taskid)
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -150,7 +184,9 @@
         }
     })
 
+//END=======================================================================================================================================================================================================================================================================================
 
+//On click getting all pending task associated with Taskr =====================================================================================================================================================
 
     $("#userPendingTask").on("click", function (event) {
         $("#userTasks").empty()
@@ -175,6 +211,10 @@
         }
     })
 
+//END=======================================================================================================================================================================================================================================================================================
+
+//On click getting all completed task associated with Taskr =====================================================================================================================================================
+
     $("#userCompletedTask").on("click", function (event) {
         $("#userTasks").empty()
         event.preventDefault();
@@ -198,106 +238,9 @@
     })
 
 
+//END=======================================================================================================================================================================================================================================================================================
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //Edit Task================================================================================
+//When user clicks on Edit icon=============================================================================================================================
 
     let title = $("#taskName1");
     let body = $("#taskBody1");
@@ -403,11 +346,10 @@
         })
 
     })
-    //Edit Task================================================================================
 
+//END=======================================================================================================================================================================================================================================================================================
 
-
-    //Delete Task================================================================================
+//When user clicks on delete icon =====================================================================================================================================================
 
     function deleteTask(taskid) {
         var id = taskid;
@@ -421,23 +363,19 @@
         })
     }
 
+//END=======================================================================================================================================================================================================================================================================================
 
-    //Delete Task================================================================================
-
-
-    //Mark Done================================================================================
+//When user clicks on Mark Done =====================================================================================================================================================
 
     function markDone(taskid) {
         var id = taskid;
         console.log(id)
     }
-    //Mark Done================================================================================
 
+//END=======================================================================================================================================================================================================================================================================================
 
+//Modal for Edit =====================================================================================================================================================
 
-
-
-    //MODEL================================================================================  
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
@@ -445,11 +383,6 @@
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    // btn.onclick = function () {
-    //     modal.style.display = "block";
-    // }
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
@@ -462,11 +395,123 @@
             modal.style.display = "none";
         }
     }
- //MODEL================================================================================
+
+//END=======================================================================================================================================================================================================================================================================================
+
+//When user clicks on All Tasks=========================================================================================================================================
+        $("#viewAllTasks").on("click", function (event) {
+            event.preventDefault();
+           $("#taskrHomeView").hide()
+           $("#taskrRowView").hide() 
+           $("#taskeeHomeView").show()
+           $("#allTasksRowView").show() 
+
+           // calling ajax call
+             $.ajax("/api/availabletasks", {
+                type: "GET",
+            }).then(function (dbTasks) {
+                console.log('dbTasks', dbTasks);
+                var tasksArray = dbTasks;
+                for (let i = 0; i < tasksArray.length; i++) {
+                    let title = tasksArray[i].title;
+                    let body = tasksArray[i].body;
+                    let price = tasksArray[i].price;
+                    let dow = tasksArray[i].dayofWeek;
+                    let cat = tasksArray[i].category;
+                    let taskid = tasksArray[i].id;
+                    let taskrid = tasksArray[i].TaskrId;
+                    var newrow = $("<tr>");
+                    newrow.append($("<td class='text-left'>" + title + "</td>"));
+                    newrow.append($("<td class='text-left'>" + body + "</td>"));
+                    newrow.append($("<td class='text-left'>" + price + "</td>"));
+                    newrow.append($("<td class='text-left'>" + dow + "</td>"));
+                    newrow.append($("<td class='text-left'>" + cat + "</td>"));
+                    if (taskrid == sessionStorage.getItem("id")) {
+                        newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+
+                    } else{
+                        newrow.append($("<td><span onclick=bookTask() i class='fas fa-check-square glypiconSpace' data='" + taskid + "'></i></td>"))
+                    }
+                    $("#allTasksTable").append(newrow);
+                }
+            }); // end AJAX, get all tasks          
+        })
 
 
+//END=======================================================================================================================================================================================================================================================================================
+
+//When user clicks on Your Tasks=========================================================================================================================================
 
 
+        $("#taskrTasks").on("click", function (event) {
+            event.preventDefault();
+            $("#taskrHomeView").show()
+            $("#taskrRowView").show()
+            $("#taskeeHomeView").hide()
+            $("#allTasksRowView").hide()          
+         })
+
+//END=======================================================================================================================================================================================================================================================================================
+
+//When is viewing All Task and clicks filter=========================================================================================================================================
+
+    $("#categorySubmit").on("click", function (event) {
+        $("#allTasksTable").empty();
+        event.preventDefault();
+        $.ajax("/api/tasks/category/" + $('#categorySelect').val(), {
+            type: "GET",
+        }).then(function (dbTasks) {
+
+        if (dbTasks.length == 0) {
+            $("#allTasksTableHeadings").hide()
+            var newrow = $("<tr>");
+                newrow.append($("<td></td>"));
+                newrow.append($("<td</td>"));
+                newrow.append($("<td class='text-center'>" + "</h6>I'm sorry were free out of " + $('#categorySelect').val()+ " please check back later!</h6>" + "</td>"));
+            $("#allTasksTable").append(newrow);
+        }else{
+            $("#allTasksTableHeadings").show()
+            console.log('dbTasks', dbTasks);
+            var tasksArray = dbTasks;
+            for (let i = 0; i < tasksArray.length; i++) {
+                let title = tasksArray[i].title;
+                let body = tasksArray[i].body;
+                let price = tasksArray[i].price;
+                let dow = tasksArray[i].dayofWeek;
+                let cat = tasksArray[i].category;
+                let taskid = tasksArray[i].id;
+                let taskrid = tasksArray[i].TaskrId;
+                var newrow = $("<tr>");
+                newrow.append($("<td class='text-left'>" + title + "</td>"));
+                newrow.append($("<td class='text-left'>" + body + "</td>"));
+                newrow.append($("<td class='text-left'>" + price + "</td>"));
+                newrow.append($("<td class='text-left'>" + dow + "</td>"));
+                newrow.append($("<td class='text-left'>" + cat + "</td>"));
+                if (taskrid == sessionStorage.getItem("id")) {
+                    newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+
+                } else {
+                    newrow.append($("<td><span onclick=bookTask() i class='fas fa-check-square glypiconSpace' data='" + taskid + "'></i></td>"))
+                }
+
+                $("#allTasksTable").append(newrow);
+            }
+        }
+
+        }); // end AJAX, get all tasks
+    }); // end filter by category
+
+//END=======================================================================================================================================================================================================================================================================================
+
+//When user clicks on All Tasks or Your Tasks=========================================================================================================================================
+            
+        function bookTask() {
+
+            console.log("book")
+            // MODEL BOX
+            var id = ($(this).attr("data"));
+            console.log(id)
+        }
 </script>
 
 </html>
