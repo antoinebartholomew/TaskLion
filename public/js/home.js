@@ -210,8 +210,6 @@ $(document).ready(function () {
             }
         }
                 
-            
-
 // End of Delete ========================================================================================================
 
 // Update Acct ========================================================================================================
@@ -227,6 +225,7 @@ $(document).ready(function () {
             }).then(function(dbTaskr) {
               console.log("LINE 25", dbTaskr);
 
+              let username = $("#usernameAccountSettings");
               let password = $("#userPasswordUp1");
               let password2 = $("#userPasswordUp2");
               let secQuestion1 = $("#secQuestionOneUp");
@@ -236,8 +235,7 @@ $(document).ready(function () {
               let secQuestion3 = $("#secQuestionThreeUp");
               let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
               let id = $("#accountID");
-
-
+            
               password.val(dbTaskr.password);
               password2.val(dbTaskr.password);
               secQuestion1.val(dbTaskr.secQuestion1);
@@ -247,132 +245,67 @@ $(document).ready(function () {
               secQuestion3.val(dbTaskr.secQuestion3);
               secQuestionAnswer3.val(dbTaskr.secQuestionAnswer3);
               id.val(dbTaskr.id);
-              console.log(id.val());
-            });
-    
+              username.val(dbTaskr.username);     
+            }); 
+      })
 
-    $("#accountUpdateSubmit").on("click", "#updateTask", function (event) {
+
+
+
+    $("#accountUpdateSubmit").on("click", function (event) {
         event.preventDefault();
+        if ($("#userPasswordUp1").val() && $("#userPasswordUp2").val()
+            && $("#secQuestionOneAnswerUp").val() && $("#secQuestionTwoAnswerUp").val() && $("#secQuestionThreeAnswerUp").val() ) {
 
+                if($("#userPasswordUp1").val() === $("#userPasswordUp2").val()){
 
-
-
-
-
-        if ($("#userPasswordCreate").val() && $("#userPasswordCreate2").val()
-            && $("#secQuestionOneAnswer").val() && $("#secQuestionTwoAnswer").val() && $("#secQuestionThreeAnswer").val() ) {
-
-                if($("#userPasswordCreate").val() === $("#userPasswordCreate2").val()){
-
-                    var createUser = {
-                        username: $("#userNameCreate").val().toLowerCase(),
-                        password: $("#userPasswordCreate").val(),
-                        secQuestion1: $("#secQuestionOne").val(),
-                        secQuestionAnswer1: $("#secQuestionOneAnswer").val().toLowerCase(),
-                        secQuestion2: $("#secQuestionTwo").val(),
-                        secQuestionAnswer2: $("#secQuestionTwoAnswer").val().toLowerCase(),
-                        secQuestion3: $("#secQuestionThree").val(),
-                        secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
+                    var updateUser = {
+                        username: $("#usernameAccountSettings").val(),
+                        password: $("#userPasswordUp1").val(),
+                        secQuestion1: $("#secQuestionOneUp").val(),
+                        secQuestionAnswer1: $("#secQuestionOneAnswerUp").val().toLowerCase(),
+                        secQuestion2: $("#secQuestionTwoUp").val(),
+                        secQuestionAnswer2: $("#secQuestionTwoAnswerUp").val().toLowerCase(),
+                        secQuestion3: $("#secQuestionThreeUp").val(),
+                        secQuestionAnswer3: $("#secQuestionThreeAnswerUp").val().toLowerCase(),
+                        id: $("#accountID").val(),
                         loggedIn: true
                     }
                     }else
                         alert("Passwords do not match")
 
-                $("#userNameCreate").val(""),
-                $("#userPasswordCreate").val(""),
-                $("#userPasswordCreate2").val(""),
-                $("#secQuestionOne").val(""),
-                $("#secQuestionOneAnswer").val(""),
-                $("#secQuestionTwo").val(""),
-                $("#secQuestionTwoAnswer").val(""),
-                $("#secQuestionThree").val(""),
-                $("#secQuestionThreeAnswer").val(""),
-
-            console.log(createUser)
+            console.log(updateUser)
             //query taskrs for username and password and check if they match
-            $.ajax("/api/taskrs", {
-                type: "POST",
-                data: createUser
+            $.ajax("/api/updateAcct", {
+                type: "PUT",
+                data: updateUser
             }).then(
                 function () {
-                    console.log("user created");
-                    alert("User Created")
+                    console.log("user updated");
+                    // modal.style.display = "none";
+                    // // confirmModal.style.display = "block";
+                    // $("#bbb").append(`
+                    //     <div class="modal-content">
+                    //         <span class="close">&times;</span>
+                    //         <p>Account Updated.</p>
+                    //     </div>
+                    // `);
+
                     // Reload the page to get the updated list
-                    location.href = "/";
+                    location.href = "/home";
                 }
             );
         }
         //end of if statement
         else{
             alert("Fill out all the boxes.")
-        }  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        var newTask = {
-            title: $("#taskName1").val(),
-            body: $("#taskBody1").val(),
-            price: $("#taskPrice1").val(),
-            dayofWeek: $("#taskDayOfWeek1").val(),
-            category: $("#taskCategories1").val(),
-            id: $("#taskid1").val()
-        }
-        $.ajax("/api/tasks/", {
-            type: "PUT",
-            data: newTask
-        }).then(function (dbTaskr) {
-            location.href = "/home";
-
-        })
-
+        } 
     })    
-
-
-    })
 
 
             // Get the modal
         var modal = document.getElementById('accountUpdateModal');
+
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
         // When the user clicks on <span> (x), close the modal
@@ -385,7 +318,22 @@ $(document).ready(function () {
                 modal.style.display = "none";
             }
         }
-         
+
+        // var confirmModal = document.getElementById("updateSuccess");
+        // // Get the <span> element that closes the modal
+        // var span = document.getElementsByClassName("close")[0];
+        // // When the user clicks on <span> (x), close the modal
+        // $("#updateCancel").onclick = function() {
+        //   confirmModal.style.display = "none";
+        // };
+        // // When the user clicks anywhere outside of the modal, close it
+        // window.onclick = function(event) {
+        //     if (event.target == modal) {
+        //         confirmModal.style.display = "none";
+        //     }
+        // }
+
+        
 // End of Update Acct ========================================================================================================
 
 });

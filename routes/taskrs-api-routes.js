@@ -78,16 +78,6 @@ router.post("/api/taskrs", function(req, res) {
   });
 });
 
-router.delete("/api/taskrs/:id", function(req, res) {
-  // Delete the Taskr with the id available to us in req.params.id
-  db.Taskr.destroy({
-    where: {
-      id: req.params.id
-    }
-  }).then(function(dbTaskr) {
-    res.json(dbTaskr);
-  });
-});
 
 
 // PUT route for updating password
@@ -135,4 +125,34 @@ router.put("/api/login", function(req, res) {
     .then(function(dbTask) {
       res.json(dbTask);
     });
+});
+
+
+// PUT route for updating user acct settings
+router.put("/api/updateAcct", function(req, res) {
+    console.log("*************API ROUTES*************");
+    console.log(req.body);
+    console.log("*************API ROUTES*************");
+
+  db.Taskr.update(req.body,
+    {
+      where: {
+        id: req.body.id
+      }
+    })
+    .then(function(dbTask) {
+      res.json(dbTask);
+    });
+});
+
+
+router.delete("/api/taskrs/:id", function(req, res) {
+  // Delete the Taskr with the id available to us in req.params.id
+  db.Taskr.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(function(dbTaskr) {
+    res.json(dbTaskr);
+  });
 });

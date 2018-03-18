@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [1,250]
+        len: [1, 250]
       }
     },
     dayofWeek: {
@@ -37,20 +37,23 @@ module.exports = function(sequelize, DataTypes) {
     },
     taskrAccept: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
     requesterAccept: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
     taskrMarkComplete: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
     requesterMarkComplete: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
+    taskeeId: {
+      type: DataTypes.INTEGER,
+    }
   });
 
  Task.associate = function(models) {

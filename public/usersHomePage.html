@@ -43,9 +43,11 @@
 
     <div class="container rowBackground ">
         <div id="taskrHomeView" class="row marginTop">
-            <button id="userPostedTask" class="btn btn-primary" type="submit">Posted</button>
-            <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">Pending</button>
-            <button id="userCompletedTask" class="btn btn-primary padLeft" type="submit">Completed</button>
+            <button id="userPostedTask" class="btn btn-primary" type="submit">My Posted</button>
+            <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">My Pending</button>
+            <button id="userCompletedTask" class="btn btn-primary padLeft" type="submit">My Completed</button>
+            <button id="userPurchasedTask" class="btn btn-primary padLeft" type="submit">My Purchased</button>
+            <button id="purchasedHistory" class="btn btn-primary padLeft" type="submit"> My Purchased History</button>
             <button id="viewAllTasks" class="btn btn-primary padLeft" type="submit">View All Tasks</button>
         </div>
         <div id="taskeeHomeView" class="row marginTop">
@@ -64,7 +66,7 @@
         </div>
 
         <div class="row">      
-            <table id="taskrRowView" class="table rowBackground">
+            <table id="taskrPostedRowView" class="table rowBackground">
                 <thead>
                     <tr class="text-left">
                         <th scope="col">Task</th>
@@ -78,6 +80,71 @@
                 <tbody id="userTasks">
                 </tbody>
             </table>
+
+
+            <table id="taskrPendingRowView" class="table rowBackground">
+                <thead>
+                    <tr class="text-left">
+                        <th scope="col">Task</th>
+                        <th style="width: 30%">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Day of Week</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Request/Cancel</th>
+                    </tr>
+                </thead>
+                <tbody id="userPendingTasks">
+                </tbody>
+            </table>
+
+
+            <table id="taskrCompletedRowView" class="table rowBackground">
+                <thead>
+                    <tr class="text-left">
+                        <th scope="col">Task</th>
+                        <th style="width: 30%">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Day of Week</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="userCompletedTasks">
+                </tbody>
+            </table>
+
+
+           <table id="taskrPurchasedRowView" class="table rowBackground">
+                <thead>
+                    <tr class="text-left">
+                        <th scope="col">Task</th>
+                        <th style="width: 30%">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Day of Week</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Cancel/Pay</th>
+                    </tr>
+                </thead>
+                <tbody id="userPurchasedTasks">
+                </tbody>
+            </table>
+
+            <table id="taskrPurchasedHistoryRowView" class="table rowBackground">
+                <thead>
+                    <tr class="text-left">
+                        <th scope="col">Task</th>
+                        <th style="width: 30%">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Day of Week</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Cancel/Pay</th>
+                    </tr>
+                </thead>
+                <tbody id="userPurchasedHistory">
+                </tbody>
+            </table>
+
+
                 <table id="allTasksRowView" class="table rowBackground">
                     <thead>
                         <tr id="allTasksTableHeadings" class="text-left">
@@ -120,9 +187,17 @@
 //Getting all task associated with Taskr =====================================================================================================================================================
     $("#taskeeHomeView").hide() 
     $("#allTasksRowView").hide() 
+    $("#taskrPendingRowView").hide()
+    $("#taskrCompletedRowView").hide()
+    $("#taskrPurchasedRowView").hide()
+    $("#taskrPurchasedHistoryRowView").hide()
+
     var tasksArray = [];
     var in_progressArray = [];
     var completedArray = [];
+    var purchasedArray = [];
+
+//Getting all Posted tasks associated with Taskr =====================================================================================================================================================
 
     $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
         type: "GET",
@@ -132,7 +207,7 @@
         for (let i = 0; i < dbTaskr.length; i++) {
             if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
                 tasksArray.push(dbTaskr[i]);
-            } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
+            } else if ((dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) ||(dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == false) ) {
                 in_progressArray.push(dbTaskr[i]);
             } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true) {
                 completedArray.push(dbTaskr[i]);
@@ -161,9 +236,35 @@
 
 //END=======================================================================================================================================================================================================================================================================================
 
+//Getting all taskee Tasks (Purchased/Booked) associated with Taskr =====================================================================================================================================================
+
+    $.ajax("/api/taskee/" + sessionStorage.getItem("id"), {
+        type: "GET",
+        taskeeId: sessionStorage.getItem("id")
+    }).then(function (dbTaskr) {
+        for (let i = 0; i < dbTaskr.length; i++) {
+            purchasedArray.push(dbTaskr[i]);         
+        }
+        console.log("Taskee", purchasedArray);
+        
+    
+    })
+
+//END=======================================================================================================================================================================================================================================================================================
+
+
+
 //On click getting all task associated with Taskr =====================================================================================================================================================
 
     $("#userPostedTask").on("click", function (event) {
+    //    $("#taskrHomeView").hide()
+           $("#taskrPostedRowView").show() 
+           $("#taskrPendingRowView").hide()
+           $("#taskrCompletedRowView").hide()
+           $("#taskrPurchasedRowView").hide()
+           $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskeeHomeView").hide()
+           $("#allTasksRowView").hide() 
         $("#userTasks").empty()
         event.preventDefault();
         for (let i = 0; i < tasksArray.length; i++) {
@@ -189,7 +290,15 @@
 //On click getting all pending task associated with Taskr =====================================================================================================================================================
 
     $("#userPendingTask").on("click", function (event) {
-        $("#userTasks").empty()
+  //    $("#taskrHomeView").hide()
+           $("#taskrPostedRowView").hide() 
+           $("#taskrPendingRowView").show()
+           $("#taskrCompletedRowView").hide()
+           $("#taskrPurchasedRowView").hide()
+           $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskeeHomeView").hide()
+           $("#allTasksRowView").hide() 
+           $("#userPendingTasks").empty()
         event.preventDefault();
         for (let i = 0; i < in_progressArray.length; i++) {
             let title = in_progressArray[i].title;
@@ -205,18 +314,32 @@
             newrow.append($("<td class='text-left'>" + price + "</td>"));
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
-            newrow.append($("<td><span onclick=markDone(" + taskid + ") i class='fas fa-dollar-sign glypiconSpace' data-key='" + taskid + "'></i> Mark Done</span></td>"))
-            $("#userTasks").append(newrow);
+
+            if (in_progressArray[i].taskrAccept == true && in_progressArray[i].requesterAccept == true && in_progressArray[i].taskrMarkComplete == false && in_progressArray[i].requesterMarkComplete == false) {
+                newrow.append($("<td><span onclick=requestCash(" + taskid + ") i class='fas fa-dollar-sign glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
+
+            } else if (in_progressArray[i].taskrAccept == true && in_progressArray[i].requesterAccept == true && in_progressArray[i].taskrMarkComplete == true && in_progressArray[i].requesterMarkComplete == false) {
+                newrow.append($("<td>Payment Requested</td>"))
+            }
+            $("#userPendingTasks").append(newrow);
 
         }
     })
 
-//END=======================================================================================================================================================================================================================================================================================
+//END=============================================================================================================================================================================================================================
 
 //On click getting all completed task associated with Taskr =====================================================================================================================================================
 
     $("#userCompletedTask").on("click", function (event) {
-        $("#userTasks").empty()
+    //    $("#taskrHomeView").hide()
+           $("#taskrPostedRowView").hide() 
+           $("#taskrPendingRowView").hide()
+           $("#taskrCompletedRowView").show()
+           $("#taskrPurchasedRowView").hide()
+           $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskeeHomeView").hide()
+           $("#allTasksRowView").hide() 
+        $("#userCompletedTasks").empty()
         event.preventDefault();
         for (let i = 0; i < completedArray.length; i++) {
             let title = completedArray[i].title;
@@ -232,13 +355,92 @@
             newrow.append($("<td class='text-left'>" + price + "</td>"));
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
-            // newrow.append($("<td><span onclick=editTask() i class='fas fa-edit glypiconSpace' data='" + taskid + "'></i></span><span onclick=deleteTask() i class='fas fa-trash-alt glypiconSpace2' data='" + taskid + "'></i></span></td>"))
-            $("#userTasks").append(newrow);
+            newrow.append($("<td><span i class='fas fa-money-bill-alt glypiconSpace'></i></span></td>"))
+            $("#userCompletedTasks").append(newrow);
         }
     })
 
 
-//END=======================================================================================================================================================================================================================================================================================
+//END=============================================================================================================================================================================================================================
+
+//On click getting all Purchased task associated with Taskr =====================================================================================================================================================
+
+    $("#userPurchasedTask").on("click", function (event) {
+    //    $("#taskrHomeView").hide()
+           $("#taskrPostedRowView").hide() 
+           $("#taskrPendingRowView").hide()
+           $("#taskrCompletedRowView").hide()
+           $("#taskrPurchasedRowView").show()
+           $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskeeHomeView").hide()
+           $("#allTasksRowView").hide() 
+        $("#userPurchasedTasks").empty()
+        event.preventDefault();
+        for (let i = 0; i < purchasedArray.length; i++) {
+            let title = purchasedArray[i].title;
+            let body = purchasedArray[i].body;
+            let price = purchasedArray[i].price;
+            let dow = purchasedArray[i].dayofWeek;
+            let cat = purchasedArray[i].category;
+            let taskid = purchasedArray[i].id;
+            var newrow = $("<tr>");
+            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'>" + title + "</td>"));
+            newrow.append($("<td class='text-left'>" + body + "</td>"));
+            newrow.append($("<td class='text-left'>" + price + "</td>"));
+            newrow.append($("<td class='text-left'>" + dow + "</td>"));
+            newrow.append($("<td class='text-left'>" + cat + "</td>"));
+          
+            if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == false && purchasedArray[i].requesterMarkComplete == false) {
+                newrow.append($("<td><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
+            } else if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == false) {
+                newrow.append($("<td><span onclick=markComplete(" + taskid + ") i class='fas fa-check-circle glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
+            }             
+            // if (purchasedArray[i].TaskrId === purchasedArray[i].taskeeId) {
+            //     $("#userPurchasedTasks").append(newrow);    
+            // }
+        }
+    })
+
+
+//END=============================================================================================================================================================================================================================
+
+//When user clicks Purchased History =============================================================================================================================
+    $("#purchasedHistory").on("click", function (event) {
+        $("#userPurchasedHistory").empty()
+    //    $("#taskrHomeView").hide()
+           $("#taskrPostedRowView").hide() 
+           $("#taskrPendingRowView").hide()
+           $("#taskrCompletedRowView").hide()
+           $("#taskrPurchasedRowView").hide()
+           $("#taskrPurchasedHistoryRowView").show()
+           $("#taskeeHomeView").hide()
+           $("#allTasksRowView").hide() 
+           $("#userPurchasedTasks").empty()
+           event.preventDefault();
+            for (let i = 0; i < purchasedArray.length; i++) {
+                let title = purchasedArray[i].title;
+                let body = purchasedArray[i].body;
+                let price = purchasedArray[i].price;
+                let dow = purchasedArray[i].dayofWeek;
+                let cat = purchasedArray[i].category;
+                let taskid = purchasedArray[i].id;
+                var newrow = $("<tr>");
+                // newrow.attr("data-key2", taskid)
+                newrow.append($("<td class='text-left'>" + title + "</td>"));
+                newrow.append($("<td class='text-left'>" + body + "</td>"));
+                newrow.append($("<td class='text-left'>" + price + "</td>"));
+                newrow.append($("<td class='text-left'>" + dow + "</td>"));
+                newrow.append($("<td class='text-left'>" + cat + "</td>"));
+            
+                if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == true  && purchasedArray[i].TaskrId !== purchasedArray[i].taskeeId) {
+                    newrow.append($("<td>Paid</td>"))
+                    $("#userPurchasedHistory").append(newrow);   
+                } 
+            }
+
+    })
+//END=============================================================================================================================================================================================================================
 
 //When user clicks on Edit icon=============================================================================================================================
 
@@ -363,17 +565,7 @@
         })
     }
 
-//END=======================================================================================================================================================================================================================================================================================
-
-//When user clicks on Mark Done =====================================================================================================================================================
-
-    function markDone(taskid) {
-        var id = taskid;
-        console.log(id)
-    }
-
-//END=======================================================================================================================================================================================================================================================================================
-
+//END=============================================================================================================================================================================================================================
 //Modal for Edit =====================================================================================================================================================
 
     var modal = document.getElementById('myModal');
@@ -399,7 +591,11 @@
         $("#viewAllTasks").on("click", function (event) {
             event.preventDefault();
            $("#taskrHomeView").hide()
-           $("#taskrRowView").hide() 
+           $("#taskrPostedRowView").hide() 
+           $("#taskrPendingRowView").hide()
+           $("#taskrCompletedRowView").hide()
+           $("#taskrPurchasedRowView").hide()
+           $("#taskrPurchasedHistoryRowView").hide()
            $("#taskeeHomeView").show()
            $("#allTasksRowView").show() 
 
@@ -427,7 +623,7 @@
                         newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
 
                     } else{
-                        newrow.append($("<td><span onclick=bookTask() i class='fas fa-check-square glypiconSpace' data='" + taskid + "'></i></td>"))
+                        newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square glypiconSpace' data-key='" + taskid + "'></i> Book</td>"))
                     }
                     $("#allTasksTable").append(newrow);
                 }
@@ -443,7 +639,11 @@
         $("#taskrTasks").on("click", function (event) {
             event.preventDefault();
             $("#taskrHomeView").show()
-            $("#taskrRowView").show()
+            $("#taskrPostedRowView").show()
+            $("#taskrPendingRowView").hide()
+            $("#taskrCompletedRowView").hide()
+            $("#taskrPurchasedRowView").hide()
+            $("#taskrPurchasedHistoryRowView").hide()
             $("#taskeeHomeView").hide()
             $("#allTasksRowView").hide()          
          })
@@ -488,7 +688,7 @@
                     newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
 
                 } else {
-                    newrow.append($("<td><span onclick=bookTask() i class='fas fa-check-square glypiconSpace' data='" + taskid + "'></i></td>"))
+                    newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square glypiconSpace' data-key='" + taskid + "'></i> Book</td>"))
                 }
 
                 $("#allTasksTable").append(newrow);
@@ -502,12 +702,98 @@
 
 //When user clicks on All Tasks or Your Tasks=========================================================================================================================================
             
-        function bookTask() {
+        function bookTask(taskid) {
 
             console.log("book")
+            var taskId = taskid;
+            var taskeeUpdate = {
+                id: taskId,
+                taskeeId: sessionStorage.getItem("id"),
+                requesterAccept: true,
+                taskrAccept: true,
+            }
+            console.log(taskeeUpdate)
+            $.ajax("/api/updateTaskee", {
+                type: "PUT",
+                data: taskeeUpdate
+            }).then(
+                function () {
+                    alert("Booked")
+                    // Reload the page to get the updated list
+                    location.href = "/home";
+                }
+            );
+        }
+
+        function markComplete(taskid) {
+         console.log("complete")
+
+            var id = taskid;
+            console.log(id)     
+            var payCash = {
+                id: id,
+                requesterMarkComplete: true,
+            }
+            console.log(payCash)
+            $.ajax("/api/updateTaskee", {
+                type: "PUT",
+                data: payCash
+            }).then(
+                function () {
+                    alert("paid cash")
+                    // Reload the page to get the updated list
+                    location.href = "/home";
+                }
+            );            
+        }
+
+        function requestCash(taskid) {
+
+            console.log("request")
             // MODEL BOX
-            var id = ($(this).attr("data"));
+            var id = taskid;
             console.log(id)
+
+            var reqCash = {
+                id: id,
+                taskrMarkComplete: true,
+            }
+            console.log(reqCash)
+            $.ajax("/api/updateTaskee", {
+                type: "PUT",
+                data: reqCash
+            }).then(
+                function () {
+                    alert("request cash")
+                    // Reload the page to get the updated list
+                    location.href = "/home";
+                }
+            );
+        }
+
+
+
+        function cancelTask(taskid) {
+
+            console.log("cancel")
+            var taskId = taskid;
+            var cancel = {
+                id: taskId,
+                taskeeId: 0,
+                requesterAccept: false,
+                taskrAccept: false,
+            }
+            console.log(cancel)
+            $.ajax("/api/updateTaskee", {
+                type: "PUT",
+                data: cancel
+            }).then(
+                function () {
+                    alert("UnBooked")
+                    // Reload the page to get the updated list
+                    location.href = "/home";
+                }
+            );
         }
 </script>
 
