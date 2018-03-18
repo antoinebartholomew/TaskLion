@@ -128,7 +128,7 @@ $(document).ready(function () {
                     console.log("user created");
                     alert("User Created")
                     // Reload the page to get the updated list
-                    // location.href = "/home/:id";
+                    location.href = "/";
                 }
             );
         }
@@ -175,5 +175,217 @@ $(document).ready(function () {
       }
     });
 // End of create Post ========================================================================================================
+
+
+// Delete Acct ========================================================================================================
+    $("#deleteSubmit").on("click", function(event) {
+      event.preventDefault();
+      modal.style.display = "block";
+    });
+
+    $("#deleteConfirm").on("click", function(event) {
+      event.preventDefault();
+      var id = sessionStorage.getItem("id");
+      console.log(id);
+        $.ajax("/api/taskrs/" + id, {
+          type: "DELETE",
+        }).then(function(dbTaskr) {
+          location.href = "/";
+        });
+    });
+
+
+        // Get the modal
+        var modal = document.getElementById('deleteModal');
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        $("#deleteCancel").onclick = function() {
+          modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+                
+            
+
+// End of Delete ========================================================================================================
+
+// Update Acct ========================================================================================================
+    $("#editAccountSubmit").on("click", function(event) {
+      event.preventDefault();
+      modal.style.display = "block";
+      var id = sessionStorage.getItem("id");
+      console.log(id);
+      
+            $.ajax("/api/taskrs1/" + id, {
+              type: "GET",
+              data: id
+            }).then(function(dbTaskr) {
+              console.log("LINE 25", dbTaskr);
+
+              let password = $("#userPasswordUp1");
+              let password2 = $("#userPasswordUp2");
+              let secQuestion1 = $("#secQuestionOneUp");
+              let secQuestionAnswer1 = $("#secQuestionOneAnswerUp");
+              let secQuestion2 = $("#secQuestionTwoUp");
+              let secQuestionAnswer2 = $("#secQuestionTwoAnswerUp");
+              let secQuestion3 = $("#secQuestionThreeUp");
+              let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
+              let id = $("#accountID");
+
+
+              password.val(dbTaskr.password);
+              password2.val(dbTaskr.password);
+              secQuestion1.val(dbTaskr.secQuestion1);
+              secQuestionAnswer1.val(dbTaskr.secQuestionAnswer1);
+              secQuestion2.val(dbTaskr.secQuestion2);
+              secQuestionAnswer2.val(dbTaskr.secQuestionAnswer2);
+              secQuestion3.val(dbTaskr.secQuestion3);
+              secQuestionAnswer3.val(dbTaskr.secQuestionAnswer3);
+              id.val(dbTaskr.id);
+              console.log(id.val());
+            });
+    
+
+    $("#accountUpdateSubmit").on("click", "#updateTask", function (event) {
+        event.preventDefault();
+
+
+
+
+
+
+        if ($("#userPasswordCreate").val() && $("#userPasswordCreate2").val()
+            && $("#secQuestionOneAnswer").val() && $("#secQuestionTwoAnswer").val() && $("#secQuestionThreeAnswer").val() ) {
+
+                if($("#userPasswordCreate").val() === $("#userPasswordCreate2").val()){
+
+                    var createUser = {
+                        username: $("#userNameCreate").val().toLowerCase(),
+                        password: $("#userPasswordCreate").val(),
+                        secQuestion1: $("#secQuestionOne").val(),
+                        secQuestionAnswer1: $("#secQuestionOneAnswer").val().toLowerCase(),
+                        secQuestion2: $("#secQuestionTwo").val(),
+                        secQuestionAnswer2: $("#secQuestionTwoAnswer").val().toLowerCase(),
+                        secQuestion3: $("#secQuestionThree").val(),
+                        secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
+                        loggedIn: true
+                    }
+                    }else
+                        alert("Passwords do not match")
+
+                $("#userNameCreate").val(""),
+                $("#userPasswordCreate").val(""),
+                $("#userPasswordCreate2").val(""),
+                $("#secQuestionOne").val(""),
+                $("#secQuestionOneAnswer").val(""),
+                $("#secQuestionTwo").val(""),
+                $("#secQuestionTwoAnswer").val(""),
+                $("#secQuestionThree").val(""),
+                $("#secQuestionThreeAnswer").val(""),
+
+            console.log(createUser)
+            //query taskrs for username and password and check if they match
+            $.ajax("/api/taskrs", {
+                type: "POST",
+                data: createUser
+            }).then(
+                function () {
+                    console.log("user created");
+                    alert("User Created")
+                    // Reload the page to get the updated list
+                    location.href = "/";
+                }
+            );
+        }
+        //end of if statement
+        else{
+            alert("Fill out all the boxes.")
+        }  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        var newTask = {
+            title: $("#taskName1").val(),
+            body: $("#taskBody1").val(),
+            price: $("#taskPrice1").val(),
+            dayofWeek: $("#taskDayOfWeek1").val(),
+            category: $("#taskCategories1").val(),
+            id: $("#taskid1").val()
+        }
+        $.ajax("/api/tasks/", {
+            type: "PUT",
+            data: newTask
+        }).then(function (dbTaskr) {
+            location.href = "/home";
+
+        })
+
+    })    
+
+
+    })
+
+
+            // Get the modal
+        var modal = document.getElementById('accountUpdateModal');
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        $("#updateCancel").onclick = function() {
+          modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+         
+// End of Update Acct ========================================================================================================
 
 });

@@ -32,6 +32,22 @@ router.get("/api/taskrs/:username", function(req, res) {
 });
 
 
+router.get("/api/taskrs1/:id", function(req, res) {
+  // Find one Taskr with the id in req.params.id and return them to the user with res.json
+  console.log("*************API ROUTES*************");
+  console.log(req.params);
+  console.log(req.body);
+  console.log("**************************");
+  db.Taskr.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then(function(dbTaskr) {
+    res.json(dbTaskr);
+  });
+});
+
+
 
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&   
@@ -120,19 +136,3 @@ router.put("/api/login", function(req, res) {
       res.json(dbTask);
     });
 });
-
-
-
-	// router.get("/api/tasks/:id", function(req, res) {
-  //   console.log("1111111" + req);
-  //   console.log("2222222" + res);
-
-  //   db.Task.findAll({
-  //     where: {
-  //       TaskrId: req.params.id
-  //     }
-  //   }).then(function(dbTask) {
-  //     res.json(dbTask);
-  //     console.log("For Test" + dbTask);
-  //   });
-  // });
