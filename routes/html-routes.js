@@ -29,6 +29,12 @@ module.exports = router;
     res.render("../views/createPost.jade");
   });
 
+  //route for file upload
+  router.get("/taskrPic", function(req, res) {
+    res.render("../views/imgUpload.jade");
+  });
+
+
   // route for users homepage
   router.get("/home", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/usersHomePage.html"));

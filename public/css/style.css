@@ -357,11 +357,19 @@ footer {
   button.link {
       background: none;
       border: none;
-      color: blue
+      color: blue;
+      text-align: left;
   }
 
-    button.link:hover {
-      color: red
+button.link:hover {
+    color: red
 
-    }
+}
+
+.imgTable{
+    max-height: 110px;
+    max-width:  120px;
+    height: 100%;
+    width: 100%;
+}
 

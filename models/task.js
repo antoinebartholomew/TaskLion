@@ -25,8 +25,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [1, 250]
+        len: [1, 1500]
       }
+    },
+    bodyShorten: {
+      type: DataTypes.TEXT,
+      validate: {
+        len: [1, 150]
+      }
+    },
+    bodyShortenTrue: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     dayofWeek: {
       type: DataTypes.STRING,
@@ -34,6 +44,9 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         len: [1]
       }
+    },
+    taskPhoto: {
+      type: DataTypes.STRING,
     },
     taskrName: {
       type: DataTypes.STRING

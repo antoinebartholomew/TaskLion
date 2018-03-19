@@ -13,6 +13,8 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P"
         crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <script src="js/home.js"></script>
@@ -69,8 +71,9 @@
             <table id="taskrPostedRowView" class="table rowBackground">
                 <thead>
                     <tr class="text-left">
+                        <th scope=""></th>
                         <th scope="col">Task</th>
-                        <th style="width: 30%">Description</th>
+                        <th style="width: 29%">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
@@ -85,8 +88,9 @@
             <table id="taskrPendingRowView" class="table rowBackground">
                 <thead>
                     <tr class="text-left">
+                        <th scope=""></th>
                         <th scope="col">Task</th>
-                        <th style="width: 30%">Description</th>
+                        <th style="width: 29%">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
@@ -102,8 +106,9 @@
             <table id="taskrCompletedRowView" class="table rowBackground">
                 <thead>
                     <tr class="text-left">
+                        <th scope=""></th>
                         <th scope="col">Task</th>
-                        <th style="width: 30%">Description</th>
+                        <th style="width: 29%">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
@@ -119,8 +124,9 @@
            <table id="taskrPurchasedRowView" class="table rowBackground">
                 <thead>
                     <tr class="text-left">
+                        <th scope=""></th>
                         <th scope="col">Task</th>
-                        <th style="width: 30%">Description</th>
+                        <th style="width: 29%">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
@@ -135,8 +141,9 @@
             <table id="taskrPurchasedHistoryRowView" class="table rowBackground">
                 <thead>
                     <tr class="text-left">
+                        <th scope=""></th>
                         <th scope="col">Task</th>
-                        <th style="width: 30%">Description</th>
+                        <th style="width: 29%">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
@@ -152,8 +159,9 @@
                 <table id="allTasksRowView" class="table rowBackground">
                     <thead>
                         <tr id="allTasksTableHeadings" class="text-left">
+                        <th scope=""></th>
                             <th scope="col">Task</th>
-                            <th style="width: 30%">Description</th>
+                            <th style="width: 29%">Description</th>
                             <th scope="col">Price</th>
                             <th scope="col">Day of Week</th>
                             <th scope="col">Category</th>
@@ -233,9 +241,9 @@
             let price = tasksArray[i].price;
             let dow = tasksArray[i].dayofWeek;
             let cat = tasksArray[i].category;
-            // let glypicon1 = (<span onclick="editTask()"><i class="fas fa-edit glypiconSpace"></i></span>)
+            let pic = tasksArray[i].taskPhoto;
             var newrow = $("<tr>");
-            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -299,7 +307,9 @@
             let price = tasksArray[i].price;
             let dow = tasksArray[i].dayofWeek;
             let cat = tasksArray[i].category;
+            let pic = tasksArray[i].taskPhoto;
             var newrow = $("<tr>");
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -335,8 +345,9 @@
             let taskeeName = in_progressArray[i].taskeeName;
             let taskeeid = in_progressArray[i].taskeeId;
             let taskeeNameURL = "<button onclick=userProfile(" + taskeeid + ") class=link>" + taskeeName + "</button>";
+            let pic = in_progressArray[i].taskPhoto;
             var newrow = $("<tr>");
-            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -380,8 +391,9 @@
             let taskeeName = completedArray[i].taskeeName;
             let taskeeid = completedArray[i].taskeeId;
             let taskeeNameURL = "<button onclick=userProfile(" + taskeeid + ") class=link>" + taskeeName + "</button>";
+            let pic = completedArray[i].taskPhoto;
             var newrow = $("<tr>");
-            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -419,8 +431,9 @@
             let taskrid = purchasedArray[i].TaskrId;       
             let taskrName = purchasedArray[i].taskrName;
             let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
+            let pic = purchasedArray[i].taskPhoto;
             var newrow = $("<tr>");
-            // newrow.attr("data-key2", taskid)
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>")); 
@@ -468,7 +481,9 @@
                 let taskrid = purchasedHistoryArray[i].TaskrId;
                 let taskrName = purchasedHistoryArray[i].taskrName;
                 let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
+                let pic = purchasedHistoryArray[i].taskPhoto;
                 var newrow = $("<tr>");
+                newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));       
                 newrow.append($("<td class='text-left'>" + title + "</td>"));
                 newrow.append($("<td class='text-left'>" + body + "</td>"));
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -492,6 +507,7 @@
     let dow = $("#taskDayOfWeek1");
     let cat = $("#taskCategories1");
     let taskid = $("#taskid1");
+    let taskPic = $("#taskPic1")
 
     function editTask(taskid) {
         $("#modalBody").empty();
@@ -513,6 +529,10 @@
                             <label for="Title">Task Name</label>
                             <input class="form-control" id="taskName1" type="text" placeholder=""/><small class="form-text text-muted">Enter the name of your task</small>
                             </div>
+                            <div class="form-group">
+                            <label for="Task Pick">Task Picture</label>
+                            <input class="form-control" id="taskPic1" type="text" maxlength = '300' placeholder=""/><small class="form-text text-muted">Enter picture for Task</small>
+                            </div>  
                             <div class="form-group">
                             <label for="Price">Price</label>
                             <input class="form-control" id="taskPrice1" type="number" placeholder=""/>
@@ -559,6 +579,7 @@
             dow = $("#taskDayOfWeek1");
             cat = $("#taskCategories1");
             taskid = $("#taskid1");
+            taskPic = $("#taskPic1");
 
             title.val(dbTaskr.title);
             body.val(dbTaskr.body);
@@ -566,6 +587,7 @@
             dow.val(dbTaskr.dayofWeek);
             cat.val(dbTaskr.category);
             taskid.val(dbTaskr.id);
+            taskPic.val(dbTaskr.taskPhoto)
             console.log(taskid.val())
         });
     }
@@ -574,6 +596,7 @@
         event.preventDefault();
         var newTask = {
             title: $("#taskName1").val(),
+            taskPhoto: $("#taskPic1").val(),
             body: $("#taskBody1").val(),
             price: $("#taskPrice1").val(),
             dayofWeek: $("#taskDayOfWeek1").val(),
@@ -629,6 +652,9 @@
 
     span.onclick = function () {
         modal.style.display = "none";
+        location.href = "/home";
+
+
     }
 
     window.onclick = function (event) {
@@ -668,7 +694,9 @@
                     let taskrid = tasksArray[i].TaskrId;
                     let taskrName = tasksArray[i].taskrName;
                     let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
+                    let pic = tasksArray[i].taskPhoto;
                     var newrow = $("<tr>");
+                    newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
                     newrow.append($("<td class='text-left'>" + title + "</td>"));
                     newrow.append($("<td class='text-left'>" + body + "</td>"));
                     newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -677,10 +705,10 @@
                     newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
 
                     if (taskrid == sessionStorage.getItem("id")) {
-                        newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+                        // newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
 
                     } else{
-                        newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square glypiconSpace' data-key='" + taskid + "'></i> Book</td>"))
+                        newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square' data-key='" + taskid + "'></i> Book</td>"))
                     }
                     $("#allTasksTable").append(newrow);
                 }
@@ -735,11 +763,12 @@
                 let price = tasksArray[i].price;
                 let dow = tasksArray[i].dayofWeek;
                 let cat = tasksArray[i].category;
-                let taskid = tasksArray[i].id;
                 let taskrid = tasksArray[i].TaskrId;
                 let taskrName = tasksArray[i].taskrName;
                 let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" +taskrName+"</button>";
-                var newrow = $("<tr>");
+                let pic = tasksArray[i].taskPhoto;
+                var newrow = $("<tr class='text-left'>");
+                newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));        
                 newrow.append($("<td class='text-left'>" + title + "</td>"));
                 newrow.append($("<td class='text-left'>" + body + "</td>"));
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -748,7 +777,7 @@
                 newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
 
                 if (taskrid == sessionStorage.getItem("id")) {
-                    newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+                    // newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
 
                 } else {
                     newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square glypiconSpace' data-key='" + taskid + "'></i> Book</td>"))
@@ -886,6 +915,14 @@
 //New Function=======================================================================================================================================================================================================================================================================================
 
         function userProfile(taskrid) {
+            let taskrTasksArray = [];
+            let taskCompArray = [];
+            let taskCompNum;
+            let taskrName;
+            let taskrPhoto;
+            let taskrComments;
+
+
             console.log("user")
             var id = taskrid;
             console.log(id);
@@ -894,18 +931,107 @@
                 type: "GET",
                 id: id
             }).then(function (dbTaskr) {
-                console.log("Tasks associated with Taskr",dbTaskr);
+                // console.log("Tasks associated with Taskr",dbTaskr);
+                for (let i = 0; i < dbTaskr.length; i++) {
+                    taskrTasksArray.push(dbTaskr[i])                    
+                }
 
                 $.ajax("/api/taskrs1/" + taskrid, {
                     type: "GET",
                      id: id
                 }).then(function (dbTaskr1) {
-                    console.log("Taskr Themselves", dbTaskr1);
+                    console.log("YOOOO",dbTaskr1);
+                    taskrName = dbTaskr1.username
+                    taskrPhoto = dbTaskr1.taskrPhoto
+
+                    for (let i = 0; i < dbTaskr.length; i++) {
+                        if (dbTaskr[i].requesterMarkComplete && dbTaskr[i].taskPaid == true) {
+                            taskCompArray.push(dbTaskr[i])                        
+                        }
+                        // if (dbTaskr[i].taskComment !== null && dbTaskr[i].taskCommentTrue == true) {
+
+                        //     taskrComments +="<div class=col-md-4><h6>${" + dbTaskr[i].taskeeName + "}</h6></div><div class=col-md-8><p>${" + dbTaskr[i].comment + "}</p></div>"
+                            
+                        // }
+                        taskCompNum = taskCompArray.length                       
+                    }
+
+
+                    
+                    // console.log("Taskr Themselves", dbTaskr1);
+                    console.log(taskrTasksArray);
+                    console.log(taskrName);
+                    console.log("# of Task Completed", taskCompNum)
+                    
+                    
                     modal.style.display = "block";
+                    $("#modalBody").empty();
                     $("#modalBody").append(`
-                    <div class="container">
-                        <h3 class="text-center">TASKr User: ${taskid}</h3>
-                    </div>
+                        <div class="container">
+                            <h3 class="text-center">TASKr User: ${taskrName}</h3>
+                            <div class="row">
+                                <div class="col-md-5">
+                                     <img src="${taskrPhoto}" alt="" class="img-fluid">                                    
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="row text-left">
+                                        <div class="col-md-4">
+                                            <h6>Taskr:</h6>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>${taskrName}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6>Tasks Completed:</h6>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p>${taskCompNum}</p>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <h6>Taskee Comments</h6>
+                                        </div>
+
+
+
+                                        <div class="col-md-4">
+                                            <h6>Taskr</h6>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6>Taskr</h6>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6>Taskr</h6>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6>Taskr</h6>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6>Taskr</h6>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <a class="btn btn-primary" href="/home">Close</a>
+                                </div>
+                            </div>
+                        </div>
                     `)
                 
                 })
@@ -929,6 +1055,7 @@
                 let price = task.price;
                 let dow = task.dayofWeek;
                 let cat = task.category;
+                let pic = task.taskPhoto;
                 let taskrid = task.id;
                 let taskrName = task.taskrName
                 let dbTaskrName = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
@@ -941,45 +1068,46 @@
                     <div class="row text-left">
                         <div class="col-md 7">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <h6>Task Name:</h6>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-10">
                                     <p>${title}</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <h6>Task Description:</h6>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-10">
                                     <p>${body}</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <h6>Taskr:</h6>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-10">
                                     <p>${dbTaskrName}</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <h6>Price:</h6>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-10">
                                     <p>${price}</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <h6>Date of the Week:</h6>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-10">
                                     <p>${dow}</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <h6>Category:</h6>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-10">
                                     <p>${cat}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md 5">
+                            <img src="${pic}" alt="" class="img-fluid">
                         </div>
                     </div>
                     <div class="row">
@@ -1062,3 +1190,7 @@
 </script>
 
 </html>
+
+
+
+

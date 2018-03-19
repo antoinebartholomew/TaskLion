@@ -38,12 +38,16 @@ block content1
                             div#usernameAccountSettings
                             .form-group
                             label(for='password') Password
-                            input#userPasswordUp1.form-control.text-center(type='name', placeholder='Password')
+                            input#userPasswordUp1.form-control.text-center(type='name', placeholder='')
                             small.form-text.text-muted Must be atleast 3 characters min
                             .form-group
                             label(for='password') Confirm Password
-                            input#userPasswordUp2.form-control.text-center(type='name', placeholder='Confirm Password')
-                            small.form-text.text-muted Must be atleast 3 characters min              
+                            input#userPasswordUp2.form-control.text-center(type='name', placeholder='')
+                            small.form-text.text-muted Must be atleast 3 characters min  
+                            .form-group
+                            label(for='Img') User Image
+                            input#userPic.form-control(type='text', placeholder='', maxlength='300')
+                            small.form-text.text-muted Enter a Line to Your Profile Photo            
                             .form-group.text-center
                             label(for='secQuestionOne') Security Question 1
                             select#secQuestionOneUp.form-control.text-center

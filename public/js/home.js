@@ -103,6 +103,7 @@ $(document).ready(function () {
                         secQuestionAnswer2: $("#secQuestionTwoAnswer").val().toLowerCase(),
                         secQuestion3: $("#secQuestionThree").val(),
                         secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
+                        taskrPhoto: $("#userPic").val(),
                         loggedIn: true
                     }
                     }else
@@ -117,6 +118,7 @@ $(document).ready(function () {
                 $("#secQuestionTwoAnswer").val(""),
                 $("#secQuestionThree").val(""),
                 $("#secQuestionThreeAnswer").val(""),
+                $("#userPic").val(""),
 
             console.log(createUser)
             //query taskrs for username and password and check if they match
@@ -144,17 +146,38 @@ $(document).ready(function () {
 // Start of create Task ========================================================================================================
     $("#taskSubmit").on("click", function(event) {
       event.preventDefault();
+
+      var tempPhoto = $("#taskPic");
+      var tempPhotoLink = "http://live105.ca/wp-content/uploads/2017/12/stewie_at_work.jpg";
+
+
+    if ($("#taskPic").val() === null){
+            tempPhoto.val(tempPhotoLink)
+        } else if ($("#taskPic").val() !== null) {
+            tempPhoto.val($("#taskPic").val())
+        }
+
       if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
-        var taskCreate = {
-            title: $("#taskName").val(),
-            price: $("#taskPrice").val(),
-            category: $("#taskCategories").val(),
-            body: $("#taskBody").val(),
-            dayofWeek: $("#taskDayOfWeek").val(),
-            TaskrId: sessionStorage.getItem("id"),
-            taskrName: sessionStorage.getItem("username"),
-        };
+          
+
+            // if ($("#taskPic").val() = "") {
+            //     $("#taskPic").val("http://live105.ca/wp-content/uploads/2017/12/stewie_at_work.jpg");
+        
+        
+                var taskCreate = {
+                    title: $("#taskName").val(),
+                    taskPhoto: tempPhoto,
+                    price: $("#taskPrice").val(),
+                    category: $("#taskCategories").val(),
+                    body: $("#taskBody").val(),
+                    dayofWeek: $("#taskDayOfWeek").val(),
+                    TaskrId: sessionStorage.getItem("id"),
+                    taskrName: sessionStorage.getItem("username"),
+                };
+
+            // }
             $("#taskName").val(""),
+            $("#taskPic").val(""),
             $("#taskPrice").val(""),
             $("#taskCategories").val(""),
             $("#taskBody").val(""),
@@ -235,6 +258,7 @@ $(document).ready(function () {
               let secQuestionAnswer2 = $("#secQuestionTwoAnswerUp");
               let secQuestion3 = $("#secQuestionThreeUp");
               let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
+              let userPic = $("#userPic");
               let id = $("#accountID");
             
               password.val(dbTaskr.password);
@@ -245,6 +269,7 @@ $(document).ready(function () {
               secQuestionAnswer2.val(dbTaskr.secQuestionAnswer2);
               secQuestion3.val(dbTaskr.secQuestion3);
               secQuestionAnswer3.val(dbTaskr.secQuestionAnswer3);
+              userPic.val(dbTaskr.taskrPhoto)
               id.val(dbTaskr.id);
               username.val(dbTaskr.username);     
             }); 
@@ -269,6 +294,7 @@ $(document).ready(function () {
                         secQuestionAnswer2: $("#secQuestionTwoAnswerUp").val().toLowerCase(),
                         secQuestion3: $("#secQuestionThreeUp").val(),
                         secQuestionAnswer3: $("#secQuestionThreeAnswerUp").val().toLowerCase(),
+                        taskrPhoto: $("#userPic").val(),
                         id: $("#accountID").val(),
                         loggedIn: true
                     }
