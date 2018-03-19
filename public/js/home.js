@@ -306,7 +306,6 @@ $(document).ready(function () {
 
             // Get the modal
         var modal = document.getElementById('accountUpdateModal');
-
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
         // When the user clicks on <span> (x), close the modal
@@ -338,3 +337,17 @@ $(document).ready(function () {
 // End of Update Acct ========================================================================================================
 
 });
+
+
+
+
+
+
+                    // $("#modalBody").empty();
+                    // modal.style.display = "block";
+                    // $("#modalBody").append(`
+                    //     <h4 class="text-center">Task Unbooked! Thanks</h4>
+                    //  `)
+                    // setTimeout(() => {
+                    //     location.href = "/home";
+                    // }, 3000); 

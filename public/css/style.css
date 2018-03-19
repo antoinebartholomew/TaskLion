@@ -353,3 +353,15 @@ footer {
         opacity: 0;
     }
 }
+
+  button.link {
+      background: none;
+      border: none;
+      color: blue
+  }
+
+    button.link:hover {
+      color: red
+
+    }
+
