@@ -1,5 +1,8 @@
 // *** Dependencies =============================================================
 var express = require("express");
+var multer = require("multer");
+var ejs = require("ejs");
+var path = require("path");
 var bodyParser = require("body-parser");
 
 var app = express();
@@ -12,9 +15,15 @@ app.use(bodyParser.json());
 
 app.set("views", "views");
 app.set("view engine", "jade");
+// app.set("view engine","ejs")
+
 
 app.use(express.static("public"));
 app.use(express.static("nodules/bootstrap/dist"));
+
+//for pictures upload
+// var pics = require("./fileUpload/fileUpload.js");
+// app.use(pics)
 
 // Routes ====================================================================================================
 

@@ -48,139 +48,6 @@ $(document).ready(function () {
                         ).then(function(dbTaskr) {
                         });
 
-
-
-
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-
-//  $.ajax("/api/tasks/" + sessionStorage.getItem("id"), {
-//    type: "GET",
-//    id: sessionStorage.getItem("id")
-//  }).then(function(dbTaskr) {
-//    console.log(dbTaskr);
-//    var tasksArray = [];
-//    var in_progressArray = [];
-//    var completedArray = [];
-//    for (let i = 0; i < dbTaskr.length; i++) {
-//      if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
-//        tasksArray.push(dbTaskr[i]);
-//      } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
-//        in_progressArray.push(dbTaskr[i]);
-//      } else if (dbTaskr[i].taskrAccept == true && dbTaskr[i].requesterAccept == true && dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true) {
-//        completedArray.push(dbTaskr[i]);
-//      }
-//    }
-//    for (let i = 0; i < tasksArray[i].length; i++) {
-//      let title = tasksArray[i].title;
-//      let body = tasksArray[i].body;
-//      let price = tasksArray[i].price;
-//      let dow = tasksArray[i].dayofWeek;
-//      let cat = tasksArray[i].category;
-//      $("#userPostedTask").append(`
-//             <div class="row">
-//                 <div class="col-md-2">
-//                     <h6>Task:</h6>
-//                         <p>${title}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Description:</h6>
-//                         <p>${body}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>$$ Price:</h6>
-//                         <p>${price}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Day of Week:</h6>
-//                         <p>${dow}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Category:</h6>
-//                         <p>${cat}</p>
-//                 </div>
-//             </div>
-//         `);
-//    }
-//    for (let i = 0; i < in_progressArray.length; i++) {
-//      let title = in_progressArray[i].title;
-//      let body = in_progressArray[i].body;
-//      let price = in_progressArray[i].price;
-//      let dow = in_progressArray[i].dayofWeek;
-//      let cat = in_progressArray[i].category;
-//      $("#userPendingTask").append(`
-//             <div class="row">
-//                 <div class="col-md-2">
-//                     <h6>Task:</h6>
-//                         <p>${title}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Description:</h6>
-//                         <p>${body}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>$$ Price:</h6>
-//                         <p>${price}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Day of Week:</h6>
-//                         <p>${dow}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Category:</h6>
-//                         <p>${cat}</p>
-//                 </div>
-//             </div>
-//             `);
-//    }
-//    for (let i = 0; i < completedArray.length; i++) {
-//      let title = completedArray[i].title;
-//      let body = completedArray[i].body;
-//      let price = completedArray[i].price;
-//      let dow = completedArray[i].dayofWeek;
-//      let cat = completedArray[i].category;
-//      $("#userCompletedTask").append(`
-//             <div class="row">
-//                 <div class="col-md-2">
-//                     <h6>Task:</h6>
-//                         <p>${title}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Description:</h6>
-//                         <p>${body}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>$$ Price:</h6>
-//                         <p>${price}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Day of Week:</h6>
-//                         <p>${dow}</p>
-//                     </div>
-//                     <div class="col-md-2">
-//                         <h6>Category:</h6>
-//                         <p>${cat}</p>
-//                 </div>
-//             </div>
-//             `);
-//    }
-//    console.log(tasksArray);
-//    console.log(in_progressArray);
-//    console.log(completedArray);
-//  });
-                
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&   
-
-
-
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-
-
-
-
                     }else
                     alert("Username or Password is incorrect")
                     // Reload the page to get the updated list
@@ -236,6 +103,7 @@ $(document).ready(function () {
                         secQuestionAnswer2: $("#secQuestionTwoAnswer").val().toLowerCase(),
                         secQuestion3: $("#secQuestionThree").val(),
                         secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
+                        taskrPhoto: $("#userPic").val(),
                         loggedIn: true
                     }
                     }else
@@ -250,6 +118,7 @@ $(document).ready(function () {
                 $("#secQuestionTwoAnswer").val(""),
                 $("#secQuestionThree").val(""),
                 $("#secQuestionThreeAnswer").val(""),
+                $("#userPic").val(""),
 
             console.log(createUser)
             //query taskrs for username and password and check if they match
@@ -261,7 +130,7 @@ $(document).ready(function () {
                     console.log("user created");
                     alert("User Created")
                     // Reload the page to get the updated list
-                    // location.href = "/home/:id";
+                    location.href = "/";
                 }
             );
         }
@@ -277,16 +146,38 @@ $(document).ready(function () {
 // Start of create Task ========================================================================================================
     $("#taskSubmit").on("click", function(event) {
       event.preventDefault();
+
+      var tempPhoto = $("#taskPic");
+      var tempPhotoLink = "http://live105.ca/wp-content/uploads/2017/12/stewie_at_work.jpg";
+
+
+    if ($("#taskPic").val() === null){
+            tempPhoto.val(tempPhotoLink)
+        } else if ($("#taskPic").val() !== null) {
+            tempPhoto.val($("#taskPic").val())
+        }
+
       if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
-        var taskCreate = {
-            title: $("#taskName").val(),
-            price: $("#taskPrice").val(),
-            category: $("#taskCategories").val(),
-            body: $("#taskBody").val(),
-            dayofWeek: $("#taskDayOfWeek").val(),
-            TaskrId: sessionStorage.getItem("id"),
-        };
+          
+
+            // if ($("#taskPic").val() = "") {
+            //     $("#taskPic").val("http://live105.ca/wp-content/uploads/2017/12/stewie_at_work.jpg");
+        
+        
+                var taskCreate = {
+                    title: $("#taskName").val(),
+                    taskPhoto: tempPhoto,
+                    price: $("#taskPrice").val(),
+                    category: $("#taskCategories").val(),
+                    body: $("#taskBody").val(),
+                    dayofWeek: $("#taskDayOfWeek").val(),
+                    TaskrId: sessionStorage.getItem("id"),
+                    taskrName: sessionStorage.getItem("username"),
+                };
+
+            // }
             $("#taskName").val(""),
+            $("#taskPic").val(""),
             $("#taskPrice").val(""),
             $("#taskCategories").val(""),
             $("#taskBody").val(""),
@@ -300,7 +191,7 @@ $(document).ready(function () {
             }).then(function(dbTaskr) {
             console.log(dbTaskr);
           // Reload the page to get the updated list
-            location.href = "/home";
+            // location.href = "/home";
         });
       } else {
         //end of if statement
@@ -309,4 +200,180 @@ $(document).ready(function () {
     });
 // End of create Post ========================================================================================================
 
+
+// Delete Acct ========================================================================================================
+    $("#deleteSubmit").on("click", function(event) {
+      event.preventDefault();
+      modal.style.display = "block";
+    });
+
+    $("#deleteConfirm").on("click", function(event) {
+      event.preventDefault();
+      var id = sessionStorage.getItem("id");
+      console.log(id);
+        $.ajax("/api/taskrs/" + id, {
+          type: "DELETE",
+        }).then(function(dbTaskr) {
+          location.href = "/";
+        });
+    });
+
+
+        // Get the modal
+        var modal = document.getElementById('deleteModal');
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        $("#deleteCancel").onclick = function() {
+          modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+                
+// End of Delete ========================================================================================================
+
+// Update Acct ========================================================================================================
+    $("#editAccountSubmit").on("click", function(event) {
+      event.preventDefault();
+      modal.style.display = "block";
+      var id = sessionStorage.getItem("id");
+      console.log(id);
+      
+            $.ajax("/api/taskrs1/" + id, {
+              type: "GET",
+              data: id
+            }).then(function(dbTaskr) {
+              console.log("LINE 25", dbTaskr);
+
+              let username = $("#usernameAccountSettings");
+              let password = $("#userPasswordUp1");
+              let password2 = $("#userPasswordUp2");
+              let secQuestion1 = $("#secQuestionOneUp");
+              let secQuestionAnswer1 = $("#secQuestionOneAnswerUp");
+              let secQuestion2 = $("#secQuestionTwoUp");
+              let secQuestionAnswer2 = $("#secQuestionTwoAnswerUp");
+              let secQuestion3 = $("#secQuestionThreeUp");
+              let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
+              let userPic = $("#userPic");
+              let id = $("#accountID");
+            
+              password.val(dbTaskr.password);
+              password2.val(dbTaskr.password);
+              secQuestion1.val(dbTaskr.secQuestion1);
+              secQuestionAnswer1.val(dbTaskr.secQuestionAnswer1);
+              secQuestion2.val(dbTaskr.secQuestion2);
+              secQuestionAnswer2.val(dbTaskr.secQuestionAnswer2);
+              secQuestion3.val(dbTaskr.secQuestion3);
+              secQuestionAnswer3.val(dbTaskr.secQuestionAnswer3);
+              userPic.val(dbTaskr.taskrPhoto)
+              id.val(dbTaskr.id);
+              username.val(dbTaskr.username);     
+            }); 
+      })
+
+
+
+
+    $("#accountUpdateSubmit").on("click", function (event) {
+        event.preventDefault();
+        if ($("#userPasswordUp1").val() && $("#userPasswordUp2").val()
+            && $("#secQuestionOneAnswerUp").val() && $("#secQuestionTwoAnswerUp").val() && $("#secQuestionThreeAnswerUp").val() ) {
+
+                if($("#userPasswordUp1").val() === $("#userPasswordUp2").val()){
+
+                    var updateUser = {
+                        username: $("#usernameAccountSettings").val(),
+                        password: $("#userPasswordUp1").val(),
+                        secQuestion1: $("#secQuestionOneUp").val(),
+                        secQuestionAnswer1: $("#secQuestionOneAnswerUp").val().toLowerCase(),
+                        secQuestion2: $("#secQuestionTwoUp").val(),
+                        secQuestionAnswer2: $("#secQuestionTwoAnswerUp").val().toLowerCase(),
+                        secQuestion3: $("#secQuestionThreeUp").val(),
+                        secQuestionAnswer3: $("#secQuestionThreeAnswerUp").val().toLowerCase(),
+                        taskrPhoto: $("#userPic").val(),
+                        id: $("#accountID").val(),
+                        loggedIn: true
+                    }
+                    }else
+                        alert("Passwords do not match")
+
+            console.log(updateUser)
+            //query taskrs for username and password and check if they match
+            $.ajax("/api/updateAcct", {
+                type: "PUT",
+                data: updateUser
+            }).then(
+                function () {
+                    console.log("user updated");
+                    // modal.style.display = "none";
+                    // // confirmModal.style.display = "block";
+                    // $("#bbb").append(`
+                    //     <div class="modal-content">
+                    //         <span class="close">&times;</span>
+                    //         <p>Account Updated.</p>
+                    //     </div>
+                    // `);
+
+                    // Reload the page to get the updated list
+                    location.href = "/home";
+                }
+            );
+        }
+        //end of if statement
+        else{
+            alert("Fill out all the boxes.")
+        } 
+    })    
+
+
+            // Get the modal
+        var modal = document.getElementById('accountUpdateModal');
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        $("#updateCancel").onclick = function() {
+          modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // var confirmModal = document.getElementById("updateSuccess");
+        // // Get the <span> element that closes the modal
+        // var span = document.getElementsByClassName("close")[0];
+        // // When the user clicks on <span> (x), close the modal
+        // $("#updateCancel").onclick = function() {
+        //   confirmModal.style.display = "none";
+        // };
+        // // When the user clicks anywhere outside of the modal, close it
+        // window.onclick = function(event) {
+        //     if (event.target == modal) {
+        //         confirmModal.style.display = "none";
+        //     }
+        // }
+
+        
+// End of Update Acct ========================================================================================================
+
 });
+
+
+
+
+
+
+                    // $("#modalBody").empty();
+                    // modal.style.display = "block";
+                    // $("#modalBody").append(`
+                    //     <h4 class="text-center">Task Unbooked! Thanks</h4>
+                    //  `)
+                    // setTimeout(() => {
+                    //     location.href = "/home";
+                    // }, 3000); 
