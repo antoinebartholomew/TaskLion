@@ -15,8 +15,8 @@ block content1
             //-   input#taskrId.form-control(type='name', placeholder='Foreign KEY Taskr ID')
             .form-group
               label(for='Title') Task Name
-              input#taskName.form-control(type='text', placeholder='Task Title')
-              small.form-text.text-muted Enter the name of your task
+              input#taskName.form-control(type='text', placeholder='Task Title', maxlength='60')
+              small.form-text.text-muted Enter the name of your task. 60 Character Max.
             .form-group
               label(for='Price') Price
               input#taskPrice.form-control(type='number', placeholder='$0.00 Price')

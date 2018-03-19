@@ -152,6 +152,7 @@ $(document).ready(function () {
             body: $("#taskBody").val(),
             dayofWeek: $("#taskDayOfWeek").val(),
             TaskrId: sessionStorage.getItem("id"),
+            taskrName: sessionStorage.getItem("username"),
         };
             $("#taskName").val(""),
             $("#taskPrice").val(""),
@@ -167,7 +168,7 @@ $(document).ready(function () {
             }).then(function(dbTaskr) {
             console.log(dbTaskr);
           // Reload the page to get the updated list
-            location.href = "/home";
+            // location.href = "/home";
         });
       } else {
         //end of if statement

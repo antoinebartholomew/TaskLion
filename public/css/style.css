@@ -342,3 +342,14 @@ footer {
     cursor: pointer;
 }
 
+.blink {
+    animation: blinker 3s linear infinite;
+    /* color: red; */
+    background-color: rgb(214, 22, 38);
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}

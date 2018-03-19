@@ -43,12 +43,12 @@
 
     <div class="container rowBackground ">
         <div id="taskrHomeView" class="row marginTop">
-            <button id="userPostedTask" class="btn btn-primary" type="submit">My Posted</button>
-            <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">My Pending</button>
+            <button id="userPostedTask" class="btn btn-primary" type="submit">My Tasks Aval</button>
+            <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">In Progress</button>
             <button id="userCompletedTask" class="btn btn-primary padLeft" type="submit">My Completed</button>
-            <button id="userPurchasedTask" class="btn btn-primary padLeft" type="submit">My Purchased</button>
-            <button id="purchasedHistory" class="btn btn-primary padLeft" type="submit"> My Purchased History</button>
-            <button id="viewAllTasks" class="btn btn-primary padLeft" type="submit">View All Tasks</button>
+            <button id="userPurchasedTask" class="btn btn-primary padLeft" type="submit">In Progess Purchased Task</button>
+            <button id="purchasedHistory" class="btn btn-primary padLeft" type="submit"> Completed Purchased Task History</button>
+            <button id="viewAllTasks" class="btn btn-primary padLeft" type="submit">All Aval Tasks</button>
         </div>
         <div id="taskeeHomeView" class="row marginTop">
             <button id="taskrTasks" class="btn btn-primary btnHeight2" type="submit">Your Tasks</button>
@@ -90,6 +90,7 @@
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Taskee</th>
                         <th scope="col">Request/Cancel</th>
                     </tr>
                 </thead>
@@ -106,6 +107,7 @@
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Taskee</th>
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
@@ -122,6 +124,7 @@
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Taskr</th>
                         <th scope="col">Cancel/Pay</th>
                     </tr>
                 </thead>
@@ -137,7 +140,8 @@
                         <th scope="col">Price</th>
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Cancel/Pay</th>
+                        <th scope="col">Taskr</th>
+                        <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody id="userPurchasedHistory">
@@ -153,6 +157,7 @@
                             <th scope="col">Price</th>
                             <th scope="col">Day of Week</th>
                             <th scope="col">Category</th>
+                            <th scope="col">Taskr</th>
                             <th scope="col">Book</th>
                         </tr>
                     </thead>
@@ -164,12 +169,19 @@
 
 
     <div id="myModal" class="modal">
-        <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
-            <div id="editOneTask"></div>
+            <div id="modalBody"></div>
         </div>
     </div>
+
+
+    <!-- <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="commentOnTask"></div>
+        </div>
+    </div> -->
 
 
     <!-- Optional JavaScript-->
@@ -196,6 +208,7 @@
     var in_progressArray = [];
     var completedArray = [];
     var purchasedArray = [];
+    var purchasedHistoryArray = [];
 
 //Getting all Posted tasks associated with Taskr =====================================================================================================================================================
 
@@ -203,7 +216,7 @@
         type: "GET",
         id: sessionStorage.getItem("id")
     }).then(function (dbTaskr) {
-        console.log(dbTaskr);
+        console.log("These are all the user posted Tasks",dbTaskr);
         for (let i = 0; i < dbTaskr.length; i++) {
             if (dbTaskr[i].taskrAccept == false && dbTaskr[i].requesterAccept == false && dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false) {
                 tasksArray.push(dbTaskr[i]);
@@ -243,11 +256,24 @@
         taskeeId: sessionStorage.getItem("id")
     }).then(function (dbTaskr) {
         for (let i = 0; i < dbTaskr.length; i++) {
-            purchasedArray.push(dbTaskr[i]);         
+
+            if (dbTaskr[i].requesterMarkComplete == false && dbTaskr[i].taskrMarkComplete == false) {
+                purchasedArray.push(dbTaskr[i]);           
+            } else if (dbTaskr[i].requesterMarkComplete == true && dbTaskr[i].taskrMarkComplete == true) {
+                purchasedHistoryArray.push(dbTaskr[i]);                    
+            } 
+
+            if (dbTaskr[i].taskrMarkComplete == true  && dbTaskr[i].requesterMarkComplete == false  && dbTaskr[i].taskPaid == null) {
+                    $("#userPurchasedTask").addClass("blink")
+          
+            }else if(dbTaskr[i].taskrMarkComplete == true  && dbTaskr[i].requesterMarkComplete == true  && dbTaskr[i].taskPaid == true){
+                     $("#userPurchasedTask").removeClass("blink")
+            }         
         }
-        console.log("Taskee", purchasedArray);
-        
-    
+        console.log("This is the Taskee Purchased array", purchasedArray);
+        console.log("This is the Taskee Purchased History array", purchasedHistoryArray); 
+        console.log("This is the Inprogess  array", in_progressArray);    
+        console.log("This is the Completed array", completedArray);        
     })
 
 //END=======================================================================================================================================================================================================================================================================================
@@ -307,6 +333,8 @@
             let dow = in_progressArray[i].dayofWeek;
             let cat = in_progressArray[i].category;
             let taskid = in_progressArray[i].id;
+            let taskeeName = in_progressArray[i].taskeeName;
+            let taskeeNameURL = "<a href=api/user/"+ taskeeName + ">" + taskeeName +"</a>"
             var newrow = $("<tr>");
             // newrow.attr("data-key2", taskid)
             newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -314,6 +342,7 @@
             newrow.append($("<td class='text-left'>" + price + "</td>"));
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
+            newrow.append($("<td class='text-left'>" + taskeeNameURL + "</td>"));
 
             if (in_progressArray[i].taskrAccept == true && in_progressArray[i].requesterAccept == true && in_progressArray[i].taskrMarkComplete == false && in_progressArray[i].requesterMarkComplete == false) {
                 newrow.append($("<td><span onclick=requestCash(" + taskid + ") i class='fas fa-dollar-sign glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
@@ -348,6 +377,8 @@
             let dow = completedArray[i].dayofWeek;
             let cat = completedArray[i].category;
             let taskid = completedArray[i].id;
+            let taskeeName = completedArray[i].taskeeName;
+            let taskeeNameURL = "<a href=api/user/"+ taskeeName + ">" + taskeeName +"</a>"
             var newrow = $("<tr>");
             // newrow.attr("data-key2", taskid)
             newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -355,6 +386,7 @@
             newrow.append($("<td class='text-left'>" + price + "</td>"));
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
+            newrow.append($("<td class='text-left'>" + taskeeNameURL + "</td>"));            
             newrow.append($("<td><span i class='fas fa-money-bill-alt glypiconSpace'></i></span></td>"))
             $("#userCompletedTasks").append(newrow);
         }
@@ -383,21 +415,28 @@
             let dow = purchasedArray[i].dayofWeek;
             let cat = purchasedArray[i].category;
             let taskid = purchasedArray[i].id;
+            let taskrName = purchasedArray[i].taskrName;
+            let taskrNameURL = "<a href=api/user/"+ taskrName + ">" + taskrName +"</a>"
             var newrow = $("<tr>");
             // newrow.attr("data-key2", taskid)
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
-            newrow.append($("<td class='text-left'>" + price + "</td>"));
+            newrow.append($("<td class='text-left'>" + price + "</td>")); 
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
-          
+            newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
+     
             if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == false && purchasedArray[i].requesterMarkComplete == false) {
                 newrow.append($("<td><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
+                $("#userPurchasedTasks").append(newrow);
             } else if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == false) {
                 newrow.append($("<td><span onclick=markComplete(" + taskid + ") i class='fas fa-check-circle glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
-            }             
-                $("#userPurchasedTasks").append(newrow);    
-            
+                $("#userPurchasedTasks").append(newrow);
+            }         
+            else if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == true) {
+               purchasedHistoryArray.push(purchasedArray[i])
+                i++
+            }            
         }
     })
 
@@ -417,27 +456,28 @@
            $("#allTasksRowView").hide() 
            $("#userPurchasedTasks").empty()
            event.preventDefault();
-            for (let i = 0; i < purchasedArray.length; i++) {
-                let title = purchasedArray[i].title;
-                let body = purchasedArray[i].body;
-                let price = purchasedArray[i].price;
-                let dow = purchasedArray[i].dayofWeek;
-                let cat = purchasedArray[i].category;
-                let taskid = purchasedArray[i].id;
+            for (let i = 0; i < purchasedHistoryArray.length; i++) {
+                let title = purchasedHistoryArray[i].title;
+                let body = purchasedHistoryArray[i].body;
+                let price = purchasedHistoryArray[i].price;
+                let dow = purchasedHistoryArray[i].dayofWeek;
+                let cat = purchasedHistoryArray[i].category;
+                let taskid = purchasedHistoryArray[i].id;
+                let taskrName = purchasedHistoryArray[i].taskrName;
+                let taskrNameURL = "<a href=api/user/" + taskrName + ">" + taskrName + "</a>"
                 var newrow = $("<tr>");
-                // newrow.attr("data-key2", taskid)
                 newrow.append($("<td class='text-left'>" + title + "</td>"));
                 newrow.append($("<td class='text-left'>" + body + "</td>"));
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
                 newrow.append($("<td class='text-left'>" + dow + "</td>"));
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
-            
-                if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == true  && purchasedArray[i].TaskrId !== purchasedArray[i].taskeeId) {
-                    newrow.append($("<td>Paid</td>"))
+                newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
+
+                if (purchasedHistoryArray[i].taskrAccept == true && purchasedHistoryArray[i].requesterAccept == true && purchasedHistoryArray[i].taskrMarkComplete == true && purchasedHistoryArray[i].requesterMarkComplete == true && purchasedHistoryArray[i].taskPaid == true) {
+                    newrow.append($("<td><span onclick=leaveComment(" + taskid + ") i class='fas fa-comment-alt glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
                     $("#userPurchasedHistory").append(newrow);   
                 } 
             }
-
     })
 //END=============================================================================================================================================================================================================================
 
@@ -451,7 +491,7 @@
     let taskid = $("#taskid1");
 
     function editTask(taskid) {
-        $("#editOneTask").empty();
+        $("#modalBody").empty();
         modal.style.display = "block";
         var id = taskid;
         console.log("The id is: " + id)
@@ -460,7 +500,7 @@
             data: id
         }).then(function (dbTaskr) {
             console.log("LINE 25", dbTaskr);
-            $("#editOneTask").append(`
+            $("#modalBody").append(`
                         <h5 class="text-center">EDIT TASK!</h5>
                         <div id="taskid1"></div>
                         <div class="row">
@@ -527,9 +567,8 @@
         });
     }
 
-    $("#editOneTask").on("click", "#updateTask", function (event) {
+    $("#modalBody").on("click", "#updateTask", function (event) {
         event.preventDefault();
-
         var newTask = {
             title: $("#taskName1").val(),
             body: $("#taskBody1").val(),
@@ -542,7 +581,14 @@
             type: "PUT",
             data: newTask
         }).then(function (dbTaskr) {
-            location.href = "/home";
+            $("#modalBody").empty();
+            modal.style.display = "block";
+            $("#modalBody").append(`
+                <h4 class="text-center">Task Updated! Thanks</h4>
+                `)
+            setTimeout(() => {
+                location.href = "/home";
+            }, 4000); 
 
         })
 
@@ -559,8 +605,14 @@
             type: "DELETE",
             data: id
         }).then(function (dbTaskr) {
-            location.href = "/home";
-
+            $("#modalBody").empty();
+            modal.style.display = "block";
+            $("#modalBody").append(`
+                <h4 class="text-center">Task Deleted! Thanks</h4>
+                `)
+            setTimeout(() => {
+                location.href = "/home";
+            }, 4000); 
         })
     }
 
@@ -568,16 +620,14 @@
 //Modal for Edit =====================================================================================================================================================
 
     var modal = document.getElementById('myModal');
+    // var modalComment = document.getElementById('commentModal');
 
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -589,6 +639,7 @@
 //When user clicks on All Tasks=========================================================================================================================================
         $("#viewAllTasks").on("click", function (event) {
             event.preventDefault();
+            // location.reload()
            $("#taskrHomeView").hide()
            $("#taskrPostedRowView").hide() 
            $("#taskrPendingRowView").hide()
@@ -612,12 +663,16 @@
                     let cat = tasksArray[i].category;
                     let taskid = tasksArray[i].id;
                     let taskrid = tasksArray[i].TaskrId;
+                    let taskrName = tasksArray[i].taskrName;
+                    let taskrNameURL = "<a href=api/user/" + taskrName + ">" + taskrName + "</a>"
                     var newrow = $("<tr>");
                     newrow.append($("<td class='text-left'>" + title + "</td>"));
                     newrow.append($("<td class='text-left'>" + body + "</td>"));
                     newrow.append($("<td class='text-left'>" + price + "</td>"));
                     newrow.append($("<td class='text-left'>" + dow + "</td>"));
                     newrow.append($("<td class='text-left'>" + cat + "</td>"));
+                    newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
+
                     if (taskrid == sessionStorage.getItem("id")) {
                         newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
 
@@ -637,6 +692,7 @@
 
         $("#taskrTasks").on("click", function (event) {
             event.preventDefault();
+            location.reload()
             $("#taskrHomeView").show()
             $("#taskrPostedRowView").show()
             $("#taskrPendingRowView").hide()
@@ -677,12 +733,16 @@
                 let cat = tasksArray[i].category;
                 let taskid = tasksArray[i].id;
                 let taskrid = tasksArray[i].TaskrId;
+                let taskrName = tasksArray[i].taskrName;
+                let taskrNameURL = "<a href=api/user/" + taskrName + ">" + taskrName + "</a>"
                 var newrow = $("<tr>");
                 newrow.append($("<td class='text-left'>" + title + "</td>"));
                 newrow.append($("<td class='text-left'>" + body + "</td>"));
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
                 newrow.append($("<td class='text-left'>" + dow + "</td>"));
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
+                newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
+
                 if (taskrid == sessionStorage.getItem("id")) {
                     newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
 
@@ -702,12 +762,12 @@
 //When user clicks on All Tasks or Your Tasks=========================================================================================================================================
             
         function bookTask(taskid) {
-
             console.log("book")
             var taskId = taskid;
             var taskeeUpdate = {
                 id: taskId,
                 taskeeId: sessionStorage.getItem("id"),
+                taskeeName: sessionStorage.getItem("username"),
                 requesterAccept: true,
                 taskrAccept: true,
             }
@@ -717,9 +777,14 @@
                 data: taskeeUpdate
             }).then(
                 function () {
-                    alert("Booked")
-                    // Reload the page to get the updated list
-                    location.href = "/home";
+                    $("#modalBody").empty();
+                    modal.style.display = "block";
+                    $("#modalBody").append(`
+                        <h4 class="text-center">Task Booked! Thanks</h4>
+                     `)
+                    setTimeout(() => {
+                        location.href = "/home";
+                    }, 3000); 
                 }
             );
         }
@@ -740,15 +805,19 @@
                 data: payCash
             }).then(
                 function () {
-                    alert("paid cash")
-                    // Reload the page to get the updated list
-                    location.href = "/home";
+                    $("#modalBody").empty();
+                    modal.style.display = "block";
+                    $("#modalBody").append(`
+                        <h4 class="text-center">Payment Sent! Thanks</h4>
+                     `)
+                    setTimeout(() => {
+                        location.href = "/home";
+                    }, 3000); 
                 }
             );            
         }
 
         function requestCash(taskid) {
-
             console.log("request")
             // MODEL BOX
             var id = taskid;
@@ -764,9 +833,14 @@
                 data: reqCash
             }).then(
                 function () {
-                    alert("request cash")
-                    // Reload the page to get the updated list
-                    location.href = "/home";
+                    $("#modalBody").empty();
+                    modal.style.display = "block";
+                    $("#modalBody").append(`
+                        <h4 class="text-center">Payment Requested! Thanks</h4>
+                     `)
+                    setTimeout(() => {
+                        location.href = "/home";
+                    }, 3000); 
                 }
             );
         }
@@ -774,7 +848,6 @@
 
 
         function cancelTask(taskid) {
-
             console.log("cancel")
             var taskId = taskid;
             var cancel = {
@@ -789,12 +862,91 @@
                 data: cancel
             }).then(
                 function () {
-                    alert("UnBooked")
-                    // Reload the page to get the updated list
-                    location.href = "/home";
+                    $("#modalBody").empty();
+                    modal.style.display = "block";
+                    $("#modalBody").append(`
+                        <h4 class="text-center">Task Unbooked! Thanks</h4>
+                     `)
+                    setTimeout(() => {
+                        location.href = "/home";
+                    }, 3000); 
                 }
             );
         }
+
+
+
+
+
+
+
+
+
+
+        function leaveComment(taskid) {
+            // $("#modalBody").empty();
+            console.log("commented")
+            
+            modal.style.display = "block"; 
+                $("#modalBody").append(`
+                        <h5 class="text-center">Leave A Comment!</h5>
+                        <div id="taskid1"></div>
+                        <div class="row">
+                            <div class="offset-md-3 col-md-6">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="Title">Enter your Comment</label>
+                                        <input class="form-control" id="taskComment" maxlength="250" type="text" placeholder="John did a great job!...." />
+                                        <small class="form-text text-muted">250 Character Max</small>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="offset-md-3 col-md-1">
+                                <button class="btn btn-primary" id="addComment" type="submit">Submit</button>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-primary" href="/home">Cancel</a>
+                            </div>
+                        </div>
+                  `)
+            let taskID = $("#taskid1");
+            taskID.val(taskid);
+            console.log(taskID.val())
+                }
+
+
+        $("#modalBody").on("click", "#addComment", function (event) {
+            event.preventDefault();
+            console.log("Commenting");
+
+            var taskId = $("#taskid1").val()
+            var userComment = $("#taskComment").val();
+            var comment = {
+                id: taskId,
+                taskComment: userComment,
+                taskCommentTrue: true,
+            }
+            console.log(comment)
+            $.ajax("/api/updateTaskee", {
+                type: "PUT",
+                data: comment
+            }).then(
+                function () {
+                    $("#modalBody").empty();
+                    modal.style.display = "block";
+                    $("#modalBody").append(`
+                        <h4 class="text-center">Comment Submitted! Thanks</h4>
+                     `)
+                      setTimeout(() => {
+                         location.href = "/home";
+                      }, 3000);  
+                }
+            );
+        })
+
+
+
+
 </script>
 
 </html>

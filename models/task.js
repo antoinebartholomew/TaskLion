@@ -35,6 +35,9 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
+    taskrName: {
+      type: DataTypes.STRING
+    },
     taskrAccept: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
@@ -54,6 +57,9 @@ module.exports = function(sequelize, DataTypes) {
     taskeeId: {
       type: DataTypes.INTEGER
     },
+    taskeeName: {
+      type: DataTypes.STRING
+    },
     taskPaid: {
       type: DataTypes.BOOLEAN
     },
@@ -65,7 +71,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     taskCommentTrue: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: false,
+      validate: {
+        len: [1, 250]
+      }
     }
   });
 
