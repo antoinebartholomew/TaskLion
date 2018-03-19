@@ -25,8 +25,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        len: [1]
+        len: [1, 1500]
       }
+    },
+    bodyShorten: {
+      type: DataTypes.TEXT,
+      validate: {
+        len: [1, 150]
+      }
+    },
+    bodyShortenTrue: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     dayofWeek: {
       type: DataTypes.STRING,
@@ -35,22 +45,50 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
+    taskPhoto: {
+      type: DataTypes.STRING,
+    },
+    taskrName: {
+      type: DataTypes.STRING
+    },
     taskrAccept: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
     requesterAccept: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
     taskrMarkComplete: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
     requesterMarkComplete: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
+    taskeeId: {
+      type: DataTypes.INTEGER
+    },
+    taskeeName: {
+      type: DataTypes.STRING
+    },
+    taskPaid: {
+      type: DataTypes.BOOLEAN
+    },
+    taskComment: {
+      type: DataTypes.TEXT,
+      validate: {
+        len: [1, 250]
+      }
+    },
+    taskCommentTrue: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      validate: {
+        len: [1, 250]
+      }
+    }
   });
 
  Task.associate = function(models) {

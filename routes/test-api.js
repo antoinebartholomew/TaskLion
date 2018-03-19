@@ -6,7 +6,7 @@ var router = express.Router();
 module.exports = router;
 
   // Task routes ========================================================
-  // GET route for getting all of the tasks associate with user logged in
+  // GET route for getting all of the tasks taskr posted  user logged in
 	router.get("/api/tasks/:id", function(req, res) {
     db.Task.findAll({
       where: {
@@ -14,17 +14,45 @@ module.exports = router;
       }
     }).then(function(dbTask) {
       res.json(dbTask);
-      console.log("For Test" , dbTask);
+      // console.log("For Test" , dbTask);
     });
   });
 
+  // GET route for getting all of the taskee tasks associate with user logged in
+	router.get("/api/taskee/:id", function(req, res) {
+    db.Task.findAll({
+      where: {
+        taskeeId: req.params.id
+      }
+    }).then(function(dbTask) {
+      res.json(dbTask);
+      // console.log("For Test" , dbTask);
+    });
+  });
+
+
   // GET route for getting all of the tasks
-  router.get("/api/tasks/", function(req, res) {
+  router.get("/api/tasks", function(req, res) {
     db.Task.findAll({})
       .then(function(dbTask) {
         res.json(dbTask);
       });
   });
+
+	// GET route for returning all available tasks
+  router.get("/api/availabletasks", function(req, res) {
+    db.Task.findAll({
+      where: {
+        taskrAccept: false,
+	      requesterAccept: false,
+        taskrMarkComplete: false
+      }
+    })
+      .then(function(dbTasks) {
+        res.json(dbTasks);
+      });
+  });
+
 
   // GET route for returning tasks of a specific category
   router.get("/api/tasks/category/:category", function(req, res) {
@@ -40,7 +68,7 @@ module.exports = router;
 
 
   // GET rotue for retrieving a single task
-  router.get("/api/tasks/:id", function(req, res) {
+  router.get("/api/tasks1/:id", function(req, res) {
     db.Task.findOne({
       where: {
         id: req.params.id
@@ -50,6 +78,8 @@ module.exports = router;
         res.json(dbTask);
       });
   });
+
+
 
   // POST route for saving a new task
   router.post("/api/tasks", function(req, res) {
@@ -84,3 +114,17 @@ module.exports = router;
       });
   });
 
+
+  // PUT route to update Taskee to Task
+router.put("/api/updateTaskee", function(req, res) {
+    console.log(req.body);
+  db.Task.update(req.body,
+    {
+      where: {
+        id: req.body.id
+      }
+    })
+    .then(function(dbTask) {
+      res.json(dbTask);
+    });
+});
