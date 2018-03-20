@@ -204,7 +204,7 @@ $(document).ready(function () {
 // Delete Acct ========================================================================================================
     $("#deleteSubmit").on("click", function(event) {
       event.preventDefault();
-      modal.style.display = "block";
+      modal1.style.display = "block";
     });
 
     $("#deleteConfirm").on("click", function(event) {
@@ -220,7 +220,7 @@ $(document).ready(function () {
 
 
         // Get the modal
-        var modal = document.getElementById('deleteModal');
+        var modal1 = document.getElementById('deleteModal');
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
         // When the user clicks on <span> (x), close the modal
