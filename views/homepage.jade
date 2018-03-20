@@ -1,4 +1,4 @@
-                                //Homepage to login account
+                  //Homepage to login account
 //extent layout.jade ============================================================================== 
 extends layout
 //importing everything below into block content1 on layout.jade ===================================
@@ -38,6 +38,10 @@ block content1
       .text-content
         h3
           | It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. 
+
+
+
+      
         
         br
         br     
@@ -47,7 +51,21 @@ block content1
             .swiper-wrapper
               // Slides
               .swiper-slide
-                img(src='./images/AutoWork.jpeg', alt='Auto Labor', height='200', width='350')
+                img(src='./images/AutoWork.jpeg', alt=' ', height='200', width='300')
+              .swiper-slide
+                img(src='./images/carpenter.jpeg', alt=' ', height='200', width='300')
+              .swiper-slide 
+                img(src='./images/doctor.jpeg', alt=' ', height='200', width='300')
+              .swiper-slide 
+                img(src='./images/paint.jpeg', alt=' ', height='200', width='300')
+              .swiper-slide
+                img(src='./images/19-unsplash.jpg', alt=' ', height='200', width='300')
+              .swiper-slide
+                img(src='./images/22-unsplash.jpg', alt=' ', height='200', width='300')
+              .swiper-slide 
+                img(src='./images/50-unsplash.jpg', alt=' ', height='200', width='300')
+              .swiper-slide 
+                img(src='./images/90-unsplash.jpg', alt=' ', height='200', width='300')
               .swiper-slide
                 img(src='./images/carpenter.jpeg', alt='Skilled Labor', height='200', width='350')
               .swiper-slide 
@@ -70,6 +88,8 @@ block content1
               // Optional parameters
               direction: 'horizontal',
               loop: true,
+              slidesPerView: 3,
+              spaceBetween: 300,
               // If we need pagination
               pagination: {
               el: '.swiper-pagination',
@@ -96,7 +116,5 @@ block content1
     
     // Footer
     #bottom.jumbotron.jumbotron-fluid.footer
-
           
-
-      
+        
