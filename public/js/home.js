@@ -158,12 +158,12 @@ $(document).ready(function () {
         }
 
       if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
-          
+
 
             // if ($("#taskPic").val() = "") {
             //     $("#taskPic").val("http://live105.ca/wp-content/uploads/2017/12/stewie_at_work.jpg");
-        
-        
+
+
                 var taskCreate = {
                     title: $("#taskName").val(),
                     taskPhoto: tempPhoto,
@@ -233,7 +233,7 @@ $(document).ready(function () {
                 modal.style.display = "none";
             }
         }
-                
+
 // End of Delete ========================================================================================================
 
 // Update Acct ========================================================================================================
@@ -242,7 +242,7 @@ $(document).ready(function () {
       modal.style.display = "block";
       var id = sessionStorage.getItem("id");
       console.log(id);
-      
+
             $.ajax("/api/taskrs1/" + id, {
               type: "GET",
               data: id
@@ -260,7 +260,7 @@ $(document).ready(function () {
               let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
               let userPic = $("#userPic");
               let id = $("#accountID");
-            
+
               password.val(dbTaskr.password);
               password2.val(dbTaskr.password);
               secQuestion1.val(dbTaskr.secQuestion1);
@@ -271,8 +271,8 @@ $(document).ready(function () {
               secQuestionAnswer3.val(dbTaskr.secQuestionAnswer3);
               userPic.val(dbTaskr.taskrPhoto)
               id.val(dbTaskr.id);
-              username.val(dbTaskr.username);     
-            }); 
+              username.val(dbTaskr.username);
+            });
       })
 
 
@@ -326,8 +326,8 @@ $(document).ready(function () {
         //end of if statement
         else{
             alert("Fill out all the boxes.")
-        } 
-    })    
+        }
+    })
 
 
             // Get the modal
@@ -359,7 +359,7 @@ $(document).ready(function () {
         //     }
         // }
 
-        
+
 // End of Update Acct ========================================================================================================
 
 });
@@ -376,4 +376,4 @@ $(document).ready(function () {
                     //  `)
                     // setTimeout(() => {
                     //     location.href = "/home";
-                    // }, 3000); 
+                    // }, 3000);
