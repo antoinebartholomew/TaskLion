@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "$L0cK^",
+    "password": null,
     "database": "groupProject2",
     "host": "127.0.0.1",
     "dialect": "mysql"
