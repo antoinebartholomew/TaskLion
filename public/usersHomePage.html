@@ -68,7 +68,7 @@
             <button id='categorySubmit' type="submit" class="btn btn-primary btnHeight">Filter</button>
         </div>
 
-        <div class="row">      
+        <div class="row">
             <table id="taskrPostedRowView" class="table rowBackground">
                 <thead>
                     <tr class="text-left">
@@ -170,7 +170,7 @@
                             <th scope="col">Book</th>
                         </tr>
                     </thead>
-                    <tbody id="allTasksTable">               
+                    <tbody id="allTasksTable">
                     </tbody>
                 </table>
         </div>
@@ -207,8 +207,8 @@
 
 
 //Getting all task associated with Taskr =====================================================================================================================================================
-    $("#taskeeHomeView").hide() 
-    $("#allTasksRowView").hide() 
+    $("#taskeeHomeView").hide()
+    $("#allTasksRowView").hide()
     $("#taskrPendingRowView").hide()
     $("#taskrCompletedRowView").hide()
     $("#taskrPurchasedRowView").hide()
@@ -267,22 +267,22 @@
         for (let i = 0; i < dbTaskr.length; i++) {
 
             if (dbTaskr[i].requesterMarkComplete == false && dbTaskr[i].taskrMarkComplete == false) {
-                purchasedArray.push(dbTaskr[i]);           
+                purchasedArray.push(dbTaskr[i]);
             } else if (dbTaskr[i].requesterMarkComplete == true && dbTaskr[i].taskrMarkComplete == true) {
-                purchasedHistoryArray.push(dbTaskr[i]);                    
-            } 
+                purchasedHistoryArray.push(dbTaskr[i]);
+            }
 
             if (dbTaskr[i].taskrMarkComplete == true  && dbTaskr[i].requesterMarkComplete == false  && dbTaskr[i].taskPaid == null) {
                     $("#userPurchasedTask").addClass("blink")
-          
+
             }else if(dbTaskr[i].taskrMarkComplete == true  && dbTaskr[i].requesterMarkComplete == true  && dbTaskr[i].taskPaid == true){
                      $("#userPurchasedTask").removeClass("blink")
-            }         
+            }
         }
         console.log("This is the Taskee Purchased array", purchasedArray);
-        console.log("This is the Taskee Purchased History array", purchasedHistoryArray); 
-        console.log("This is the Inprogess  array", in_progressArray);    
-        console.log("This is the Completed array", completedArray);        
+        console.log("This is the Taskee Purchased History array", purchasedHistoryArray);
+        console.log("This is the Inprogess  array", in_progressArray);
+        console.log("This is the Completed array", completedArray);
     })
 
 //END=======================================================================================================================================================================================================================================================================================
@@ -293,25 +293,25 @@
 
     $("#userPostedTask").on("click", function (event) {
     //    $("#taskrHomeView").hide()
-           $("#taskrPostedRowView").show() 
+           $("#taskrPostedRowView").show()
            $("#taskrPendingRowView").hide()
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").hide()
            $("#taskeeHomeView").hide()
-           $("#allTasksRowView").hide() 
+           $("#allTasksRowView").hide()
         $("#userTasks").empty()
         event.preventDefault();
         for (let i = 0; i < tasksArray.length; i++) {
             let taskid = tasksArray[i].id;
-            let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + tasksArray[i].title + "</button>";            
+            let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + tasksArray[i].title + "</button>";
             let body = tasksArray[i].body;
             let price = tasksArray[i].price;
             let dow = tasksArray[i].dayofWeek;
             let cat = tasksArray[i].category;
             let pic = tasksArray[i].taskPhoto;
             var newrow = $("<tr>");
-            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -328,13 +328,13 @@
 
     $("#userPendingTask").on("click", function (event) {
   //    $("#taskrHomeView").hide()
-           $("#taskrPostedRowView").hide() 
+           $("#taskrPostedRowView").hide()
            $("#taskrPendingRowView").show()
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").hide()
            $("#taskeeHomeView").hide()
-           $("#allTasksRowView").hide() 
+           $("#allTasksRowView").hide()
            $("#userPendingTasks").empty()
         event.preventDefault();
         for (let i = 0; i < in_progressArray.length; i++) {
@@ -349,7 +349,7 @@
             let taskeeNameURL = "<button onclick=userProfile(" + taskeeid + ") class=link>" + taskeeName + "</button>";
             let pic = in_progressArray[i].taskPhoto;
             var newrow = $("<tr>");
-            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>"));
@@ -374,18 +374,18 @@
 
     $("#userCompletedTask").on("click", function (event) {
     //    $("#taskrHomeView").hide()
-           $("#taskrPostedRowView").hide() 
+           $("#taskrPostedRowView").hide()
            $("#taskrPendingRowView").hide()
            $("#taskrCompletedRowView").show()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").hide()
            $("#taskeeHomeView").hide()
-           $("#allTasksRowView").hide() 
+           $("#allTasksRowView").hide()
         $("#userCompletedTasks").empty()
         event.preventDefault();
         for (let i = 0; i < completedArray.length; i++) {
             let taskid = completedArray[i].id;
-            let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + completedArray[i].title + "</button>" ;           
+            let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + completedArray[i].title + "</button>" ;
             let body = completedArray[i].body;
             let price = completedArray[i].price;
             let dow = completedArray[i].dayofWeek;
@@ -395,13 +395,13 @@
             let taskeeNameURL = "<button onclick=userProfile(" + taskeeid + ") class=link>" + taskeeName + "</button>";
             let pic = completedArray[i].taskPhoto;
             var newrow = $("<tr>");
-            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
             newrow.append($("<td class='text-left'>" + price + "</td>"));
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
-            newrow.append($("<td class='text-left'>" + taskeeNameURL + "</td>"));            
+            newrow.append($("<td class='text-left'>" + taskeeNameURL + "</td>"));
             newrow.append($("<td><span i class='fas fa-money-bill-alt glypiconSpace'></i></span></td>"))
             $("#userCompletedTasks").append(newrow);
         }
@@ -414,13 +414,13 @@
 
     $("#userPurchasedTask").on("click", function (event) {
     //    $("#taskrHomeView").hide()
-           $("#taskrPostedRowView").hide() 
+           $("#taskrPostedRowView").hide()
            $("#taskrPendingRowView").hide()
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").show()
            $("#taskrPurchasedHistoryRowView").hide()
            $("#taskeeHomeView").hide()
-           $("#allTasksRowView").hide() 
+           $("#allTasksRowView").hide()
         $("#userPurchasedTasks").empty()
         event.preventDefault();
         for (let i = 0; i < purchasedArray.length; i++) {
@@ -430,30 +430,30 @@
             let price = purchasedArray[i].price;
             let dow = purchasedArray[i].dayofWeek;
             let cat = purchasedArray[i].category;
-            let taskrid = purchasedArray[i].TaskrId;       
+            let taskrid = purchasedArray[i].TaskrId;
             let taskrName = purchasedArray[i].taskrName;
             let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
             let pic = purchasedArray[i].taskPhoto;
             var newrow = $("<tr>");
-            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
+            newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
             newrow.append($("<td class='text-left'>" + body + "</td>"));
-            newrow.append($("<td class='text-left'>" + price + "</td>")); 
+            newrow.append($("<td class='text-left'>" + price + "</td>"));
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
-            newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
-     
+            newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));
+
             if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == false && purchasedArray[i].requesterMarkComplete == false) {
                 newrow.append($("<td><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
                 $("#userPurchasedTasks").append(newrow);
             } else if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == false) {
                 newrow.append($("<td><span onclick=markComplete(" + taskid + ") i class='fas fa-check-circle glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
                 $("#userPurchasedTasks").append(newrow);
-            }         
+            }
             else if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == true) {
                purchasedHistoryArray.push(purchasedArray[i])
                 i++
-            }            
+            }
         }
     })
 
@@ -464,18 +464,18 @@
     $("#purchasedHistory").on("click", function (event) {
         $("#userPurchasedHistory").empty()
     //    $("#taskrHomeView").hide()
-           $("#taskrPostedRowView").hide() 
+           $("#taskrPostedRowView").hide()
            $("#taskrPendingRowView").hide()
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").show()
            $("#taskeeHomeView").hide()
-           $("#allTasksRowView").hide() 
+           $("#allTasksRowView").hide()
            $("#userPurchasedTasks").empty()
            event.preventDefault();
             for (let i = 0; i < purchasedHistoryArray.length; i++) {
                 let taskid = purchasedHistoryArray[i].id;
-                let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + purchasedHistoryArray[i].title + "</button>";                
+                let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + purchasedHistoryArray[i].title + "</button>";
                 let body = purchasedHistoryArray[i].body;
                 let price = purchasedHistoryArray[i].price;
                 let dow = purchasedHistoryArray[i].dayofWeek;
@@ -485,18 +485,18 @@
                 let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
                 let pic = purchasedHistoryArray[i].taskPhoto;
                 var newrow = $("<tr>");
-                newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));       
+                newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
                 newrow.append($("<td class='text-left'>" + title + "</td>"));
                 newrow.append($("<td class='text-left'>" + body + "</td>"));
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
                 newrow.append($("<td class='text-left'>" + dow + "</td>"));
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
+                newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));
 
                 if (purchasedHistoryArray[i].taskrAccept == true && purchasedHistoryArray[i].requesterAccept == true && purchasedHistoryArray[i].taskrMarkComplete == true && purchasedHistoryArray[i].requesterMarkComplete == true && purchasedHistoryArray[i].taskPaid == true) {
                     newrow.append($("<td><span onclick=leaveComment(" + taskid + ") i class='fas fa-comment-alt glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
-                    $("#userPurchasedHistory").append(newrow);   
-                } 
+                    $("#userPurchasedHistory").append(newrow);
+                }
             }
     })
 //END=============================================================================================================================================================================================================================
@@ -534,7 +534,7 @@
                             <div class="form-group">
                             <label for="Task Pick">Task Picture</label>
                             <input class="form-control" id="taskPic1" type="text" maxlength = '300' placeholder=""/><small class="form-text text-muted">Enter picture for Task</small>
-                            </div>  
+                            </div>
                             <div class="form-group">
                             <label for="Price">Price</label>
                             <input class="form-control" id="taskPrice1" type="number" placeholder=""/>
@@ -568,7 +568,7 @@
                             </div>
                         </form>
                         </div>
-                        <div class="offset-md-7 col-md-1">   
+                        <div class="offset-md-7 col-md-1">
                         <button class="btn btn-primary" id="updateTask" type="submit">Submit</button>
                         </div>
                         <div class="col-md-1">   <a class="btn btn-primary" href="/home">Cancel</a></div>
@@ -616,7 +616,7 @@
                 `)
             setTimeout(() => {
                 location.href = "/home";
-            }, 1000); 
+            }, 1000);
 
         })
 
@@ -640,7 +640,7 @@
                 `)
             setTimeout(() => {
                 location.href = "/home";
-            }, 4000); 
+            }, 4000);
         })
     }
 
@@ -672,13 +672,13 @@
             event.preventDefault();
             // location.reload()
            $("#taskrHomeView").hide()
-           $("#taskrPostedRowView").hide() 
+           $("#taskrPostedRowView").hide()
            $("#taskrPendingRowView").hide()
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").hide()
            $("#taskeeHomeView").show()
-           $("#allTasksRowView").show() 
+           $("#allTasksRowView").show()
 
            // calling ajax call
              $.ajax("/api/availabletasks", {
@@ -688,7 +688,7 @@
                 var tasksArray = dbTasks;
                 for (let i = 0; i < tasksArray.length; i++) {
                     let taskid = tasksArray[i].id;
-                    let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + tasksArray[i].title + "</button>";                    
+                    let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + tasksArray[i].title + "</button>";
                     let body = tasksArray[i].body;
                     let price = tasksArray[i].price;
                     let dow = tasksArray[i].dayofWeek;
@@ -698,13 +698,13 @@
                     let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
                     let pic = tasksArray[i].taskPhoto;
                     var newrow = $("<tr>");
-                    newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));      
+                    newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
                     newrow.append($("<td class='text-left'>" + title + "</td>"));
                     newrow.append($("<td class='text-left'>" + body + "</td>"));
                     newrow.append($("<td class='text-left'>" + price + "</td>"));
                     newrow.append($("<td class='text-left'>" + dow + "</td>"));
                     newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                    newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
+                    newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));
 
                     if (taskrid == sessionStorage.getItem("id")) {
                         // newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
@@ -714,7 +714,7 @@
                     }
                     $("#allTasksTable").append(newrow);
                 }
-            }); // end AJAX, get all tasks          
+            }); // end AJAX, get all tasks
         })
 
 
@@ -733,7 +733,7 @@
             $("#taskrPurchasedRowView").hide()
             $("#taskrPurchasedHistoryRowView").hide()
             $("#taskeeHomeView").hide()
-            $("#allTasksRowView").hide()          
+            $("#allTasksRowView").hide()
          })
 
 //END=======================================================================================================================================================================================================================================================================================
@@ -760,7 +760,7 @@
             var tasksArray = dbTasks;
             for (let i = 0; i < tasksArray.length; i++) {
                 let taskid = tasksArray[i].id;
-                let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + tasksArray[i].title + "</button>";                
+                let title = "<button onclick=taskInfo(" + taskid + ") class=link>" + tasksArray[i].title + "</button>";
                 let body = tasksArray[i].body;
                 let price = tasksArray[i].price;
                 let dow = tasksArray[i].dayofWeek;
@@ -770,13 +770,13 @@
                 let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" +taskrName+"</button>";
                 let pic = tasksArray[i].taskPhoto;
                 var newrow = $("<tr class='text-left'>");
-                newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));        
+                newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
                 newrow.append($("<td class='text-left'>" + title + "</td>"));
                 newrow.append($("<td class='text-left'>" + body + "</td>"));
                 newrow.append($("<td class='text-left'>" + price + "</td>"));
                 newrow.append($("<td class='text-left'>" + dow + "</td>"));
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
-                newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));            
+                newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));
 
                 if (taskrid == sessionStorage.getItem("id")) {
                     // newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
@@ -795,7 +795,7 @@
 //END=======================================================================================================================================================================================================================================================================================
 
 //When user clicks on All Tasks or Your Tasks=========================================================================================================================================
-            
+
         function bookTask(taskid) {
             console.log("book")
             var taskId = taskid;
@@ -819,7 +819,7 @@
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 3000); 
+                    }, 3000);
                 }
             );
         }
@@ -830,7 +830,7 @@
          console.log("complete")
 
             var id = taskid;
-            console.log(id)     
+            console.log(id)
             var payCash = {
                 id: id,
                 requesterMarkComplete: true,
@@ -849,9 +849,9 @@
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 3000); 
+                    }, 3000);
                 }
-            );            
+            );
         }
 //New Function=======================================================================================================================================================================================================================================================================================
 
@@ -878,7 +878,7 @@
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 3000); 
+                    }, 3000);
                 }
             );
         }
@@ -908,7 +908,7 @@
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 3000); 
+                    }, 3000);
                 }
             );
         }
@@ -935,7 +935,7 @@
             }).then(function (dbTaskr) {
                 // console.log("Tasks associated with Taskr",dbTaskr);
                 for (let i = 0; i < dbTaskr.length; i++) {
-                    taskrTasksArray.push(dbTaskr[i])                    
+                    taskrTasksArray.push(dbTaskr[i])
                 }
 
                 $.ajax("/api/taskrs1/" + taskrid, {
@@ -948,24 +948,24 @@
 
                     for (let i = 0; i < dbTaskr.length; i++) {
                         if (dbTaskr[i].requesterMarkComplete && dbTaskr[i].taskPaid == true) {
-                            taskCompArray.push(dbTaskr[i])                        
+                            taskCompArray.push(dbTaskr[i])
                         }
                         // if (dbTaskr[i].taskComment !== null && dbTaskr[i].taskCommentTrue == true) {
 
                         //     taskrComments +="<div class=col-md-4><h6>${" + dbTaskr[i].taskeeName + "}</h6></div><div class=col-md-8><p>${" + dbTaskr[i].comment + "}</p></div>"
-                            
+
                         // }
-                        taskCompNum = taskCompArray.length                       
+                        taskCompNum = taskCompArray.length
                     }
 
 
-                    
+
                     // console.log("Taskr Themselves", dbTaskr1);
                     console.log(taskrTasksArray);
                     console.log(taskrName);
                     console.log("# of Task Completed", taskCompNum)
-                    
-                    
+
+
                     modal.style.display = "block";
                     $("#modalBody").empty();
                     $("#modalBody").append(`
@@ -973,7 +973,7 @@
                             <h3 class="text-center">TASKr User: ${taskrName}</h3>
                             <div class="row">
                                 <div class="col-md-5">
-                                     <img src="${taskrPhoto}" alt="" class="img-fluid">                                    
+                                     <img src="${taskrPhoto}" alt="" class="img-fluid">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="row text-left">
@@ -1035,9 +1035,9 @@
                             </div>
                         </div>
                     `)
-                
+
                 })
-                
+
             })
 
 
@@ -1051,7 +1051,7 @@
                 type: "GET",
                 data: id
             }).then(function (task) {
-                console.log(task);        
+                console.log(task);
                 let title = task.title;
                 let body = task.body;
                 let price = task.price;
@@ -1117,7 +1117,7 @@
                             <a class="btn btn-primary" href="/home">Close</a>
                         </div>
                     </div>
-                </div>`) 
+                </div>`)
             })
         }
 
@@ -1127,8 +1127,8 @@
         function leaveComment(taskid) {
             // $("#modalBody").empty();
             console.log("commented")
-            
-            modal.style.display = "block"; 
+
+            modal.style.display = "block";
                 $("#modalBody").append(`
                         <h5 class="text-center">Leave A Comment!</h5>
                         <div id="taskid1"></div>
@@ -1181,7 +1181,7 @@
                      `)
                       setTimeout(() => {
                          location.href = "/home";
-                      }, 3000);  
+                      }, 3000);
                 }
             );
         })
@@ -1192,7 +1192,3 @@
 </script>
 
 </html>
-
-
-
-
