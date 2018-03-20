@@ -11,51 +11,58 @@ block content1
         .offset-md-3.col-md-6
           form
             .form-group
-              label(for='username') Username
+              label(for='username') Username *
               input#userNameCreate.form-control(type='name', placeholder='Create a Username')
               small.form-text.text-muted Must be atleast 3 characters min
             .form-group
-              label(for='Img') User Image
+              label(for='Img') User Image (Not Required but Welcomed!)
               input#userPic.form-control(type='text', placeholder='http://www.jobs-rated-headline.jpg', maxlength='300')
               small.form-text.text-muted Enter a Line to Your Profile Photo
             .form-group
-              label(for='password') Password
+              label(for='password') Password *
               input#userPasswordCreate.form-control(type='name', placeholder='Password')
               small.form-text.text-muted Must be atleast 3 characters min
             .form-group
-              label(for='password') Confirm Password
+              label(for='password') Confirm Password *
               input#userPasswordCreate2.form-control(type='name', placeholder='Confirm Password')
               small.form-text.text-muted Must be atleast 3 characters min              
             .form-group
-              label(for='secQuestionOne') Security Question 1
+              label(for='secQuestionOne') Security Question 1 *
               select#secQuestionOne.form-control
                 option(selected='') What is you mothers maiden name?
                 option Name of your childhood best friend?
                 option Make of your first car?
             .form-group
-              label(for='secQuestionOneAnswer') Answer
+              label(for='secQuestionOneAnswer') Security Question 1 Answer *
               input#secQuestionOneAnswer.form-control(type='text', placeholder='Enter your Answer')
             .form-group
-              label(for='secQuestionTwo') Security Question 2
+              label(for='secQuestionTwo') Security Question 2 *
               select#secQuestionTwo.form-control
                 option(selected='') Name of your first pet?
                 option Name of your high school mascot?
                 option City of your birth?
             .form-group
-              label(for='secQuestionTwoAnswer') Answer
+              label(for='secQuestionTwoAnswer') Security Question 2 Answer *
               input#secQuestionTwoAnswer.form-control(type='text', placeholder='Enter your Answer')
             .form-group
-              label(for='secQuestionThree') Security Question 3
+              label(for='secQuestionThree') Security Question 3 *
               select#secQuestionThree.form-control
                 option(selected='') What is your favorite color?
                 option Name of the street you grew up on?
                 option Apple or Samsung?
             .form-group
-              label(for='secQestionOneAnswer') Answer
+              label(for='secQestionOneAnswer') Security Question 3 Answer *
               input#secQuestionThreeAnswer.form-control(type='text', placeholder='Enter your Answer')
+            .form-group
+              label(for='text') * Indicates a Required Field
         .offset-md-7.col-md-1    
             buttonbutton#signupSubmit.btn.btn-primary Submit
         .col-md-1        
             a.btn.btn-primary(href='/') Cancel
+
+    #myModal.modal1
+        .modal1-content
+          span.close ×
+          #modal1Body   
 
 

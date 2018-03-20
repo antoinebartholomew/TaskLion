@@ -13,9 +13,8 @@ var db = require("./models");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.set("views", "views");
 app.set("view engine", "jade");
-// app.set("view engine","ejs")
+app.set("views", __dirname + "/views");
 
 
 app.use(express.static("public"));

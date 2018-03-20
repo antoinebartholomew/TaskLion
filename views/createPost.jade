@@ -14,18 +14,18 @@ block content1
             //-   label(for='tasker') Taskr ID
             //-   input#taskrId.form-control(type='name', placeholder='Foreign KEY Taskr ID')
             .form-group
-              label(for='Title') Task Name
+              label(for='Title') Task Name *
               input#taskName.form-control(type='text', placeholder='Task Title', maxlength='60')
               small.form-text.text-muted Enter the name of your task. 60 Character Max.
             .form-group
-              label(for='Img') Task Picture
+              label(for='Img') Task Picture (Not Required)
               input#taskPic.form-control(type='text', placeholder='http://www.jobs-rated-headline.jpg', maxlength='500')
               small.form-text.text-muted Link to image.
             .form-group
-              label(for='Price') Price
+              label(for='Price') Price *
               input#taskPrice.form-control(type='number', placeholder='$0.00 Price')
             .form-group
-              label(for='Categories') Category
+              label(for='Categories') Category *
               select#taskCategories.form-control
                 option(selected='') Instruction
                 option Home Maintenance
@@ -34,11 +34,11 @@ block content1
                 option Childcare
                 option Event Planning
             .form-group
-              label(for='Body') Task Description
+              label(for='Body') Task Description *
               textarea#taskBody.form-control(type='text', placeholder='Task Description', maxlength='250')
               small.form-text.text-muted Enter your Task Description. 250 Character Max.              
             .form-group
-              label(for='dayOfWeek') Day of Week
+              label(for='dayOfWeek') Day of Week *
               select#taskDayOfWeek.form-control
                 option(selected='') Sunday
                 option Monday
@@ -47,14 +47,18 @@ block content1
                 option Thursday
                 option Friday
                 option Saturday
+            .form-group
+              label(for='text') * Indicates a Required Field
         .offset-md-7.col-md-1    
             button#taskSubmit.btn.btn-primary(type='submit') Submit
         .col-md-1        
             a.btn.btn-primary(href='/home') Cancel
 
 
-//- block content2
-//-   #myModal.modal
-//-   .modal-content
-//-     span.close ×
-//-     #modalBody
+    #myModal.modal1
+      .modal1-content
+          span.close ×
+          #modal1Body   
+
+
+
