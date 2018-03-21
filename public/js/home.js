@@ -2,6 +2,7 @@
 $(document).ready(function () {
 
     var modal1 = document.getElementById("myModal");
+    // var modalComment = document.getElementById('commentModal');
 
     var span = document.getElementsByClassName("close")[0];
 
@@ -14,6 +15,11 @@ $(document).ready(function () {
         modal1.style.display = "none";
       }
     };
+
+
+var userNameOk = false;
+var userNamesArray = [];
+
   //Start of user login ========================================================================================================
 
     $("#loginSubmit").on("click", function(event){
@@ -112,16 +118,7 @@ $(document).ready(function () {
                     type: "PUT",
                     data: logout
                 }
-            ).then(function(dbTaskr) {
-                // console.log("LINE 110 LOGOUT " + dbTaskr);
-                // $("#modalBody").empty();
-                // modal.style.display = "block";
-                // $("#modalBody").append(`
-                //     <h4 class="text-center">GoodBye!</h4>
-                // `);
-                //     setTimeout(() => {
-                //         location.href = "/";
-                //     }, 2000)            
+            ).then(function(dbTaskr) {         
         //end of if statement
                 sessionStorage.clear();
             // Redirect to Login Page
@@ -130,7 +127,33 @@ $(document).ready(function () {
     })
 //End of Logout ========================================================================================================
 
+//Lets user know if username is available ========================================================================================================
 
+$("#userNameCreate").on("keyup", function() {
+  $("#userNameOk").empty();
+  if ($("#userNameCreate").val().length > 2) {
+    $.ajax("/api/taskrs", {
+      type: "GET",
+      data: username
+    }).then(function(dbTaskr) {
+      console.log(dbTaskr);
+      for (let i = 0; i < dbTaskr.length; i++) {
+        userNamesArray.push(dbTaskr[i].username);
+      }
+
+      if (userNamesArray.includes($("#userNameCreate").val())) {
+        $("#userNameOk").html("<h5 style=color:red;>UserName is already Taken</h5>");
+            userNameOk=false;
+
+      } else if (!userNamesArray.includes($("#userNameCreate").val())) {
+        $("#userNameOk").html( "<h5 style=color:green;>UserName is already Available</h5>");
+            userNameOk = true;
+
+      }
+    });
+  }
+  console.log(userNamesArray);
+});
 
 
 //Start of create user account ========================================================================================================
@@ -139,21 +162,50 @@ $(document).ready(function () {
         if ($("#userNameCreate").val() && $("#userPasswordCreate").val() && $("#userPasswordCreate2").val()
             && $("#secQuestionOneAnswer").val() && $("#secQuestionTwoAnswer").val() && $("#secQuestionThreeAnswer").val() ) {
 
-                if($("#userPasswordCreate").val() === $("#userPasswordCreate2").val()){
 
-                    var createUser = {
-                        username: $("#userNameCreate").val().toLowerCase(),
-                        password: $("#userPasswordCreate").val(),
-                        secQuestion1: $("#secQuestionOne").val(),
-                        secQuestionAnswer1: $("#secQuestionOneAnswer").val().toLowerCase(),
-                        secQuestion2: $("#secQuestionTwo").val(),
-                        secQuestionAnswer2: $("#secQuestionTwoAnswer").val().toLowerCase(),
-                        secQuestion3: $("#secQuestionThree").val(),
-                        secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
-                        taskrPhoto: $("#userPic").val(),
-                        loggedIn: true
-                    }
-                    }else
+            if (userNameOk === true) {
+                if($("#userPasswordCreate").val() === $("#userPasswordCreate2").val()){
+                        var createUser = {
+                            username: $("#userNameCreate").val().toLowerCase(),
+                            password: $("#userPasswordCreate").val(),
+                            secQuestion1: $("#secQuestionOne").val(),
+                            secQuestionAnswer1: $("#secQuestionOneAnswer").val().toLowerCase(),
+                            secQuestion2: $("#secQuestionTwo").val(),
+                            secQuestionAnswer2: $("#secQuestionTwoAnswer").val().toLowerCase(),
+                            secQuestion3: $("#secQuestionThree").val(),
+                            secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
+                            taskrPhoto: $("#userPic").val(),
+                            loggedIn: true 
+                        }
+
+                            console.log(createUser)
+                            //query taskrs for username and password and check if they match
+                            $.ajax("/api/taskrs", {
+                                type: "POST",
+                                data: createUser
+                            }).then(
+                                function () {
+                                    $("#modal1Body").empty();
+                                        modal1.style.display = "block";
+                                    $("#modal1Body").append(`
+                                        <h4 class="text-center">Account successfully created! *</h4>
+                                    `);
+                                    setTimeout(() => {
+                                        location.href = "/";}, 3000);  
+                                });
+
+
+                                $("#userNameCreate").val("");
+                                $("#userPasswordCreate").val("");
+                                $("#userPasswordCreate2").val("");
+                                $("#secQuestionOne").val("");
+                                $("#secQuestionOneAnswer").val("");
+                                $("#secQuestionTwo").val("");
+                                $("#secQuestionTwoAnswer").val("");
+                                $("#secQuestionThree").val("");
+                                $("#secQuestionThreeAnswer").val("");
+                                $("#userPic").val("");
+                } else{
                         $("#modal1Body").empty();
                         modal1.style.display = "block";
                         $("#modal1Body").append(`
@@ -161,39 +213,20 @@ $(document).ready(function () {
                         `);
                             setTimeout(() => {
                         modal1.style.display = "none";
-                        }, 3000)    
+                        }, 3000)
+                    } 
+            }  else{
+                        $("#modal1Body").empty();
+                        modal1.style.display = "block";
+                        $("#modal1Body").append(`
+                            <h4 class="text-center">Username is not Available</h4>
+                        `);
+                            setTimeout(() => {
+                        modal1.style.display = "none";
+                        }, 3000)
+                    } 
 
-                $("#userNameCreate").val(""),
-                $("#userPasswordCreate").val(""),
-                $("#userPasswordCreate2").val(""),
-                $("#secQuestionOne").val(""),
-                $("#secQuestionOneAnswer").val(""),
-                $("#secQuestionTwo").val(""),
-                $("#secQuestionTwoAnswer").val(""),
-                $("#secQuestionThree").val(""),
-                $("#secQuestionThreeAnswer").val(""),
-                $("#userPic").val(""),
-
-            console.log(createUser)
-            //query taskrs for username and password and check if they match
-            $.ajax("/api/taskrs", {
-                type: "POST",
-                data: createUser
-            }).then(
-                function () {
-                    $("#modal1Body").empty();
-                    modal1.style.display = "block";
-                    $("#modal1Body").append(`
-                        <h4 class="text-center">Account successfully created! *</h4>
-                    `);
-                    setTimeout(() => {
-                    // Reload the page to get the updated list
-                    location.href = "/";                    
-                }, 3000);  
-                }
-            );
-        }
-        //end of if statement
+        }//if any boxes left empty
         else{
             $("#modal1Body").empty();
             modal1.style.display = "block";
@@ -215,16 +248,7 @@ $(document).ready(function () {
 
 
       if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
-<<<<<<< HEAD
           
-=======
-
-
-            // if ($("#taskPic").val() = "") {
-            //     $("#taskPic").val("http://live105.ca/wp-content/uploads/2017/12/stewie_at_work.jpg");
-
-
->>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
                 var taskCreate = {
                     title: $("#taskName").val(),
                     taskPhoto: $("#taskPic").val(),
@@ -341,24 +365,6 @@ $(document).ready(function () {
 
 
 
-<<<<<<< HEAD
-=======
-        // Get the modal
-        var modal1 = document.getElementById('deleteModal');
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-        // When the user clicks on <span> (x), close the modal
-        $("#deleteCancel").onclick = function() {
-          modal.style.display = "none";
-        };
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
->>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
 // End of Delete ========================================================================================================
 
 // Update Acct ========================================================================================================
@@ -382,7 +388,6 @@ $("#editAccountSubmit").on("click", function(event) {
       var id = sessionStorage.getItem("id");
       console.log(id);
 
-<<<<<<< HEAD
       $.ajax("/api/taskrs1/" + id, {
         type: "GET",
         data: id
@@ -501,44 +506,6 @@ id = $("#accountID");
 
 
     $("#myModal").on("click", "#accountUpdateSubmit", function (event) {
-=======
-            $.ajax("/api/taskrs1/" + id, {
-              type: "GET",
-              data: id
-            }).then(function(dbTaskr) {
-              console.log("LINE 25", dbTaskr);
-
-              let username = $("#usernameAccountSettings");
-              let password = $("#userPasswordUp1");
-              let password2 = $("#userPasswordUp2");
-              let secQuestion1 = $("#secQuestionOneUp");
-              let secQuestionAnswer1 = $("#secQuestionOneAnswerUp");
-              let secQuestion2 = $("#secQuestionTwoUp");
-              let secQuestionAnswer2 = $("#secQuestionTwoAnswerUp");
-              let secQuestion3 = $("#secQuestionThreeUp");
-              let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
-              let userPic = $("#userPic");
-              let id = $("#accountID");
-
-              password.val(dbTaskr.password);
-              password2.val(dbTaskr.password);
-              secQuestion1.val(dbTaskr.secQuestion1);
-              secQuestionAnswer1.val(dbTaskr.secQuestionAnswer1);
-              secQuestion2.val(dbTaskr.secQuestion2);
-              secQuestionAnswer2.val(dbTaskr.secQuestionAnswer2);
-              secQuestion3.val(dbTaskr.secQuestion3);
-              secQuestionAnswer3.val(dbTaskr.secQuestionAnswer3);
-              userPic.val(dbTaskr.taskrPhoto)
-              id.val(dbTaskr.id);
-              username.val(dbTaskr.username);
-            });
-      })
-
-
-
-
-    $("#accountUpdateSubmit").on("click", function (event) {
->>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
         event.preventDefault();
         if ($("#userPasswordUp1").val() && $("#userPasswordUp2").val() && $("#secQA1").val() && $("#secQA2").val() && $("#secQA3").val() ) {
 
@@ -558,7 +525,6 @@ id = $("#accountID");
                             loggedIn: true  
                         }
 
-<<<<<<< HEAD
                             //query taskrs for username and password and check if they match
                             $.ajax("/api/updateAcct", {
                                 type: "PUT",
@@ -597,34 +563,6 @@ id = $("#accountID");
                         }, 2000); 
                     } 
                 })    
-=======
-                    // Reload the page to get the updated list
-                    location.href = "/home";
-                }
-            );
-        }
-        //end of if statement
-        else{
-            alert("Fill out all the boxes.")
-        }
-    })
-
-
-            // Get the modal
-        var modal = document.getElementById('accountUpdateModal');
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-        // When the user clicks on <span> (x), close the modal
-        $("#updateCancel").onclick = function() {
-          modal.style.display = "none";
-        };
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
->>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
 
 
 
@@ -632,19 +570,3 @@ id = $("#accountID");
 
 });
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-                    // $("#modalBody").empty();
-                    // modal.style.display = "block";
-                    // $("#modalBody").append(`
-                    //     <h4 class="text-center">Task Unbooked! Thanks</h4>
-                    //  `)
-                    // setTimeout(() => {
-                    //     location.href = "/home";
-                    // }, 3000);
->>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee

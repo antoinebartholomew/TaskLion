@@ -23,7 +23,7 @@
     <script src="js/tasks.js"></script> -->
     <!--body content ===============================================================================================-->
 </head>
-//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ HTML $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+<!-- //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ HTML $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
 
 <body>
     <div class="container">
@@ -176,7 +176,6 @@
         </div>
     </div>
 
-    
 
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -184,7 +183,7 @@
             <div id="modalBody"></div>
         </div>
     </div>
-//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ HTML $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+<!-- //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ HTML $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
 
 
     <!-- Optional JavaScript-->
@@ -980,9 +979,9 @@
                     type: "GET",
                      id: id
                 }).then(function (dbTaskr1) {
-                    console.log("YOOOO",dbTaskr1);
-                    taskrName = dbTaskr1.username
-                    if (dbTaskr1.taskrPhoto !== null) {
+                    console.log(dbTaskr1);
+                    taskrName = dbTaskr1.username;
+                    if (dbTaskr1.taskrPhoto !== '') {
                         taskrPhoto = dbTaskr1.taskrPhoto;
                     } else {
                         taskrPhoto = "/images/userTempPic.jpg";
@@ -992,11 +991,6 @@
                         if (dbTaskr[i].requesterMarkComplete && dbTaskr[i].taskPaid == true) {
                             taskCompArray.push(dbTaskr[i])
                         }
-                        // if (dbTaskr[i].taskComment !== null && dbTaskr[i].taskCommentTrue == true) {
-
-                        //     taskrComments +="<div class=col-md-4><h6>${" + dbTaskr[i].taskeeName + "}</h6></div><div class=col-md-8><p>${" + dbTaskr[i].comment + "}</p></div>"
-
-                        // }
                         taskCompNum = taskCompArray.length
                     }
 
@@ -1007,77 +1001,53 @@
                     console.log(taskrName);
                     console.log("# of Task Completed", taskCompNum)
 
-
                     modal.style.display = "block";
                     $("#modalBody").empty();
                     $("#modalBody").append(`
-                        <div class="container">
-                            <h3 class="text-center">TASKr User: ${taskrName}</h3>
+                        <div class="container">                           
                             <div class="row">
                                 <div class="col-md-5">
-                                     <img src="${taskrPhoto}" alt="" class="imglock">
+                                     <img src="${taskrPhoto}" alt="" class="imglock imgBorder">
                                 </div>
                                 <div class="col-md-7">
-                                    <div class="row text-left">
-                                        <div class="col-md-4">
-                                            <h6>Taskr:</h6>
+                                    <div id="comments" class="row text-left">
+                                        <div class="col-md-12">
+                                        <h3 class="text-center marginBottom1" > TASKr: ${ taskrName }</h3 >
                                         </div>
-                                        <div class="col-md-8">
-                                            <p>${taskrName}</p>
+                                        <div class="offset-md-1 col-md-5 marginBottom">
+                                            <h3>Tasks Completed:</h3>
                                         </div>
-                                        <div class="col-md-4">
-                                            <h6>Tasks Completed:</h6>
+                                        <div class="col-md-6 marginBottom">
+                                            <h4>${taskCompNum}</h4>
                                         </div>
-                                        <div class="col-md-8">
-                                            <p>${taskCompNum}</p>
-                                        </div>
-                                        <div class="col-md-12 text-center">
-                                            <h6>Taskee Comments</h6>
-                                        </div>
-
-
-
-                                        <div class="col-md-4">
-                                            <h6>Taskr</h6>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Taskr</h6>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Taskr</h6>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Taskr</h6>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Taskr</h6>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p></p>
+                                        <div class="offset-md-1 col-md-11 text-center marginBottom">
+                                            <h3>Taskee Comments</h3>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-1">
+                                <div class="col rowSpace">
                                     <a class="btn btn-primary" href="/home">Close</a>
                                 </div>
                             </div>
                         </div>
                     `)
 
+                    for (let i = 0; i < taskCompArray.length; i++) {
+                        if (taskCompArray[i].taskComment !== null) {
+                            $("#comments").append(`
+                            
+                            <div class="offset-md-1 col-md-3 text-right marginBottom2">
+                                <h5>${taskCompArray[i].taskeeName}:</h5>
+                            </div>
+                            <div class="col-md-8 marginBottom2">
+                                <h5>${taskCompArray[i].taskComment}</h5>
+                            </div>                     
+                            `)
+                        }
+
+                    }
                 })
 
             })
@@ -1184,8 +1154,8 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="Title">Enter your Comment</label>
-                                        <input class="form-control" id="taskComment" maxlength="250" type="text" placeholder="John did a great job!...." />
-                                        <small class="form-text text-muted">250 Character Max</small>
+                                        <input class="form-control" id="taskComment" maxlength="150" type="text" placeholder="John did a great job!...." />
+                                        <small class="form-text text-muted">150 Character Max</small>
                                     </div>
                                 </form>
                             </div>
