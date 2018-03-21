@@ -149,7 +149,7 @@
                         <th scope="col">Day of Week</th>
                         <th scope="col">Category</th>
                         <th scope="col">Taskr</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Comment</th>
                     </tr>
                 </thead>
                 <tbody id="userPurchasedHistory">
@@ -176,6 +176,7 @@
         </div>
     </div>
 
+    
 
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -184,14 +185,6 @@
         </div>
     </div>
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ HTML $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-
-
-    <!-- <div id="commentModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="commentOnTask"></div>
-        </div>
-    </div> -->
 
 
     <!-- Optional JavaScript-->
@@ -243,7 +236,12 @@
             let price = tasksArray[i].price;
             let dow = tasksArray[i].dayofWeek;
             let cat = tasksArray[i].category;
-            let pic = tasksArray[i].taskPhoto;
+            let pic;
+            if (tasksArray[i].taskPhoto !== "") {
+                 pic = tasksArray[i].taskPhoto;                
+            } else {
+                 pic = "/images/work.jpg";
+            }           
             var newrow = $("<tr>");
             newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -251,7 +249,7 @@
             newrow.append($("<td class='text-left'>" + price + "</td>"));
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
-            newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+            newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace2 ficon' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
             $("#userTasks").append(newrow);
         }
     })
@@ -266,9 +264,9 @@
     }).then(function (dbTaskr) {
         for (let i = 0; i < dbTaskr.length; i++) {
 
-            if (dbTaskr[i].requesterMarkComplete == false && dbTaskr[i].taskrMarkComplete == false) {
+            if (dbTaskr[i].taskrMarkComplete == false && dbTaskr[i].requesterMarkComplete == false || dbTaskr[i].taskrMarkComplete == true  && dbTaskr[i].requesterMarkComplete == false) {
                 purchasedArray.push(dbTaskr[i]);
-            } else if (dbTaskr[i].requesterMarkComplete == true && dbTaskr[i].taskrMarkComplete == true) {
+            } else if (dbTaskr[i].taskrMarkComplete == true && dbTaskr[i].requesterMarkComplete == true && dbTaskr[i].taskrMarkComplete == true) {
                 purchasedHistoryArray.push(dbTaskr[i]);
             }
 
@@ -309,7 +307,12 @@
             let price = tasksArray[i].price;
             let dow = tasksArray[i].dayofWeek;
             let cat = tasksArray[i].category;
-            let pic = tasksArray[i].taskPhoto;
+            let pic;
+            if (tasksArray[i].taskPhoto !== "") {
+                pic = tasksArray[i].taskPhoto;
+            } else {
+                pic = "/images/work.jpg";
+            }
             var newrow = $("<tr>");
             newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -317,7 +320,7 @@
             newrow.append($("<td class='text-left'>" + price + "</td>"));
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
-            newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+            newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
             $("#userTasks").append(newrow);
         }
     })
@@ -347,7 +350,12 @@
             let taskeeName = in_progressArray[i].taskeeName;
             let taskeeid = in_progressArray[i].taskeeId;
             let taskeeNameURL = "<button onclick=userProfile(" + taskeeid + ") class=link>" + taskeeName + "</button>";
-            let pic = in_progressArray[i].taskPhoto;
+            let pic;
+            if (in_progressArray[i].taskPhoto !== "") {
+                pic = in_progressArray[i].taskPhoto;
+            } else {
+                pic = "/images/work.jpg";
+            }
             var newrow = $("<tr>");
             newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -358,7 +366,7 @@
             newrow.append($("<td class='text-left'>" + taskeeNameURL + "</td>"));
 
             if (in_progressArray[i].taskrAccept == true && in_progressArray[i].requesterAccept == true && in_progressArray[i].taskrMarkComplete == false && in_progressArray[i].requesterMarkComplete == false) {
-                newrow.append($("<td><span onclick=requestCash(" + taskid + ") i class='fas fa-dollar-sign glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
+                newrow.append($("<td><span onclick=requestCash(" + taskid + ") i class='fas fa-dollar-sign glypiconSpace2 ficon' data-key='" + taskid + "'></i></span><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
 
             } else if (in_progressArray[i].taskrAccept == true && in_progressArray[i].requesterAccept == true && in_progressArray[i].taskrMarkComplete == true && in_progressArray[i].requesterMarkComplete == false) {
                 newrow.append($("<td>Payment Requested</td>"))
@@ -393,7 +401,12 @@
             let taskeeName = completedArray[i].taskeeName;
             let taskeeid = completedArray[i].taskeeId;
             let taskeeNameURL = "<button onclick=userProfile(" + taskeeid + ") class=link>" + taskeeName + "</button>";
-            let pic = completedArray[i].taskPhoto;
+            let pic;
+            if (completedArray[i].taskPhoto !== "") {
+                pic = completedArray[i].taskPhoto;
+            } else {
+                pic = "/images/work.jpg";
+            }
             var newrow = $("<tr>");
             newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -402,7 +415,7 @@
             newrow.append($("<td class='text-left'>" + dow + "</td>"));
             newrow.append($("<td class='text-left'>" + cat + "</td>"));
             newrow.append($("<td class='text-left'>" + taskeeNameURL + "</td>"));
-            newrow.append($("<td><span i class='fas fa-money-bill-alt glypiconSpace'></i></span></td>"))
+            newrow.append($("<td><span i class='fas fa-money-bill-alt glypiconSpace2 ficon'></i></span></td>"))
             $("#userCompletedTasks").append(newrow);
         }
     })
@@ -433,7 +446,12 @@
             let taskrid = purchasedArray[i].TaskrId;
             let taskrName = purchasedArray[i].taskrName;
             let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
-            let pic = purchasedArray[i].taskPhoto;
+            let pic;
+            if (purchasedArray[i].taskPhoto !== "") {
+                pic = purchasedArray[i].taskPhoto;
+            } else {
+                pic = "/images/work.jpg";
+            }
             var newrow = $("<tr>");
             newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -444,10 +462,10 @@
             newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));
 
             if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == false && purchasedArray[i].requesterMarkComplete == false) {
-                newrow.append($("<td><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
+                newrow.append($("<td><span onclick=cancelTask(" + taskid + ") i class='fas fa-ban glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
                 $("#userPurchasedTasks").append(newrow);
             } else if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == false) {
-                newrow.append($("<td><span onclick=markComplete(" + taskid + ") i class='fas fa-check-circle glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
+                newrow.append($("<td><span onclick=markComplete(" + taskid + ") i class='fas fa-check-circle glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
                 $("#userPurchasedTasks").append(newrow);
             }
             else if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true && purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].requesterMarkComplete == true) {
@@ -483,7 +501,12 @@
                 let taskrid = purchasedHistoryArray[i].TaskrId;
                 let taskrName = purchasedHistoryArray[i].taskrName;
                 let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
-                let pic = purchasedHistoryArray[i].taskPhoto;
+                let pic;
+                if (purchasedHistoryArray[i].taskPhoto !== "") {
+                    pic = purchasedHistoryArray[i].taskPhoto;
+                } else {
+                    pic = "/images/work.jpg";
+                }
                 var newrow = $("<tr>");
                 newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
                 newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -493,8 +516,11 @@
                 newrow.append($("<td class='text-left'>" + cat + "</td>"));
                 newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));
 
-                if (purchasedHistoryArray[i].taskrAccept == true && purchasedHistoryArray[i].requesterAccept == true && purchasedHistoryArray[i].taskrMarkComplete == true && purchasedHistoryArray[i].requesterMarkComplete == true && purchasedHistoryArray[i].taskPaid == true) {
-                    newrow.append($("<td><span onclick=leaveComment(" + taskid + ") i class='fas fa-comment-alt glypiconSpace' data-key='" + taskid + "'></i></span></td>"))
+                if (purchasedHistoryArray[i].taskCommentTrue == false) {
+                    newrow.append($("<td><span onclick=leaveComment(" + taskid + ") i class='fas fa-comment-alt glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
+                    $("#userPurchasedHistory").append(newrow);
+                } else if (purchasedHistoryArray[i].taskCommentTrue == true) {
+                    newrow.append($("<td><span onclick=leaveComment(" + taskid + ") i class='fas fa-edit glypiconSpace2 ficon'  data-key='" + taskid + "'></i></span></td>"))
                     $("#userPurchasedHistory").append(newrow);
                 }
             }
@@ -696,7 +722,12 @@
                     let taskrid = tasksArray[i].TaskrId;
                     let taskrName = tasksArray[i].taskrName;
                     let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
-                    let pic = tasksArray[i].taskPhoto;
+                    let pic;
+                    if (tasksArray[i].taskPhoto !== "") {
+                        pic = tasksArray[i].taskPhoto;
+                    } else {
+                        pic = "/images/work.jpg";
+                    }
                     var newrow = $("<tr>");
                     newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
                     newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -707,10 +738,10 @@
                     newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));
 
                     if (taskrid == sessionStorage.getItem("id")) {
-                        // newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+                        // newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
 
                     } else{
-                        newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square' data-key='" + taskid + "'></i> Book</td>"))
+                        newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square ficon' data-key='" + taskid + "'></i> Book</td>"))
                     }
                     $("#allTasksTable").append(newrow);
                 }
@@ -768,7 +799,12 @@
                 let taskrid = tasksArray[i].TaskrId;
                 let taskrName = tasksArray[i].taskrName;
                 let taskrNameURL = "<button onclick=userProfile(" + taskrid + ") class=link>" +taskrName+"</button>";
-                let pic = tasksArray[i].taskPhoto;
+                let pic;
+                if (tasksArray[i].taskPhoto !== "") {
+                    pic = tasksArray[i].taskPhoto;
+                } else {
+                    pic = "/images/work.jpg";
+                }
                 var newrow = $("<tr class='text-left'>");
                 newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
                 newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -779,10 +815,10 @@
                 newrow.append($("<td class='text-left'>" + taskrNameURL + "</td>"));
 
                 if (taskrid == sessionStorage.getItem("id")) {
-                    // newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2' data-key='" + taskid + "'></i></span></td>"))
+                    // newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace2 ficon' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
 
                 } else {
-                    newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square glypiconSpace' data-key='" + taskid + "'></i> Book</td>"))
+                    newrow.append($("<td><span onclick=bookTask(" + taskid + ") i class='fas fa-check-square glypiconSpace ficon' data-key='" + taskid + "'></i> Book</td>"))
                 }
 
                 $("#allTasksTable").append(newrow);
@@ -819,7 +855,7 @@
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 3000);
+                    }, 1000);
                 }
             );
         }
@@ -846,10 +882,12 @@
                     modal.style.display = "block";
                     $("#modalBody").append(`
                         <h4 class="text-center">Payment Sent! Thanks</h4>
+                        <h4 class="text-center">Don't forget to Leave your Taskr some</h4> 
+                        <h4 class="text-center">feedback, under your Purchased History.</h4>                        
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 3000);
+                    }, 2000);
                 }
             );
         }
@@ -878,7 +916,7 @@
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 3000);
+                    }, 1000);
                 }
             );
         }
@@ -908,7 +946,7 @@
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 3000);
+                    }, 1000);
                 }
             );
         }
@@ -944,7 +982,11 @@
                 }).then(function (dbTaskr1) {
                     console.log("YOOOO",dbTaskr1);
                     taskrName = dbTaskr1.username
-                    taskrPhoto = dbTaskr1.taskrPhoto
+                    if (dbTaskr1.taskrPhoto !== null) {
+                        taskrPhoto = dbTaskr1.taskrPhoto;
+                    } else {
+                        taskrPhoto = "/images/userTempPic.jpg";
+                    }
 
                     for (let i = 0; i < dbTaskr.length; i++) {
                         if (dbTaskr[i].requesterMarkComplete && dbTaskr[i].taskPaid == true) {
@@ -973,7 +1015,7 @@
                             <h3 class="text-center">TASKr User: ${taskrName}</h3>
                             <div class="row">
                                 <div class="col-md-5">
-                                     <img src="${taskrPhoto}" alt="" class="img-fluid">
+                                     <img src="${taskrPhoto}" alt="" class="imglock">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="row text-left">
@@ -1057,7 +1099,12 @@
                 let price = task.price;
                 let dow = task.dayofWeek;
                 let cat = task.category;
-                let pic = task.taskPhoto;
+                let pic;
+                if (task.taskPhoto !== "") {
+                    pic = task.taskPhoto;
+                } else {
+                    pic = "/images/work.jpg";
+                }
                 let taskrid = task.id;
                 let taskrName = task.taskrName
                 let dbTaskrName = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
@@ -1153,9 +1200,8 @@
             let taskID = $("#taskid1");
             taskID.val(taskid);
             console.log(taskID.val())
-                }
+                
 
-//New Function=======================================================================================================================================================================================================================================================================================
 
         $("#modalBody").on("click", "#addComment", function (event) {
             event.preventDefault();
@@ -1181,11 +1227,11 @@
                      `)
                       setTimeout(() => {
                          location.href = "/home";
-                      }, 3000);
+                      }, 1000);
                 }
             );
         })
-
+    }
 
 
 

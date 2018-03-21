@@ -13,77 +13,11 @@ block content1
         .col-md-2        
             a.btn.btn-primary(href='/home') Cancel
 
-        #deleteModal.modal1
-            .modal1-content
-                
-                #accountToBeDeleted
-                div
-                    h5
-                        | Warning: Clicking the "Confirm" Button below will delete your account and all
-                        | associated Tasks.  This account is final!
-                    .row
-                        .offset-md-3.col-md-1
-                        button#deleteConfirm.btn.btn-primary(type='submit') Confirm
-                        .col-md-1
-                        a#deleteCancel.btn.btn-primary(href='/home') Cancel
-
-        #accountUpdateModal.modal
-            .modal-content
-                .jumbotron
-                    h1.text-center CREATE AN ACCOUNT!
-                .row
-                    .offset-md-3.col-md-6
-                        form
-                            div#accountID
-                            div#usernameAccountSettings
-                            .form-group
-                            label(for='password') Password
-                            input#userPasswordUp1.form-control.text-center(type='name', placeholder='')
-                            small.form-text.text-muted Must be atleast 3 characters min
-                            .form-group
-                            label(for='password') Confirm Password
-                            input#userPasswordUp2.form-control.text-center(type='name', placeholder='')
-                            small.form-text.text-muted Must be atleast 3 characters min  
-                            .form-group
-                            label(for='Img') User Image
-                            input#userPic.form-control(type='text', placeholder='', maxlength='300')
-                            small.form-text.text-muted Enter a Line to Your Profile Photo            
-                            .form-group.text-center
-                            label(for='secQuestionOne') Security Question 1
-                            select#secQuestionOneUp.form-control.text-center
-                                option What is you mothers maiden name?
-                                option Name of your childhood best friend?
-                                option Make of your first car?
-                            .form-group
-                            label(for='secQuestionOneAnswer') Answer
-                            input#secQuestionOneAnswerUp.form-control.text-center(type='text', placeholder='Enter your Answer')
-                            .form-group.text-center
-                            label(for='secQuestionTwo') Security Question 2
-                            select#secQuestionTwoUp.form-control.text-center
-                                option Name of your first pet?
-                                option Name of your high school mascot?
-                                option City of your birth?
-                            .form-group
-                            label(for='secQuestionTwoAnswer') Answer
-                            input#secQuestionTwoAnswerUp.form-control.text-center(type='text', placeholder='Enter your Answer')
-                            .form-group.text-center
-                            label(for='secQuestionThree') Security Question 3
-                            select#secQuestionThreeUp.form-control.text-center
-                                option What is your favorite color?
-                                option Name of the street you grew up on?
-                                option Apple or Samsung?
-                            .form-group
-                            label(for='secQestionOneAnswer') Answer
-                            input#secQuestionThreeAnswerUp.form-control.text-center(type='text', placeholder='Enter your Answer')
-                        .row
-                            .col-md-2    
-                                buttonbutton#accountUpdateSubmit.btn.btn-primary Submit
-                            .col-md-1        
-                                a.btn.btn-primary(href='/home') Cancel
-        //- .container
-        //-     #updateSuccess        
-        //-         .row.text-center
-        //-                 #bbb.model1
+            
+    #myModal.modal1
+      .modal1-content
+          span.close ×
+          #modal1Body   
 
 
 
