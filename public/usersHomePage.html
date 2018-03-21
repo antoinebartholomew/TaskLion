@@ -23,29 +23,24 @@
     <script src="js/tasks.js"></script> -->
     <!--body content ===============================================================================================-->
 </head>
-<!-- //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ HTML $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="offset-md-7 col-md-1">
-                <!-- <a class="btn btn-primary" href="/tasks">All Tasks</a> -->
-            </div>
-            <div class="col-md-2">
-                <a class="btn btn-primary" href="/create">Create Task</a>
-            </div>
-            <div class="col-md-1">
-                <a class="btn btn-primary" href="/settings">Settings</a>
-            </div>
-            <div class="col-md-1">
-                <button id="logoutSubmit" class="btn btn-primary">Logout</button>
+
+        <div class="row navRow">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-md-8 col-md-2">
+                        <a class="btn btn-primary" href="/create">Create Task</a>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-primary" href="/settings">Settings</a>
+                    </div>
+                    <div class="col-md-1">
+                        <button id="logoutSubmit" class="btn btn-primary">Logout</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-
-
-
+    
 
 
 
@@ -74,11 +69,6 @@
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
 </div> -->
-
-
-
-
-
 
     
 <div class="container rowBackground ">
@@ -131,16 +121,8 @@
                 </li>
             </ul>
 
-
-
-
-
-
-
-
-
             <!-- <button id="taskrTasks" class="btn btn-primary btnHeight2" type="submit">Your Tasks</button> -->
-            <div class="form-group btn">
+            <div class="form-group btn ddHeight ">
                 <select class="form-control" id="categorySelect">
                     <option>Auto Maintenance</option>
                     <option>Childcare</option>
@@ -150,7 +132,9 @@
                     <option>Instruction</option>
                 </select>
             </div>
-            <!-- <button id='categorySubmit' type="submit" class="btn btn-primary btnHeight">Filter</button> -->
+
+            
+            <button id='categorySubmit' type="submit" class="btn btn-primary btnHeight">Filter</button>
         </div>
 
         <div class="row">
@@ -268,7 +252,6 @@
             <div id="modalBody"></div>
         </div>
     </div>
-<!-- //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ HTML $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ -->
 
 
     <!-- Optional JavaScript-->
@@ -1111,7 +1094,7 @@
                             </div>
                             <div class="row">
                                 <div class="col rowSpace">
-                                    <a class="btn btn-primary" href="/home">Close</a>
+                                    <button onclick="modelClose()" class="btn btn-primary" href="/home">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -1163,6 +1146,7 @@
                 let dbTaskrName = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
 
             modal.style.display = "block";
+            $("#modalBody").empty();
             $("#modalBody").append(`
                 <div class="container">
                     <h3 class="text-center">TASKr Task: ${taskid}</h3>
@@ -1170,40 +1154,40 @@
                     <div class="row text-left">
                         <div class="col-md 7">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <h6>Task Name:</h6>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <p>${title}</p>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <h6>Task Description:</h6>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <p>${body}</p>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <h6>Taskr:</h6>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <p>${dbTaskrName}</p>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <h6>Price:</h6>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <p>${price}</p>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <h6>Date of the Week:</h6>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <p>${dow}</p>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <h6>Category:</h6>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <p>${cat}</p>
                                 </div>
                             </div>
@@ -1214,7 +1198,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <a class="btn btn-primary" href="/home">Close</a>
+                            <button onclick="modelClose()" class="btn btn-primary" href="/home">Close</button>
                         </div>
                     </div>
                 </div>`)
@@ -1229,6 +1213,7 @@
             console.log("commented")
 
             modal.style.display = "block";
+                $("#modalBody").empty();
                 $("#modalBody").append(`
                         <h5 class="text-center">Leave A Comment!</h5>
                         <div id="taskid1"></div>
@@ -1287,6 +1272,10 @@
     }
 
 
+
+    function modelClose(){
+        modal.style.display = "none";
+    }
 
 </script>
 

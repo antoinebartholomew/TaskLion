@@ -1,23 +1,31 @@
-//extent layout.jade ============================================================================== 
 extends layout
 //importing everything below into block content1 on layout.jade ===================================
 block content1
+  body.accountSettingsBG 
+      .jumbotron(style='background:white !important')
+        #tab-1.links
+          h1.ml8
+            span.letters-container
+              span.letters.letters-left Taskr
+              span.letters.bang !
+            span.circle.circle-white
+            span.circle.circle-dark
+            span.circle.circle-container
+              span.circle.circle-dark-dashed     
     .container
-      .jumbotron
-        h1.text-center Account Settings!
-      .row
-        .offset-md-3.col-md-2    
-            button#editAccountSubmit.btn.btn-primary(type='submit') Update Acct
-        .col-md-2    
-            button#deleteSubmit.btn.btn-primary(type='submit') Delete Acct
-        .col-md-2        
-            a.btn.btn-primary(href='/home') Cancel
+        .row
+            .offset-md-3.col-md-2    
+                button#editAccountSubmit.btn.btn-primary(type='submit') Update Acct
+            .col-md-2    
+                button#deleteSubmit.btn.btn-primary(type='submit') Delete Acct
+            .col-md-2        
+                a.btn.btn-primary(href='/home') Cancel
 
             
-    #myModal.modal1
-      .modal1-content
-          span.close ×
-          #modal1Body   
+#myModal.modal1
+.modal1-content
+    span.close ×
+    #modal1Body   
 
 
 
