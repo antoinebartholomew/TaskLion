@@ -271,43 +271,86 @@ $(document).ready(function () {
 // Delete Acct ========================================================================================================
     $("#deleteSubmit").on("click", function(event) {
       event.preventDefault();
-    //   modal1.style.display = "block";
-    });
+        console.log("user delete");
+            $("#modal1Body").empty();
+                modal1.style.display = "block";
+            $("#modal1Body").append(`
+                    <div class="container">
+                        <div class="jumbotron">
+                            <h1 class="text-center">Delete Your Account</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Warning: Clicking the "Confirm" Button below will delete your account and all associated Tasks. This account is final!</h5>         
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class=" offset-md-4 col-md-2">
+                                <button id="deleteConfirm" class="btn btn-primary">Submit</button>
+                            </div>
+                            <div class=" col-md-2">
+                                <a class="btn btn-primary" href="/home">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+               `);
+            });
 
-    $("#deleteConfirm").on("click", function(event) {
-      event.preventDefault();
+    $("#myModal").on("click", "#deleteConfirm", function(event) {
+     event.preventDefault();     
       var id = sessionStorage.getItem("id");
       console.log(id);
-        $.ajax("/api/taskrs/" + id, {
-          type: "DELETE",
-        }).then(function(dbTaskr) {
-          location.href = "/";
-        });
+
+            $.ajax("/api/tasks/delete/" + id, {
+            type: "DELETE",
+            }).then(function(dbTaskr) {
+                deleteUser(id);
+                setTimeout(() => {
+                }, 4000);  
+            })
+
+
+            function deleteUser(id){
+                $.ajax("/api/taskrs/" + id, {
+                type: "DELETE",
+                }).then(function(dbTaskr) {
+                    $("#modal1Body").empty();
+                    modal1.style.display = "block";
+                    $("#modal1Body").append(`
+                        <h4 class="text-center">Account Delete</h4>
+                    `);
+                    setTimeout(() => {
+                        location.href = "/";
+                    }, 4000);  
+                });
+            }
+
+
     });
 
+    
 
-        // // Get the modal
-        // var modal1 = document.getElementById('deleteModal');
-        // // Get the <span> element that closes the modal
-        // var span = document.getElementsByClassName("close")[0];
-        // // When the user clicks on <span> (x), close the modal
-        // $("#deleteCancel").onclick = function() {
-        //   modal.style.display = "none";
-        // };
-        // // When the user clicks anywhere outside of the modal, close it
-        // window.onclick = function(event) {
-        //     if (event.target == modal) {
-        //         modal.style.display = "none";
-        //     }
-        // }
-                
+
+
 // End of Delete ========================================================================================================
 
 // Update Acct ========================================================================================================
-    $("#editAccountSubmit").on("click", function(event) {
+let username = $("#usernameAccountSettings");
+let password = $("#userPasswordUp1");
+let password2 = $("#userPasswordUp2");
+let secQuestion1 = $("#secQuestionOneUp");
+let secQuestionAnswer1 = $("#secQA1");
+let secQuestion2 = $("#secQuestionTwoUp");
+let secQuestionAnswer2 = $("#secQA2");
+let secQuestion3 = $("#secQuestionThreeUp");
+let secQuestionAnswer3 = $("#secQA3");
+let userPic = $("#userPic");
+let id = $("#accountID");
+    
+
+
+$("#editAccountSubmit").on("click", function(event) {
       event.preventDefault();
-
-
 
       var id = sessionStorage.getItem("id");
       console.log(id);
@@ -317,13 +360,12 @@ $(document).ready(function () {
         data: id
       }).then(function(dbTaskr) {
         console.log("LINE 25", dbTaskr);
-
-
-        
+ 
         $("#modal1Body").empty();
         modal1.style.display = "block";
         $("#modal1Body").append(`
             <div class="container">
+            <div id="accountID"></div>
                 <div class="jumbotron">
                     <h1 class="text-center">Edit Your Account Settings</h1>
                 </div>
@@ -347,7 +389,7 @@ $(document).ready(function () {
                             </div>
                             <div class="form-group">
                                 <label for="secQuestionOne">Security Question 1 *</label>
-                                <select class="form-control" id="secQuestionOneAnswerUp">
+                                <select class="form-control" id="secQuestionOneUp">
                                     <option>What is you mothers maiden name?</option>
                                     <option>Name of your childhood best friend?</option>
                                     <option>Make of your first car?</option>
@@ -355,11 +397,11 @@ $(document).ready(function () {
                             </div>
                             <div class="form-group">
                                 <label for="secQuestionOneAnswer">Security Question 1 Answer *</label>
-                                <input id="#secQuestionOneAnswerUp" type="text" class="form-control text-center">
+                                <input id="secQA1" type="text" class="form-control text-center">
                             </div>
                             <div class="form-group">
                                 <label for="secQuestionTwo">Security Question 2 *</label>
-                                <select class="form-control" id="secQuestionTwoAnswerUp">
+                                <select class="form-control" id="secQuestionTwoUp">
                                     <option>Name of your first pet?</option>
                                     <option>Name of your high school mascot?</option>
                                     <option>City of your birth?</option>
@@ -367,11 +409,11 @@ $(document).ready(function () {
                             </div>
                             <div class="form-group">
                                 <label for="secQuestionTwoAnswer">Security Question 2 Answer *</label>
-                                <input id="#secQuestionTwoAnswerUp" type="text" class="form-control text-center">
+                                <input id="secQA2" type="text" class="form-control text-center">
                             </div>
                             <div class="form-group">
                                 <label for="secQuestionThree">Security Question 3 *</label>
-                                <select class="form-control" id="secQuestionThreeAnswerUp">
+                                <select class="form-control" id="secQuestionThreeUp">
                                     <option>What is your favorite color?</option>
                                     <option>Name of the street you grew up on?</option>
                                     <option>Apple or Samsung?</option>
@@ -379,7 +421,7 @@ $(document).ready(function () {
                             </div>
                             <div class="form-group">
                                 <label for="secQuestionThreeAnswer">Security Question 3 Answer *</label>
-                                <input id="#secQuestionThreeAnswerUp" type="text" class="form-control text-center">
+                                <input id="secQA3" type="text" class="form-control text-center">
                             </div>
                             <div class="form-group">
                                 <label for="text"> * Indicates a Required Field</label>
@@ -396,42 +438,22 @@ $(document).ready(function () {
                     </div>
                 </div>
             </div>
-            `);
+        `);
 
 
-        let username = $("#usernameAccountSettings");
-        let password = $("#userPasswordUp1");
-        let password2 = $("#userPasswordUp2");
-        let secQuestion1 = $("#secQuestionOneUp");
-        let secQuestionAnswer1 = $("#secQuestionOneAnswerUp");
-        let secQuestion2 = $("#secQuestionTwoUp");
-        let secQuestionAnswer2 = $("#secQuestionTwoAnswerUp");
-        let secQuestion3 = $("#secQuestionThreeUp");
-        let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
-        let userPic = $("#userPic");
-        let id = $("#accountID");
+username = $("#usernameAccountSettings");
+password = $("#userPasswordUp1");
+password2 = $("#userPasswordUp2");
+secQuestion1 = $("#secQuestionOneUp");
+secQuestionAnswer1 = $("#secQA1");
+secQuestion2 = $("#secQuestionTwoUp");
+secQuestionAnswer2 = $("#secQA2");
+secQuestion3 = $("#secQuestionThreeUp");
+secQuestionAnswer3 = $("#secQA3");
+userPic = $("#userPic");
+id = $("#accountID");
+    
 
-
-        //   var id = sessionStorage.getItem("id");
-        //   console.log(id);
-
-        //         $.ajax("/api/taskrs1/" + id, {
-        //           type: "GET",
-        //           data: id
-        //         }).then(function(dbTaskr) {
-        //           console.log("LINE 25", dbTaskr);
-
-        //           let username = $("#usernameAccountSettings");
-        //           let password = $("#userPasswordUp1");
-        //           let password2 = $("#userPasswordUp2");
-        //           let secQuestion1 = $("#secQuestionOneUp");
-        //           let secQuestionAnswer1 = $("#secQuestionOneAnswerUp");
-        //           let secQuestion2 = $("#secQuestionTwoUp");
-        //           let secQuestionAnswer2 = $("#secQuestionTwoAnswerUp");
-        //           let secQuestion3 = $("#secQuestionThreeUp");
-        //           let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
-        //           let userPic = $("#userPic");
-        //           let id = $("#accountID");
 
         password.val(dbTaskr.password);
         password2.val(dbTaskr.password);
@@ -444,129 +466,74 @@ $(document).ready(function () {
         userPic.val(dbTaskr.taskrPhoto);
         id.val(dbTaskr.id);
         username.val(dbTaskr.username);
-
-
-
-
         
       }); 
 
+})
 
 
-
-
-
-      })
-
-
-
-
-    $("#accountUpdateSubmit").on("click", function (event) {
+    $("#myModal").on("click", "#accountUpdateSubmit", function (event) {
         event.preventDefault();
-        if ($("#userPasswordUp1").val() && $("#userPasswordUp2").val()
-            && $("#secQuestionOneAnswerUp").val() && $("#secQuestionTwoAnswerUp").val() && $("#secQuestionThreeAnswerUp").val() ) {
+        if ($("#userPasswordUp1").val() && $("#userPasswordUp2").val() && $("#secQA1").val() && $("#secQA2").val() && $("#secQA3").val() ) {
 
                 if($("#userPasswordUp1").val() === $("#userPasswordUp2").val()){
 
-                    var updateUser = {
-                        username: $("#usernameAccountSettings").val(),
-                        password: $("#userPasswordUp1").val(),
-                        secQuestion1: $("#secQuestionOneUp").val(),
-                        secQuestionAnswer1: $("#secQuestionOneAnswerUp").val().toLowerCase(),
-                        secQuestion2: $("#secQuestionTwoUp").val(),
-                        secQuestionAnswer2: $("#secQuestionTwoAnswerUp").val().toLowerCase(),
-                        secQuestion3: $("#secQuestionThreeUp").val(),
-                        secQuestionAnswer3: $("#secQuestionThreeAnswerUp").val().toLowerCase(),
-                        taskrPhoto: $("#userPic").val(),
-                        id: $("#accountID").val(),
-                        loggedIn: true
-                    }
-                    }else
+                        var updateUser = {
+                            username: $("#usernameAccountSettings").val(),
+                            password: $("#userPasswordUp1").val(),
+                            secQuestion1: $("#secQuestionOneUp").val(),
+                            secQuestionAnswer1: $("#secQA1").val().toLowerCase(),
+                            secQuestion2: $("#secQuestionTwoUp").val(),
+                            secQuestionAnswer2: $("#secQA2").val().toLowerCase(),
+                            secQuestion3: $("#secQuestionThreeUp").val(),
+                            secQuestionAnswer3: $("#secQA3").val().toLowerCase(),
+                            taskrPhoto: $("#userPic").val(),
+                            id: $("#accountID").val(),
+                            loggedIn: true  
+                        }
+
+                            //query taskrs for username and password and check if they match
+                            $.ajax("/api/updateAcct", {
+                                type: "PUT",
+                                data: updateUser
+                            }).then(
+                                function () {
+                                    console.log("user updated");
+                                        $("#modal1Body").empty();
+                                            modal1.style.display = "block";
+                                        $("#modal1Body").append(`
+                                            <h4 class="text-center">Account Updated!</h4>
+                                        `);
+                                        setTimeout(() => {
+                                            location.href = "/home";
+                                        }, 3000);  
+                                     });                                               
+                            } else
+                                $("#modal1Body").empty();
+                                    modal1.style.display = "block";
+                                $("#modal1Body").append(`
+                                    <h4 class="text-center">Passwords Do Not Match!</h4>
+                                `);
+                                setTimeout(() => {
+                                    modal1.style.display = "none";
+                                }, 2000); 
+
+                     }//end of if statement
+                    else{
                         $("#modal1Body").empty();
                             modal1.style.display = "block";
                         $("#modal1Body").append(`
-                            <h4 class="text-center">Passwords Do Not Match!</h4>
+                            <h4 class="text-center">Please Fill Out all Boxes</h4>
                         `);
                         setTimeout(() => {
                             modal1.style.display = "none";
                         }, 2000); 
+                    } 
+                })    
 
-            //query taskrs for username and password and check if they match
-            $.ajax("/api/updateAcct", {
-                type: "PUT",
-                data: updateUser
-            }).then(
-                function () {
-                    console.log("user updated");
-                        $("#modal1Body").empty();
-                            modal1.style.display = "block";
-                        $("#modal1Body").append(`
-                            <h4 class="text-center">Account Update</h4>
-                        `);
-                        setTimeout(() => {
-                            location.href = "/home";
-                        }, 3000);  
-                }
-            );
-        }
-        //end of if statement
-        else{
-            $("#modal1Body").empty();
-                modal1.style.display = "block";
-            $("#modal1Body").append(`
-                <h4 class="text-center">Passwords Do Not Match!</h4>
-            `);
-            setTimeout(() => {
-                modal1.style.display = "none";
-            }, 2000); 
-        } 
-    })    
-
-
-            // Get the modal
-        // var modal = document.getElementById('accountUpdateModal');
-        // // Get the <span> element that closes the modal
-        // var span = document.getElementsByClassName("close")[0];
-        // // When the user clicks on <span> (x), close the modal
-        // $("#updateCancel").onclick = function() {
-        //   modal.style.display = "none";
-        // };
-        // // When the user clicks anywhere outside of the modal, close it
-        // window.onclick = function(event) {
-        //     if (event.target == modal) {
-        //         modal.style.display = "none";
-        //     }
-        // }
-
-        // var confirmModal = document.getElementById("updateSuccess");
-        // // Get the <span> element that closes the modal
-        // var span = document.getElementsByClassName("close")[0];
-        // // When the user clicks on <span> (x), close the modal
-        // $("#updateCancel").onclick = function() {
-        //   confirmModal.style.display = "none";
-        // };
-        // // When the user clicks anywhere outside of the modal, close it
-        // window.onclick = function(event) {
-        //     if (event.target == modal) {
-        //         confirmModal.style.display = "none";
-        //     }
-        // }
 
         
 // End of Update Acct ========================================================================================================
 
 });
 
-
-
-
-
-
-                    // $("#modalBody").empty();
-                    // modal.style.display = "block";
-                    // $("#modalBody").append(`
-                    //     <h4 class="text-center">Task Unbooked! Thanks</h4>
-                    //  `)
-                    // setTimeout(() => {
-                    //     location.href = "/home";
-                    // }, 3000); 

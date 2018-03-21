@@ -41,10 +41,10 @@ $("#modalBody").append(`
 
 
 
-                      $("#modalBody").empty();
+                    $("#modalBody").empty();
                     modal.style.display = "block";
                     $("#modalBody").append(`
-                        <h4 class="text-center">Comment Submitted! Thanks</h4>
+                        <h4 class="text-center">Welcome!</h4>
                      `)
                       setTimeout(() => {
                          location.href = "/home";

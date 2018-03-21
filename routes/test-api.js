@@ -128,3 +128,18 @@ router.put("/api/updateTaskee", function(req, res) {
       res.json(dbTask);
     });
 });
+
+//Delete all Foreign Keys
+router.delete("/api/tasks/delete/:id", function(req, res) {
+  db.Task.destroy({
+    where: {
+      TaskrId: req.params.id
+    }
+  }).then(function(dbTask) {
+    res.json(dbTask);
+  });
+});
+
+
+
+ 
