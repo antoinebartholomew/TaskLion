@@ -44,17 +44,102 @@
     </div>
 
 
-    <div class="container rowBackground ">
-        <div id="taskrHomeView" class="row marginTop">
+
+
+
+
+
+<!-- <ul class="nav nav-tabs" id="taskrHomeView" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="userPostedTask-" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="userPendingTask" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="userCompletedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="userPurchasedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="purchasedHistory" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="viewAllTasks" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+</div> -->
+
+
+
+
+
+
+    
+<div class="container rowBackground ">
+    <ul class="nav nav-tabs row marginTop" id="taskrHomeView" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="userPostedTask" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">My Tasks</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="userPendingTask" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">In Progress</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="userCompletedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Completed</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="userPurchasedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Purchase</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="purchasedHistory" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">History</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="viewAllTasks" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">All Taskr Tasks</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="userPostedTask" role="tabpanel" aria-labelledby="home-tab"></div>
+        <div class="tab-pane fade" id="userPendingTask" role="tabpanel" aria-labelledby="profile-tab"></div>
+        <div class="tab-pane fade" id="userCompletedTask" role="tabpanel" aria-labelledby="contact-tab"></div>
+        <div class="tab-pane fade" id="userPurchasedTask" role="tabpanel" aria-labelledby="profile-tab"></div>
+        <div class="tab-pane fade" id="purchasedHistory" role="tabpanel" aria-labelledby="contact-tab"></div>
+        <div class="tab-pane fade" id="viewAllTasks" role="tabpanel" aria-labelledby="contact-tab"></div>
+    </div>
+
+
+
+        <!-- <div id="taskrHomeView" class="row marginTop">
             <button id="userPostedTask" class="btn btn-primary" type="submit">My Tasks Aval</button>
             <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">In Progress</button>
             <button id="userCompletedTask" class="btn btn-primary padLeft" type="submit">My Completed</button>
             <button id="userPurchasedTask" class="btn btn-primary padLeft" type="submit">In Progess Purchased Task</button>
             <button id="purchasedHistory" class="btn btn-primary padLeft" type="submit"> Completed Purchased Task History</button>
             <button id="viewAllTasks" class="btn btn-primary padLeft" type="submit">All Aval Tasks</button>
-        </div>
-        <div id="taskeeHomeView" class="row marginTop">
-            <button id="taskrTasks" class="btn btn-primary btnHeight2" type="submit">Your Tasks</button>
+        </div> -->
+
+
+        <div id="taskeeHomeView" class="row marginTop rowHeight">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="taskrTasks" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">My Tasks</a>
+                </li>
+            </ul>
+
+
+
+
+
+
+
+
+
+            <!-- <button id="taskrTasks" class="btn btn-primary btnHeight2" type="submit">Your Tasks</button> -->
             <div class="form-group btn">
                 <select class="form-control" id="categorySelect">
                     <option>Auto Maintenance</option>
@@ -65,7 +150,7 @@
                     <option>Instruction</option>
                 </select>
             </div>
-            <button id='categorySubmit' type="submit" class="btn btn-primary btnHeight">Filter</button>
+            <!-- <button id='categorySubmit' type="submit" class="btn btn-primary btnHeight">Filter</button> -->
         </div>
 
         <div class="row">
@@ -680,8 +765,6 @@
     span.onclick = function () {
         modal.style.display = "none";
         location.href = "/home";
-
-
     }
 
     window.onclick = function (event) {
