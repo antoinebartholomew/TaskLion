@@ -215,7 +215,16 @@ $(document).ready(function () {
 
 
       if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
+<<<<<<< HEAD
           
+=======
+
+
+            // if ($("#taskPic").val() = "") {
+            //     $("#taskPic").val("http://live105.ca/wp-content/uploads/2017/12/stewie_at_work.jpg");
+
+
+>>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
                 var taskCreate = {
                     title: $("#taskName").val(),
                     taskPhoto: $("#taskPic").val(),
@@ -332,6 +341,24 @@ $(document).ready(function () {
 
 
 
+<<<<<<< HEAD
+=======
+        // Get the modal
+        var modal1 = document.getElementById('deleteModal');
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        $("#deleteCancel").onclick = function() {
+          modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+>>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
 // End of Delete ========================================================================================================
 
 // Update Acct ========================================================================================================
@@ -355,6 +382,7 @@ $("#editAccountSubmit").on("click", function(event) {
       var id = sessionStorage.getItem("id");
       console.log(id);
 
+<<<<<<< HEAD
       $.ajax("/api/taskrs1/" + id, {
         type: "GET",
         data: id
@@ -473,6 +501,44 @@ id = $("#accountID");
 
 
     $("#myModal").on("click", "#accountUpdateSubmit", function (event) {
+=======
+            $.ajax("/api/taskrs1/" + id, {
+              type: "GET",
+              data: id
+            }).then(function(dbTaskr) {
+              console.log("LINE 25", dbTaskr);
+
+              let username = $("#usernameAccountSettings");
+              let password = $("#userPasswordUp1");
+              let password2 = $("#userPasswordUp2");
+              let secQuestion1 = $("#secQuestionOneUp");
+              let secQuestionAnswer1 = $("#secQuestionOneAnswerUp");
+              let secQuestion2 = $("#secQuestionTwoUp");
+              let secQuestionAnswer2 = $("#secQuestionTwoAnswerUp");
+              let secQuestion3 = $("#secQuestionThreeUp");
+              let secQuestionAnswer3 = $("#secQuestionThreeAnswerUp");
+              let userPic = $("#userPic");
+              let id = $("#accountID");
+
+              password.val(dbTaskr.password);
+              password2.val(dbTaskr.password);
+              secQuestion1.val(dbTaskr.secQuestion1);
+              secQuestionAnswer1.val(dbTaskr.secQuestionAnswer1);
+              secQuestion2.val(dbTaskr.secQuestion2);
+              secQuestionAnswer2.val(dbTaskr.secQuestionAnswer2);
+              secQuestion3.val(dbTaskr.secQuestion3);
+              secQuestionAnswer3.val(dbTaskr.secQuestionAnswer3);
+              userPic.val(dbTaskr.taskrPhoto)
+              id.val(dbTaskr.id);
+              username.val(dbTaskr.username);
+            });
+      })
+
+
+
+
+    $("#accountUpdateSubmit").on("click", function (event) {
+>>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
         event.preventDefault();
         if ($("#userPasswordUp1").val() && $("#userPasswordUp2").val() && $("#secQA1").val() && $("#secQA2").val() && $("#secQA3").val() ) {
 
@@ -492,6 +558,7 @@ id = $("#accountID");
                             loggedIn: true  
                         }
 
+<<<<<<< HEAD
                             //query taskrs for username and password and check if they match
                             $.ajax("/api/updateAcct", {
                                 type: "PUT",
@@ -530,10 +597,54 @@ id = $("#accountID");
                         }, 2000); 
                     } 
                 })    
+=======
+                    // Reload the page to get the updated list
+                    location.href = "/home";
+                }
+            );
+        }
+        //end of if statement
+        else{
+            alert("Fill out all the boxes.")
+        }
+    })
 
 
-        
+            // Get the modal
+        var modal = document.getElementById('accountUpdateModal');
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        $("#updateCancel").onclick = function() {
+          modal.style.display = "none";
+        };
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+>>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
+
+
+
 // End of Update Acct ========================================================================================================
 
 });
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+                    // $("#modalBody").empty();
+                    // modal.style.display = "block";
+                    // $("#modalBody").append(`
+                    //     <h4 class="text-center">Task Unbooked! Thanks</h4>
+                    //  `)
+                    // setTimeout(() => {
+                    //     location.href = "/home";
+                    // }, 3000);
+>>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee

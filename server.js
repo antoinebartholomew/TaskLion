@@ -13,11 +13,16 @@ var db = require("./models");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+<<<<<<< HEAD
+=======
+app.set("views", __dirname + "/views");
+// app.set("views", "views");
+>>>>>>> 2f55d191650bea3dae7aa90afc928f218320b9ee
 app.set("view engine", "jade");
 app.set("views", __dirname + "/views");
 
-
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, '/public')));
+// app.use(express.static("public"));
 app.use(express.static("nodules/bootstrap/dist"));
 
 //for pictures upload
