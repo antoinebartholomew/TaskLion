@@ -2,6 +2,7 @@
 $(document).ready(function () {
 
     var modal1 = document.getElementById("myModal");
+    // var modalComment = document.getElementById('commentModal');
 
     var span = document.getElementsByClassName("close")[0];
 
@@ -14,6 +15,11 @@ $(document).ready(function () {
         modal1.style.display = "none";
       }
     };
+
+
+var userNameOk = false;
+var userNamesArray = [];
+
   //Start of user login ========================================================================================================
 
     $("#loginSubmit").on("click", function(event){
@@ -112,16 +118,7 @@ $(document).ready(function () {
                     type: "PUT",
                     data: logout
                 }
-            ).then(function(dbTaskr) {
-                // console.log("LINE 110 LOGOUT " + dbTaskr);
-                // $("#modalBody").empty();
-                // modal.style.display = "block";
-                // $("#modalBody").append(`
-                //     <h4 class="text-center">GoodBye!</h4>
-                // `);
-                //     setTimeout(() => {
-                //         location.href = "/";
-                //     }, 2000)            
+            ).then(function(dbTaskr) {         
         //end of if statement
                 sessionStorage.clear();
             // Redirect to Login Page
@@ -130,7 +127,33 @@ $(document).ready(function () {
     })
 //End of Logout ========================================================================================================
 
+//Lets user know if username is available ========================================================================================================
 
+$("#userNameCreate").on("keyup", function() {
+  $("#userNameOk").empty();
+  if ($("#userNameCreate").val().length > 2) {
+    $.ajax("/api/taskrs", {
+      type: "GET",
+      data: username
+    }).then(function(dbTaskr) {
+      console.log(dbTaskr);
+      for (let i = 0; i < dbTaskr.length; i++) {
+        userNamesArray.push(dbTaskr[i].username);
+      }
+
+      if (userNamesArray.includes($("#userNameCreate").val())) {
+        $("#userNameOk").html("<h5 style=color:red;>UserName is already Taken</h5>");
+            userNameOk=false;
+
+      } else if (!userNamesArray.includes($("#userNameCreate").val())) {
+        $("#userNameOk").html( "<h5 style=color:green;>UserName is already Available</h5>");
+            userNameOk = true;
+
+      }
+    });
+  }
+  console.log(userNamesArray);
+});
 
 
 //Start of create user account ========================================================================================================
@@ -139,21 +162,50 @@ $(document).ready(function () {
         if ($("#userNameCreate").val() && $("#userPasswordCreate").val() && $("#userPasswordCreate2").val()
             && $("#secQuestionOneAnswer").val() && $("#secQuestionTwoAnswer").val() && $("#secQuestionThreeAnswer").val() ) {
 
-                if($("#userPasswordCreate").val() === $("#userPasswordCreate2").val()){
 
-                    var createUser = {
-                        username: $("#userNameCreate").val().toLowerCase(),
-                        password: $("#userPasswordCreate").val(),
-                        secQuestion1: $("#secQuestionOne").val(),
-                        secQuestionAnswer1: $("#secQuestionOneAnswer").val().toLowerCase(),
-                        secQuestion2: $("#secQuestionTwo").val(),
-                        secQuestionAnswer2: $("#secQuestionTwoAnswer").val().toLowerCase(),
-                        secQuestion3: $("#secQuestionThree").val(),
-                        secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
-                        taskrPhoto: $("#userPic").val(),
-                        loggedIn: true
-                    }
-                    }else
+            if (userNameOk === true) {
+                if($("#userPasswordCreate").val() === $("#userPasswordCreate2").val()){
+                        var createUser = {
+                            username: $("#userNameCreate").val().toLowerCase(),
+                            password: $("#userPasswordCreate").val(),
+                            secQuestion1: $("#secQuestionOne").val(),
+                            secQuestionAnswer1: $("#secQuestionOneAnswer").val().toLowerCase(),
+                            secQuestion2: $("#secQuestionTwo").val(),
+                            secQuestionAnswer2: $("#secQuestionTwoAnswer").val().toLowerCase(),
+                            secQuestion3: $("#secQuestionThree").val(),
+                            secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
+                            taskrPhoto: $("#userPic").val(),
+                            loggedIn: true 
+                        }
+
+                            console.log(createUser)
+                            //query taskrs for username and password and check if they match
+                            $.ajax("/api/taskrs", {
+                                type: "POST",
+                                data: createUser
+                            }).then(
+                                function () {
+                                    $("#modal1Body").empty();
+                                        modal1.style.display = "block";
+                                    $("#modal1Body").append(`
+                                        <h4 class="text-center">Account successfully created! *</h4>
+                                    `);
+                                    setTimeout(() => {
+                                        location.href = "/";}, 3000);  
+                                });
+
+
+                                $("#userNameCreate").val("");
+                                $("#userPasswordCreate").val("");
+                                $("#userPasswordCreate2").val("");
+                                $("#secQuestionOne").val("");
+                                $("#secQuestionOneAnswer").val("");
+                                $("#secQuestionTwo").val("");
+                                $("#secQuestionTwoAnswer").val("");
+                                $("#secQuestionThree").val("");
+                                $("#secQuestionThreeAnswer").val("");
+                                $("#userPic").val("");
+                } else{
                         $("#modal1Body").empty();
                         modal1.style.display = "block";
                         $("#modal1Body").append(`
@@ -161,39 +213,20 @@ $(document).ready(function () {
                         `);
                             setTimeout(() => {
                         modal1.style.display = "none";
-                        }, 3000)    
+                        }, 3000)
+                    } 
+            }  else{
+                        $("#modal1Body").empty();
+                        modal1.style.display = "block";
+                        $("#modal1Body").append(`
+                            <h4 class="text-center">Username is not Available</h4>
+                        `);
+                            setTimeout(() => {
+                        modal1.style.display = "none";
+                        }, 3000)
+                    } 
 
-                $("#userNameCreate").val(""),
-                $("#userPasswordCreate").val(""),
-                $("#userPasswordCreate2").val(""),
-                $("#secQuestionOne").val(""),
-                $("#secQuestionOneAnswer").val(""),
-                $("#secQuestionTwo").val(""),
-                $("#secQuestionTwoAnswer").val(""),
-                $("#secQuestionThree").val(""),
-                $("#secQuestionThreeAnswer").val(""),
-                $("#userPic").val(""),
-
-            console.log(createUser)
-            //query taskrs for username and password and check if they match
-            $.ajax("/api/taskrs", {
-                type: "POST",
-                data: createUser
-            }).then(
-                function () {
-                    $("#modal1Body").empty();
-                    modal1.style.display = "block";
-                    $("#modal1Body").append(`
-                        <h4 class="text-center">Account successfully created! *</h4>
-                    `);
-                    setTimeout(() => {
-                    // Reload the page to get the updated list
-                    location.href = "/";                    
-                }, 3000);  
-                }
-            );
-        }
-        //end of if statement
+        }//if any boxes left empty
         else{
             $("#modal1Body").empty();
             modal1.style.display = "block";

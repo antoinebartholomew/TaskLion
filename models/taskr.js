@@ -57,11 +57,13 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     taskrPhoto: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      defaultValue: null,
     },
+
     loggedIn: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: false,
     }
   });
 
