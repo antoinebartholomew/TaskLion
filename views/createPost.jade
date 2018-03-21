@@ -4,9 +4,18 @@
 extends layout
 //importing everything below into block content1 on layout.jade ===================================
 block content1
-    .container
-      .jumbotron
-        h1.text-center CREATE A TASK!
+.container
+  .container
+        .jumbotron
+          #tab-1.links
+            h1.ml8
+              span.letters-container
+                span.letters.letters-left Taskr
+                span.letters.bang !
+              span.circle.circle-white
+              span.circle.circle-dark
+              span.circle.circle-container
+                span.circle.circle-dark-dashed
       .row
         .offset-md-3.col-md-6
           form

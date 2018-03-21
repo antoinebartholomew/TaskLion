@@ -84,7 +84,8 @@ button.edit {
 
 body {
     /* background-color: rgba(255, 255, 255, 0.85);; */
-    background-color: #D4E5E8;
+    background-image: url("../images/background.jpg");
+    background-size: 50%;
 }
 
 .container {
@@ -124,6 +125,8 @@ h1.ml8 {
     bottom: 0;
     height: 1em;
     text-align: center;
+    font-size: 30px;
+    font-family: 'Inconsolata', monospace;
 }
 
 .ml8 .letters {
@@ -139,9 +142,9 @@ h1.ml8 {
 /* le point d'exclamation */
 
 .ml8 .bang {
-    font-size: 2.4em;
+    font-size: 2.7em;
     top: auto;
-    left: -0.06em;
+    left: -0.10em;
 }
 
 
@@ -324,7 +327,6 @@ footer {
     border: 1px solid #888;
     width: 70%;
 }
-
 
 .modal1 {
     display: none;
