@@ -1,6 +1,20 @@
 $(document).ready(function () {
 
 // Start of Forgot Password ========================================================================================================
+    var modal1 = document.getElementById("myModal");
+    // var modalComment = document.getElementById('commentModal');
+
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() {
+      modal1.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+      if (event.target == modal1) {
+        modal1.style.display = "none";
+      }
+    };
 
 //STEP 1.  Getting the username and checking DB
     $("#forgotPassSubmit").on("click", function(event) {
@@ -22,7 +36,14 @@ $(document).ready(function () {
 //STEP 2.  Respond is sent back after user name is verified and now user security questions and answers are
 // pulled from the users account in the database
             if (dbTaskr == null) {
-                alert("No user by that username exists")
+                $("#modal1Body").empty();
+                    modal1.style.display = "block";
+                $("#modal1Body").append(`
+                        <h4 class="text-center">No account by that username exists</h4>
+                    `);
+                    setTimeout(() => {
+                        modal1.style.display = "none";
+                    }, 3000)
             } else {
               $("#forgotPassSubmit").hide();
               $("#cancelBtn").hide();
@@ -37,7 +58,7 @@ $(document).ready(function () {
 //STEP 3.  Append Security Questions and answers to page                          
               $("#secQuesInputs").append(`        
                     <div class="row">
-                        <div class="offset-md-3 col-md-6">
+                        <div class="offset-md-3 col-md-6 bgwhite createPostModelSettings">
                             <h6 class="text-center">
                             ${secQues1}
                             </h6>
@@ -47,7 +68,7 @@ $(document).ready(function () {
                                 </div>
                             </form>
                         </div>
-                        <div class="offset-md-3 col-md-6">
+                        <div class="offset-md-3 col-md-6 bgwhite createPostModelSettings">
                             <h6 class="text-center">
                             ${secQues2}
                             </h6>
@@ -57,7 +78,7 @@ $(document).ready(function () {
                                 </div>
                             </form>
                         </div>
-                        <div class="offset-md-3 col-md-6">
+                        <div class="offset-md-3 col-md-6 bgwhite createPostModelSettings">
                             <h6 class="text-center">
                             ${secQues3}
                             </h6>
@@ -67,10 +88,10 @@ $(document).ready(function () {
                                 </div>
                             </form>
                         </div> 
-                        <div class="offset-md-5 col-md-1">
+                        <div class="offset-md-3 col-md-3">
                             <button id="forgotPassSubmit1" class="btn btn-primary">Submit</button>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-3">
                                 <a id="cancelBtn1" class="btn btn-primary" href="/">Cancel</a>
                         </div>
                     </div>
@@ -87,91 +108,114 @@ $(document).ready(function () {
                     var userSecAns2 = $("#secQuestAnswer2").val().trim().toLowerCase();    
                     var userSecAns3 = $("#secQuestAnswer3").val().trim().toLowerCase();
                     
-                    if(
-                        userSecAns1 === secQuesAns1 &&
-                        userSecAns2 === secQuesAns2 && 
-                        userSecAns3 === secQuesAns3              
-                    ){
+                    if (userSecAns1 === secQuesAns1 && userSecAns2 === secQuesAns2 && userSecAns3 === secQuesAns3) {
+                      //STEP 5.  If answers match append input boxes to enter new password and confirm password.
 
-//STEP 5.  If answers match append input boxes to enter new password and confirm password.
-
-                       $("#forgotPassSubmit1").hide();
-                       $("#cancelBtn1").hide();
-                       $("#passwordInputs").append(`        
+                      $("#forgotPassSubmit1").hide();
+                      $("#cancelBtn1").hide();
+                      $("#passwordInputs").append(`        
                             <div class="row">
-                                <div class="offset-md-3 col-md-6">
+                                <div class="offset-md-3 col-md-6 bgwhite createPostModelSettings">
                                     <form>
                                         <div class="form-group">
                                             <input type="name" class="form-control text-center" id="passUpdate1"  placeholder="Enter Your New Password">
                                         </div>
                                     </form>
                                 </div>
-                                <div class="offset-md-3 col-md-6">
+                                <div class="offset-md-3 col-md-6 bgwhite createPostModelSettings">
                                     <form>
                                         <div class="form-group">
                                             <input type="name" class="form-control text-center" id="passUpdate2" placeholder="Confirm Your New Password">
                                         </div>
                                     </form>
                                 </div>
-                                <div class="offset-md-5 col-md-1">
+                                <div class="offset-md-3 col-md-3">
                                     <button id="forgotPassSubmit2" class="btn btn-primary">Submit</button>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-3">
                                 <a id="cancelBtn2" class="btn btn-primary" href="/">Cancel</a>
                                 </div>
                             </div>
                         `);
 
-//STEP 6.  After users enters passwords.  Checking to see if the match.  If they matching up User Id with the new password.
+                      //STEP 6.  After users enters passwords.  Checking to see if the match.  If they matching up User Id with the new password.
 
-                       $("#forgotPassSubmit2").on("click",function(event) {
-                           event.preventDefault();
-                           var newPass1 = $("#passUpdate1").val().trim();
-                           var newPass2 = $("#passUpdate2").val().trim();
+                      $("#forgotPassSubmit2").on(
+                        "click",
+                        function(event) {
+                          event.preventDefault();
+                          var newPass1 = $("#passUpdate1")
+                            .val()
+                            .trim();
+                          var newPass2 = $("#passUpdate2")
+                            .val()
+                            .trim();
 
-                           if (newPass1 === newPass2) {
-                             var newUserPassword = {
-                               password: newPass1,
-                               id: userId
-                             };
-                             $.ajax(
-                               "/api/update/password",
-                               {
-                                 type: "PUT",
-                                 data: newUserPassword
-                               }
-                             ).then(function(dbTaskr) {
-                               console.log(dbTaskr);
-                               alert("Password Changed");
+                          if (newPass1 === newPass2) {
+                            var newUserPassword = {
+                              password: newPass1,
+                              id: userId
+                            };
+                            $.ajax("/api/update/password", {
+                              type: "PUT",
+                              data: newUserPassword
+                            }).then(function(dbTaskr) {
+                              console.log(dbTaskr);
+                              $("#modal1Body").empty();
+                              modal1.style.display =
+                                "block";
+                              $("#modal1Body").append(`
+                                    <h4 class="text-center">Password Changed!</h4>
+                                `);
+                              setTimeout(() => {
+                                location.href = "/";
+                              }, 3000);
 
-//STEP 7. Clear out input boxes values
+                              //STEP 7. Clear out input boxes values
 
-                               $("#usernameForgotPass").val("");
-                               $("#secQuestAnswer1").val("");
-                               $("#secQuestAnswer2").val("");
-                               $("#secQuestAnswer3").val("");
-                               $("#passUpdate1").val("");
-                               $("#passUpdate2").val("");
+                              $("#usernameForgotPass").val(
+                                ""
+                              );
+                              $("#secQuestAnswer1").val("");
+                              $("#secQuestAnswer2").val("");
+                              $("#secQuestAnswer3").val("");
+                              $("#passUpdate1").val("");
+                              $("#passUpdate2").val("");
 
-                               // Reload the page to get the updated list
-                               // location.href="/home";
-                             });
-                           } else
-                             alert(
-                                 // if passwords don't match
-                               "Passwords do not match"
-                             );
-                         }
-                       );
-                     }else
-                     // if security questions answers don't match
-                        alert("The answers are wrong")
+                              // Reload the page to get the updated list
+                              // location.href="/home";
+                            });
+                          } else $("#modal1Body").empty();
+                          modal1.style.display = "block";
+                          $("#modal1Body").append(`
+                                    <h4 class="text-center">Passwords do not match</h4>
+                                `);
+                          setTimeout(() => {
+                            modal1.style.display = "none";
+                          }, 3000);
+                        }
+                      );
+                    } else // if security questions answers don't match
+                      $("#modal1Body").empty();
+                    modal1.style.display = "block";
+                    $("#modal1Body").append(`
+                                    <h4 class="text-center">The Security Question Answers entered do not</h4>
+                                    <h4 class="text-center">match the previous Security Question Answers</h4>
+                                `);
+                    setTimeout(() => {
+                      modal1.style.display = "none";
+                    }, 3000);
                 });
             }    
           });
         }else{
             // if no username is entered into the field.
-            alert("Please enter a username")
+            $("#modal1Body").append(`
+                <h4 class="text-center">Please enter a Username</h4>
+            `);
+            setTimeout(() => {
+                modal1.style.display = "none";
+            }, 3000);
         }
     });
 // End of Forgot Password ========================================================================================================

@@ -1,6 +1,7 @@
 extends layout
 //importing everything below into block content1 on layout.jade ===================================
 block content1
+  body.logonPageBG
     .container  
       .jumbotron
         #tab-1.links
@@ -12,10 +13,7 @@ block content1
             span.circle.circle-dark
             span.circle.circle-container
               span.circle.circle-dark-dashed
-
-
-      br
-
+              
       .row
         .offset-md-3.col-md-3
             .form-group
@@ -32,16 +30,11 @@ block content1
         .col-md-3.text-center
           a(href='/forgotpassword') Forgot Password
         br
-        br
+      
       .text-content
-        h3
-          | It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+        //- h3
+        //-   | It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
 
-
-
-
-
-        br
         br
         .image-content
           .swiper-container
@@ -49,27 +42,28 @@ block content1
             .swiper-wrapper
               // Slides
               .swiper-slide
-                img(src='./images/AutoWork.jpeg', alt=' ', height='200', width='300')
+                //- a(href='http://www.yahoo.com', onclick="alert('Hello World!')")
+                img(src='./images/AutoWork.jpeg', alt=' ', height='400', width='600') 
+              .swiper-slide 
+                  img(src='./images/work.jpg', alt=' ', height='400', width='600') 
+              .swiper-slide 
+                img(src='./images/carpenter.jpeg', alt=' ', height='600', width='600')
+              .swiper-slide 
+                img(src='./images/doctor.jpeg', alt=' ', height='450', width='600')
+              .swiper-slide 
+                img(src='./images/paint.jpeg', alt=' ', height='600', width='600')
               .swiper-slide
-                img(src='./images/carpenter.jpeg', alt=' ', height='200', width='300')
+                img(src='./images/19-unsplash.jpg', alt=' ', height='600', width='600')
               .swiper-slide
-                img(src='./images/doctor.jpeg', alt=' ', height='200', width='300')
+                img(src='./images/50-unsplash.jpg', alt=' ', height='600', width='600')
               .swiper-slide
-                img(src='./images/paint.jpeg', alt=' ', height='200', width='300')
+                img(src='./images/86-unsplash.jpg', alt=' ', height='600', width='600')
               .swiper-slide
-                img(src='./images/19-unsplash.jpg', alt=' ', height='200', width='300')
+                img(src='./images/23-unsplash.jpg', alt='Skilled Labor', height='600', width='600')
               .swiper-slide
-                img(src='./images/22-unsplash.jpg', alt=' ', height='200', width='300')
+                img(src='./images/43-unsplash.jpg', alt='Medical', height='600', width='600')
               .swiper-slide
-                img(src='./images/50-unsplash.jpg', alt=' ', height='200', width='300')
-              .swiper-slide
-                img(src='./images/90-unsplash.jpg', alt=' ', height='200', width='300')
-              .swiper-slide
-                img(src='./images/carpenter.jpeg', alt='Skilled Labor', height='200', width='350')
-              .swiper-slide
-                img(src='./images/doctor.jpeg', alt='Medical', height='200', width='350')
-              .swiper-slide
-                img(src='./images/paint.jpeg', alt='Img4', height='200', width='350')
+                img(src='./images/93-unsplash.jpg', alt='Img4', height='600', width='600')
             // If we need pagination
             .swiper-pagination
             // If we need navigation buttons
@@ -86,7 +80,7 @@ block content1
               // Optional parameters
               direction: 'horizontal',
               loop: true,
-              slidesPerView: 3,
+              slidesPerView: 1,
               spaceBetween: 300,
               // If we need pagination
               pagination: {
@@ -104,18 +98,9 @@ block content1
               })
               }
               });
-          br
-          br
+          
       #myModal.modal1
         .modal1-content
           span.close ×
           #modal1Body   
 
-
-
-
-        
-            
-    
-    // Footer
-    #bottom.jumbotron.jumbotron-fluid.footer
