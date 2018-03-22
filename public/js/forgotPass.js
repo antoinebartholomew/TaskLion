@@ -38,12 +38,15 @@ $(document).ready(function () {
             if (dbTaskr == null) {
                 $("#modal1Body").empty();
                     modal1.style.display = "block";
-                $("#modal1Body").append(`
+                    $("#modal1Body").append(`
+                        <div class="text-center modal-content-head-img-bottom-space2">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
                         <h4 class="text-center">No account by that username exists</h4>
                     `);
                     setTimeout(() => {
                         modal1.style.display = "none";
-                    }, 3000)
+                    }, 4000)
             } else {
               $("#forgotPassSubmit").hide();
               $("#cancelBtn").hide();
@@ -55,7 +58,8 @@ $(document).ready(function () {
               var secQuesAns2 = dbTaskr.secQuestionAnswer2;
               var secQuesAns3 = dbTaskr.secQuestionAnswer3;
               var userId = dbTaskr.id;
-//STEP 3.  Append Security Questions and answers to page                          
+//STEP 3.  Append Security Questions and answers to page  
+              $("#secQuesInputs").empty()                        
               $("#secQuesInputs").append(`        
                     <div class="row">
                         <div class="offset-md-3 col-md-6 bgwhite createPostModelSettings">
@@ -88,10 +92,10 @@ $(document).ready(function () {
                                 </div>
                             </form>
                         </div> 
-                        <div class="offset-md-3 col-md-3">
+                        <div class="offset-md-3 col-md-3 bgwhite createPostModelSettings">
                             <button id="forgotPassSubmit1" class="btn btn-primary">Submit</button>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 bgwhite createPostModelSettings">
                                 <a id="cancelBtn1" class="btn btn-primary" href="/">Cancel</a>
                         </div>
                     </div>
@@ -113,6 +117,7 @@ $(document).ready(function () {
 
                       $("#forgotPassSubmit1").hide();
                       $("#cancelBtn1").hide();
+                      $("#passwordInputs").empty();  
                       $("#passwordInputs").append(`        
                             <div class="row">
                                 <div class="offset-md-3 col-md-6 bgwhite createPostModelSettings">
@@ -129,10 +134,10 @@ $(document).ready(function () {
                                         </div>
                                     </form>
                                 </div>
-                                <div class="offset-md-3 col-md-3">
+                                <div class="offset-md-3 col-md-3 bgwhite createPostModelSettings">
                                     <button id="forgotPassSubmit2" class="btn btn-primary">Submit</button>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 bgwhite createPostModelSettings">
                                 <a id="cancelBtn2" class="btn btn-primary" href="/">Cancel</a>
                                 </div>
                             </div>
@@ -162,14 +167,16 @@ $(document).ready(function () {
                             }).then(function(dbTaskr) {
                               console.log(dbTaskr);
                               $("#modal1Body").empty();
-                              modal1.style.display =
-                                "block";
-                              $("#modal1Body").append(`
-                                    <h4 class="text-center">Password Changed!</h4>
+                              modal1.style.display ="block";
+                            $("#modal1Body").append(`
+                                <div class="text-center modal-content-head-img-bottom-space2">
+                                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                                </div>
+                                    <h4 class="text-center">Password Successfully Changed!</h4>
                                 `);
                               setTimeout(() => {
                                 location.href = "/";
-                              }, 3000);
+                              }, 4000);
 
                               //STEP 7. Clear out input boxes values
 
@@ -187,35 +194,47 @@ $(document).ready(function () {
                             });
                           } else $("#modal1Body").empty();
                           modal1.style.display = "block";
-                          $("#modal1Body").append(`
+                            $("#modal1Body").append(`
+                                <div class="text-center modal-content-head-img-bottom-space2">
+                                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                                </div>
                                     <h4 class="text-center">Passwords do not match</h4>
                                 `);
                           setTimeout(() => {
+                            $("#modal1Body").empty();
                             modal1.style.display = "none";
-                          }, 3000);
+                          }, 4000);
                         }
                       );
                     } else // if security questions answers don't match
                       $("#modal1Body").empty();
                     modal1.style.display = "block";
                     $("#modal1Body").append(`
-                                    <h4 class="text-center">The Security Question Answers entered do not</h4>
-                                    <h4 class="text-center">match the previous Security Question Answers</h4>
-                                `);
+                        <div class="text-center modal-content-head-img-bottom-space2">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                            <h4 class="text-center">The Security Question Answers entered do not</h4>
+                            <h4 class="text-center">match the previous Security Question Answers</h4>
+                        `);
                     setTimeout(() => {
+                    $("#modal1Body").empty();
                       modal1.style.display = "none";
-                    }, 3000);
+                    }, 4000);
                 });
             }    
           });
         }else{
             // if no username is entered into the field.
+             $("#modal1Body").empty();
             $("#modal1Body").append(`
+                <div class="text-center modal-content-head-img-bottom-space2">
+                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                </div>
                 <h4 class="text-center">Please enter a Username</h4>
             `);
             setTimeout(() => {
                 modal1.style.display = "none";
-            }, 3000);
+            }, 4000);
         }
     });
 // End of Forgot Password ========================================================================================================

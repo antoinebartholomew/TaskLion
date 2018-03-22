@@ -43,6 +43,9 @@ var userNamesArray = [];
                     $("#modal1Body").empty();
                     modal1.style.display = "block";
                     $("#modal1Body").append(`
+                        <div class="text-center modal-content-head-img-bottom-space2">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
                         <h4 class="text-center">There is no Account associated with that Username</h4>
                         <h4 class="text-center">Please try again, or Sign up for an Account</h4>
                     `);
@@ -63,13 +66,16 @@ var userNamesArray = [];
                             $("#modal1Body").empty();
                             modal1.style.display = "block";
                             $("#modal1Body").append(`
+                                <div class="text-center modal-content-head-img-bottom-space2">
+                                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                                </div>
                                 <h4 class="text-center">Your Password is Incorrect</h4>
                                 <h4 class="text-center">If you Forgot it, you can reset it</h4>
                                 <h4 class="text-center">by clicking "Forget Password"</h4>
                             `);
                             setTimeout(() => {
                                 location.href = "/";
-                            }, 3000)   
+                            }, 6000)   
                         } else{         
                             // AJax Put to update LoggedIn to True
                             var login = {
@@ -93,12 +99,15 @@ var userNamesArray = [];
             $("#modal1Body").empty();
             modal1.style.display = "block";
             $("#modal1Body").append(`
+                <div class="text-center modal-content-head-img-bottom-space2">
+                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                </div>
                 <h4 class="text-center">Please Enter a Username and Password</h4>
                 <h4 class="text-center">to Log in!</h4>
                 `);
                 setTimeout(() => {
                     location.href = "/";
-                }, 3000)            
+                }, 4000)            
         //end of if statement
     })
 
@@ -188,6 +197,9 @@ $("#userNameCreate").on("keyup", function() {
                                     $("#modal1Body").empty();
                                         modal1.style.display = "block";
                                     $("#modal1Body").append(`
+                                    <div class="text-center modal-content-head-img-bottom-space2">
+                                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                                    </div>
                                         <h4 class="text-center">Account successfully created! *</h4>
                                     `);
                                     setTimeout(() => {
@@ -209,21 +221,28 @@ $("#userNameCreate").on("keyup", function() {
                         $("#modal1Body").empty();
                         modal1.style.display = "block";
                         $("#modal1Body").append(`
-                            <h4 class="text-center">Passwords Do Not Match</h4>
+                            <div class="text-center modal-content-head-img-bottom-space2">
+                                <img class="model-content-head-img" src="images/taskr.png" alt="">
+                            </div>
+                            <h4 class="text-center">Your Passwords Do Not Match</h4>
                         `);
                             setTimeout(() => {
                         modal1.style.display = "none";
-                        }, 3000)
+                        }, 4000)
                     } 
             }  else{
                         $("#modal1Body").empty();
                         modal1.style.display = "block";
                         $("#modal1Body").append(`
+                            <div class="text-center modal-content-head-img-bottom-space2">
+                                <img class="model-content-head-img" src="images/taskr.png" alt="">
+                            </div>
                             <h4 class="text-center">Username is not Available</h4>
+                            <h4 class="text-center">Please choose Another one.</h4>
                         `);
                             setTimeout(() => {
                         modal1.style.display = "none";
-                        }, 3000)
+                        }, 4000)
                     } 
 
         }//if any boxes left empty
@@ -231,11 +250,14 @@ $("#userNameCreate").on("keyup", function() {
             $("#modal1Body").empty();
             modal1.style.display = "block";
             $("#modal1Body").append(`
-                <h4 class="text-center">Please completely Fills out all the boxes mark with *</h4>
+                <div class="text-center modal-content-head-img-bottom-space2">
+                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                </div>
+                <h4 class="text-center">Please completely Fills out all the boxes mark with <span style="color: red">*</span></h4>
             `);
             setTimeout(() => {
                 modal1.style.display = "none";
-            }, 3000);   
+            }, 4000);   
         }
     })
 
@@ -280,6 +302,9 @@ $("#userNameCreate").on("keyup", function() {
             $("#modal1Body").empty();
             modal1.style.display = "block";
             $("#modal1Body").append(`
+                <div class="text-center modal-content-head-img-bottom-space2">
+                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                </div>
                  <h4 class="text-center">Task Created!</h4>
             `);
             setTimeout(() => {
@@ -291,7 +316,10 @@ $("#userNameCreate").on("keyup", function() {
             $("#modal1Body").empty();
             modal1.style.display = "block";
             $("#modal1Body").append(`
-                <h4 class="text-center">Please completely Fills out all the boxes mark with *</h4>
+                <div class="text-center modal-content-head-img-bottom-space2">
+                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                </div>
+                <h4 class="text-center">Please completely Fills out all the boxes mark with <span style="color: red">*</span></h4>
             `);
             setTimeout(() => {
               modal1.style.display = "none";
@@ -307,19 +335,22 @@ $("#userNameCreate").on("keyup", function() {
         console.log("user delete");
             $("#modal1Body").empty();
                 modal1.style.display = "block";
-            $("#modal1Body").append(`
+                $("#modal1Body").append(`
+                    <div class="text-center modal-content-head-img-bottom-space2">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>
                     <div class="container">
                         <div class="jumbotron">
-                            <h1 class="text-center">Delete Your Account</h1>
+                            <h1 class="text-center">Taskr Account Deletion</h1>
                         </div>
-                        <div class="row">
+                        <div class="row modal-content-button-space">
                             <div class="col-md-12">
-                                <h5>Warning: Clicking the "Confirm" Button below will delete your account and all associated Tasks. This account is final!</h5>         
+                                <h5><span style="color:red">Warning: </span>Clicking the "Confirm" Button below will delete your account and all associated Tasks. This action is final!</h5>         
                             </div>
                         </div>
                         <div class="row">
                             <div class=" offset-md-4 col-md-2">
-                                <button id="deleteConfirm" class="btn btn-primary">Submit</button>
+                                <button id="deleteConfirm" class="btn btn-danger">Submit</button>
                             </div>
                             <div class=" col-md-2">
                                 <a class="btn btn-primary" href="/home">Cancel</a>
@@ -350,21 +381,20 @@ $("#userNameCreate").on("keyup", function() {
                     $("#modal1Body").empty();
                     modal1.style.display = "block";
                     $("#modal1Body").append(`
-                        <h4 class="text-center">Account Delete</h4>
+                        <div class="text-center modal-content-head-img-bottom-space2">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                        <h4 class="text-center">Taskr Account Deleted!</h4>
+                        <h4 class="text-center">We're Sorry to see You go.</h4>
                     `);
                     setTimeout(() => {
                         location.href = "/";
-                    }, 4000);  
+                    }, 6000);  
                 });
             }
-
-
     });
 
     
-
-
-
 // End of Delete ========================================================================================================
 
 // Update Acct ========================================================================================================
@@ -397,6 +427,9 @@ $("#editAccountSubmit").on("click", function(event) {
         $("#modal1Body").empty();
         modal1.style.display = "block";
         $("#modal1Body").append(`
+            <div class="text-center modal-content-head-img-bottom-space2">
+                <img class="model-content-head-img" src="images/taskr.png" alt="">
+            </div>
             <div class="container">
             <div id="accountID"></div>
                 <div class="jumbotron">
@@ -406,12 +439,12 @@ $("#editAccountSubmit").on("click", function(event) {
                     <div class="offset-md-3 col-md-6">
                         <form>
                             <div class="form-group">
-                                <label for="password">Password *</label>
+                                <label for="password">Password <span style="color: red">*</span></label>
                                 <input id="userPasswordUp1" type="text" class="form-control text-center">
                                 <small class="form-text text-muted">Must be at least 3 characters min</small>
                             </div>
                             <div class="form-group">
-                                <label for="password">Password *</label>
+                                <label for="password">Password <span style="color: red">*</span></label>
                                 <input id="userPasswordUp2" type="text" class="form-control text-center">
                                 <small class="form-text text-muted">Must be at least 3 characters min</small>
                             </div>
@@ -421,7 +454,7 @@ $("#editAccountSubmit").on("click", function(event) {
                                 <small class="form-text text-muted">Enter a Link to Your Profile Photo</small>
                             </div>
                             <div class="form-group">
-                                <label for="secQuestionOne">Security Question 1 *</label>
+                                <label for="secQuestionOne">Security Question 1 <span style="color: red">*</span></label>
                                 <select class="form-control" id="secQuestionOneUp">
                                     <option>What is you mothers maiden name?</option>
                                     <option>Name of your childhood best friend?</option>
@@ -429,11 +462,11 @@ $("#editAccountSubmit").on("click", function(event) {
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="secQuestionOneAnswer">Security Question 1 Answer *</label>
+                                <label for="secQuestionOneAnswer">Security Question 1 Answer <span style="color: red">*</span></label>
                                 <input id="secQA1" type="text" class="form-control text-center">
                             </div>
                             <div class="form-group">
-                                <label for="secQuestionTwo">Security Question 2 *</label>
+                                <label for="secQuestionTwo">Security Question 2 <span style="color: red">*</span></label>
                                 <select class="form-control" id="secQuestionTwoUp">
                                     <option>Name of your first pet?</option>
                                     <option>Name of your high school mascot?</option>
@@ -441,11 +474,11 @@ $("#editAccountSubmit").on("click", function(event) {
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="secQuestionTwoAnswer">Security Question 2 Answer *</label>
+                                <label for="secQuestionTwoAnswer">Security Question 2 Answer <span style="color: red">*</span></label>
                                 <input id="secQA2" type="text" class="form-control text-center">
                             </div>
                             <div class="form-group">
-                                <label for="secQuestionThree">Security Question 3 *</label>
+                                <label for="secQuestionThree">Security Question 3 <span style="color: red">*</span></label>
                                 <select class="form-control" id="secQuestionThreeUp">
                                     <option>What is your favorite color?</option>
                                     <option>Name of the street you grew up on?</option>
@@ -453,11 +486,11 @@ $("#editAccountSubmit").on("click", function(event) {
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="secQuestionThreeAnswer">Security Question 3 Answer *</label>
+                                <label for="secQuestionThreeAnswer">Security Question 3 Answer <span style="color: red">*</span></label>
                                 <input id="secQA3" type="text" class="form-control text-center">
                             </div>
                             <div class="form-group">
-                                <label for="text"> * Indicates a Required Field</label>
+                                <label for="text"> <span style="color: red">*</span> Indicates a Required Field</label>
                             </div>
                         </form>
                     </div>
@@ -535,7 +568,10 @@ id = $("#accountID");
                                         $("#modal1Body").empty();
                                             modal1.style.display = "block";
                                         $("#modal1Body").append(`
-                                            <h4 class="text-center">Account Updated!</h4>
+                                            <div class="text-center modal-content-head-img-bottom-space2">
+                                                <img class="model-content-head-img" src="images/taskr.png" alt="">
+                                            </div>
+                                            <h4 class="text-center">Account Successfully Updated!</h4>
                                         `);
                                         setTimeout(() => {
                                             location.href = "/home";
@@ -544,8 +580,11 @@ id = $("#accountID");
                             } else
                                 $("#modal1Body").empty();
                                     modal1.style.display = "block";
-                                $("#modal1Body").append(`
-                                    <h4 class="text-center">Passwords Do Not Match!</h4>
+                                    $("#modal1Body").append(`
+                                        <div class="text-center modal-content-head-img-bottom-space2">
+                                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                                        </div>
+                                    <h4 class="text-center">Your Passwords Do Not Match!</h4>
                                 `);
                                 setTimeout(() => {
                                     modal1.style.display = "none";
@@ -555,8 +594,11 @@ id = $("#accountID");
                     else{
                         $("#modal1Body").empty();
                             modal1.style.display = "block";
-                        $("#modal1Body").append(`
-                            <h4 class="text-center">Please Fill Out all Boxes</h4>
+                            $("#modal1Body").append(`
+                                <div class="text-center modal-content-head-img-bottom-space2">
+                                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                                </div>
+                            <h4 class="text-center">Please Fill Out all Boxes marked with <span style="color: red">*</span></h4>
                         `);
                         setTimeout(() => {
                             modal1.style.display = "none";
