@@ -16,7 +16,6 @@ $(document).ready(function () {
       }
     };
 
-
 var userNameOk = false;
 var userNamesArray = [];
 
@@ -26,15 +25,17 @@ var userNamesArray = [];
         event.preventDefault();
         sessionStorage.clear();
 
-        if($("#username").val() && $("#userPassword").val()){
-            var submittedPassword = $("#userPassword").val()
-            var username = $("#username").val().toLowerCase();
-            console.log("LINE 15" + username);
+        if ($("#username").val().length > 0 && $("#userPassword").val().length > 0) {
+          var submittedPassword = $("#userPassword").val();
+          var username = $("#username")
+            .val()
+            .toLowerCase();
+          console.log("LINE 15" + username);
+          console.log("LINE 15" + submittedPassword);
+          $("#username").val("");
+          $("#userPassword").val("");
 
-            $("#username").val("");
-            $("#userPassword").val("");
-
-        //query taskrs for username and password and check if they match
+            // query taskrs for username and password and check if they match
             $.ajax("/api/taskrs/"+ username, {
                 type: "GET",
                 data: username
@@ -50,9 +51,9 @@ var userNamesArray = [];
                         <h4 class="text-center">Please try again, or Sign up for an Account</h4>
                     `);
                     setTimeout(() => {
-                        location.href = "/";
-                    }, 10000)
-                } else {      
+                        modal1.style.display = "none";
+                    }, 6000)
+                } else {
                     console.log("LINE 25" + dbTaskr);
                     console.log("My password is" + dbTaskr.password);
                     var dbPassword = dbTaskr.password;
@@ -74,9 +75,9 @@ var userNamesArray = [];
                                 <h4 class="text-center">by clicking "Forget Password"</h4>
                             `);
                             setTimeout(() => {
-                                location.href = "/";
-                            }, 6000)   
-                        } else{         
+                                modal1.style.display = "none";
+                            }, 6000)
+                        } else{
                             // AJax Put to update LoggedIn to True
                             var login = {
                                 loggedIn: true,
@@ -92,23 +93,23 @@ var userNamesArray = [];
                                 location.href = "/home";
 
                             });
-                        }  
-                    }             
+                        }
+                    }
                 });
-        }else
-            $("#modal1Body").empty();
-            modal1.style.display = "block";
-            $("#modal1Body").append(`
+        } else {
+          $("#modal1Body").empty();
+          modal1.style.display = "block";
+          $("#modal1Body").append(`
                 <div class="text-center modal-content-head-img-bottom-space2">
                     <img class="model-content-head-img" src="images/taskr.png" alt="">
                 </div>
                 <h4 class="text-center">Please Enter a Username and Password</h4>
                 <h4 class="text-center">to Log in!</h4>
                 `);
-                setTimeout(() => {
-                    location.href = "/";
-                }, 4000)            
-        //end of if statement
+          setTimeout(() => {
+            modal1.style.display = "none";;
+          }, 4000);
+        }//end of if statement
     })
 
 //End of user login ========================================================================================================
