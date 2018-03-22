@@ -25,11 +25,34 @@
 </head>
 
 
-        <div class="row navRow">
+<div class="row navRow2">
+    <div class="col-md-6 opacityNone">
+        <img class="taskrLogo" src="images/taskr.png" alt="">
+    </div>
+    <div class="offset-md-1 col-md-5">
+        <div class="row">
+            <div class="offset-md-1 col-md-6  homePageBtnPosition">
+                <a class="btn btn-primary btnLength homePageBtnSpace" href="/create">+ Task</a>    
+                <a class="btn btn-primary homePageBtnSpace" href="/settings">Settings</a>         
+                <button id="logoutSubmit" class="btn btn-primary">Logout</button>           
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row navRow3"></div>
+
+
+
+
+        <!-- <div class="row navRow">
+                <div class="text-center">
+                    <img class="taskrLogo" src="images/taskr.png" alt="">
+                </div>            
             <div class="container">
                 <div class="row">
-                    <div class="offset-md-8 col-md-2">
-                        <a class="btn btn-primary" href="/create">Create Task</a>
+                    <div class="offset-md-9 col-md-1">
+                        <a class="btn btn-primary btnLength" href="/create">+ Task</a>
                     </div>
                     <div class="col-md-1">
                         <a class="btn btn-primary" href="/settings">Settings</a>
@@ -37,9 +60,10 @@
                     <div class="col-md-1">
                         <button id="logoutSubmit" class="btn btn-primary">Logout</button>
                     </div>
+
                 </div>
             </div>
-        </div>
+        </div> -->
     
 
 
@@ -83,7 +107,7 @@
             <a class="nav-link" id="userCompletedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Completed</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="userPurchasedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Purchase</a>
+            <a class="nav-link" id="userPurchasedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Purchased</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="purchasedHistory" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">History</a>
@@ -100,19 +124,7 @@
         <div class="tab-pane fade" id="purchasedHistory" role="tabpanel" aria-labelledby="contact-tab"></div>
         <div class="tab-pane fade" id="viewAllTasks" role="tabpanel" aria-labelledby="contact-tab"></div>
     </div>
-
-
-
-        <!-- <div id="taskrHomeView" class="row marginTop">
-            <button id="userPostedTask" class="btn btn-primary" type="submit">My Tasks Aval</button>
-            <button id="userPendingTask" class="btn btn-primary padLeft" type="submit">In Progress</button>
-            <button id="userCompletedTask" class="btn btn-primary padLeft" type="submit">My Completed</button>
-            <button id="userPurchasedTask" class="btn btn-primary padLeft" type="submit">In Progess Purchased Task</button>
-            <button id="purchasedHistory" class="btn btn-primary padLeft" type="submit"> Completed Purchased Task History</button>
-            <button id="viewAllTasks" class="btn btn-primary padLeft" type="submit">All Aval Tasks</button>
-        </div> -->
-
-
+               
         <div id="taskeeHomeView" class="row marginTop rowHeight">
 
             <ul class="nav nav-tabs" role="tablist">
@@ -615,6 +627,9 @@
         }).then(function (dbTaskr) {
             console.log("LINE 25", dbTaskr);
             $("#modalBody").append(`
+                    <div class="text-center modal-content-head-img-bottom-space">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>
                         <h5 class="text-center">EDIT TASK!</h5>
                         <div id="taskid1"></div>
                         <div class="row">
@@ -705,7 +720,11 @@
             $("#modalBody").empty();
             modal.style.display = "block";
             $("#modalBody").append(`
-                <h4 class="text-center">Task Updated! Thanks</h4>
+                    <div class="text-center modal-content-head-img-bottom-space">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>
+                    <h4 class="text-center">Task Updated!</h4>
+
                 `)
             setTimeout(() => {
                 location.href = "/home";
@@ -729,7 +748,11 @@
             $("#modalBody").empty();
             modal.style.display = "block";
             $("#modalBody").append(`
-                <h4 class="text-center">Task Deleted! Thanks</h4>
+                    <div class="text-center modal-content-head-img-bottom-space">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>
+                    <h4 class="text-center">Task Deleted!</h4>
+
                 `)
             setTimeout(() => {
                 location.href = "/home";
@@ -916,7 +939,10 @@
                     $("#modalBody").empty();
                     modal.style.display = "block";
                     $("#modalBody").append(`
-                        <h4 class="text-center">Task Booked! Thanks</h4>
+                    <div class="text-center modal-content-head-img-bottom-space">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>        
+                        <h4 class="text-center">Task Booked!</h4>
                      `)
                     setTimeout(() => {
                         location.href = "/home";
@@ -946,9 +972,12 @@
                     $("#modalBody").empty();
                     modal.style.display = "block";
                     $("#modalBody").append(`
-                        <h4 class="text-center">Payment Sent! Thanks</h4>
-                        <h4 class="text-center">Don't forget to Leave your Taskr some</h4> 
-                        <h4 class="text-center">feedback, under your Purchased History.</h4>                        
+                        <div class="text-center modal-content-head-img-bottom-space">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                            <h4 class="text-center">Payment Sent! Thanks</h4>
+                            <h4 class="text-center">Don't forget to Leave your Taskr some</h4> 
+                            <h4 class="text-center">feedback, under your Purchased History.</h4>                        
                      `)
                     setTimeout(() => {
                         location.href = "/home";
@@ -977,7 +1006,10 @@
                     $("#modalBody").empty();
                     modal.style.display = "block";
                     $("#modalBody").append(`
-                        <h4 class="text-center">Payment Requested! Thanks</h4>
+                        <div class="text-center modal-content-head-img-bottom-space">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                        <h4 class="text-center">Payment Requested!</h4>
                      `)
                     setTimeout(() => {
                         location.href = "/home";
@@ -1007,7 +1039,10 @@
                     $("#modalBody").empty();
                     modal.style.display = "block";
                     $("#modalBody").append(`
-                        <h4 class="text-center">Task Unbooked! Thanks</h4>
+                        <div class="text-center modal-content-head-img-bottom-space">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                        <h4 class="text-center">Task Unbooked!</h4>
                      `)
                     setTimeout(() => {
                         location.href = "/home";
@@ -1070,8 +1105,11 @@
                     modal.style.display = "block";
                     $("#modalBody").empty();
                     $("#modalBody").append(`
+                        <div class="text-center modal-content-head-img-bottom-space2">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
                         <div class="container">                           
-                            <div class="row">
+                            <div class="row modal-content-button-space">
                                 <div class="col-md-5">
                                      <img src="${taskrPhoto}" alt="" class="imglock imgBorder">
                                 </div>
@@ -1102,8 +1140,7 @@
 
                     for (let i = 0; i < taskCompArray.length; i++) {
                         if (taskCompArray[i].taskComment !== null) {
-                            $("#comments").append(`
-                            
+                            $("#comments").append(`                           
                             <div class="offset-md-1 col-md-3 text-right marginBottom2">
                                 <h5>${taskCompArray[i].taskeeName}:</h5>
                             </div>
@@ -1148,10 +1185,13 @@
             modal.style.display = "block";
             $("#modalBody").empty();
             $("#modalBody").append(`
+                <div class="text-center modal-content-head-img-bottom-space2">
+                    <img class="model-content-head-img" src="images/taskr.png" alt="">
+                </div>
                 <div class="container">
-                    <h3 class="text-center">TASKr Task: ${taskid}</h3>
-                    <div id="taskid1"></div>
-                    <div class="row text-left">
+                    <h3 class="text-center modal-content-row-space">TASKr Task: ${taskid}</h3>
+                    <div id="taskid1" class="modal-content-row-space"></div>
+                    <div class="row text-left modal-content-button-space">
                         <div class="col-md 7">
                             <div class="row">
                                 <div class="col-md-3">
@@ -1215,6 +1255,9 @@
             modal.style.display = "block";
                 $("#modalBody").empty();
                 $("#modalBody").append(`
+                    <div class="text-center modal-content-head-img-bottom-space">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>
                         <h5 class="text-center">Leave A Comment!</h5>
                         <div id="taskid1"></div>
                         <div class="row">
@@ -1261,7 +1304,10 @@
                     $("#modalBody").empty();
                     modal.style.display = "block";
                     $("#modalBody").append(`
-                        <h4 class="text-center">Comment Submitted! Thanks</h4>
+                        <div class="text-center modal-content-head-img-bottom-space">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                        <h4 class="text-center">Comment Submitted!</h4>
                      `)
                       setTimeout(() => {
                          location.href = "/home";
