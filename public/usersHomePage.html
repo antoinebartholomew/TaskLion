@@ -13,14 +13,11 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P"
         crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <script src="js/home.js"></script>
     <script src="js/forgotPass.js"></script>
-    <!-- <script src="js/taskrs.js"></script>
-    <script src="js/tasks.js"></script> -->
+
     <!--body content ===============================================================================================-->
 </head>
 
@@ -31,68 +28,16 @@
     </div>
     <div class="offset-md-1 col-md-5">
         <div class="row">
-            <div class="offset-md-1 col-md-6  homePageBtnPosition">
+            <div id="headerbar" class=" col-md-9  homePageBtnPosition">
                 <a class="btn btn-primary btnLength homePageBtnSpace" href="/create">+ Task</a>    
                 <a class="btn btn-primary homePageBtnSpace" href="/settings">Settings</a>         
-                <button id="logoutSubmit" class="btn btn-primary">Logout</button>           
+                <button id="logoutSubmit" class="btn btn-primary homePageBtnSpace ">Logout</button>
             </div>
         </div>
     </div>
 </div>
 
 <div class="row navRow3"></div>
-
-
-
-
-        <!-- <div class="row navRow">
-                <div class="text-center">
-                    <img class="taskrLogo" src="images/taskr.png" alt="">
-                </div>            
-            <div class="container">
-                <div class="row">
-                    <div class="offset-md-9 col-md-1">
-                        <a class="btn btn-primary btnLength" href="/create">+ Task</a>
-                    </div>
-                    <div class="col-md-1">
-                        <a class="btn btn-primary" href="/settings">Settings</a>
-                    </div>
-                    <div class="col-md-1">
-                        <button id="logoutSubmit" class="btn btn-primary">Logout</button>
-                    </div>
-
-                </div>
-            </div>
-        </div> -->
-    
-
-
-
-<!-- <ul class="nav nav-tabs" id="taskrHomeView" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="userPostedTask-" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="userPendingTask" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="userCompletedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="userPurchasedTask" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="purchasedHistory" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="viewAllTasks" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-</div> -->
 
     
 <div class="container rowBackground ">
@@ -111,6 +56,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" id="purchasedHistory" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">History</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tasksDossier" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Task Dossier</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="viewAllTasks" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">All Taskr Tasks</a>
@@ -291,6 +239,32 @@
     var completedArray = [];
     var purchasedArray = [];
     var purchasedHistoryArray = [];
+    var dossierTasksArray = [];
+    var dossierIn_progressArray = [];
+    var dossierPurchasedArray = [];
+    var taskrPhoto
+
+            $.ajax("/api/taskrs1/" + sessionStorage.getItem("id"), {
+                type: "GET",
+                id: sessionStorage.getItem("id"),
+            }).then(function (dbTaskr) {
+                console.log(dbTaskr);
+                taskrName = dbTaskr.username;
+                if (dbTaskr.taskrPhoto !== '') {
+                    taskrPhoto = dbTaskr.taskrPhoto;
+                } else {
+                    taskrPhoto = "/images/userTempPic.jpg";
+                }
+                $("#headerbar").append(`<img class="taskrLogoHeader" src=${taskrPhoto} alt="">`)
+            })
+
+
+    
+
+
+
+
+
 
 //Getting all Posted tasks associated with Taskr =====================================================================================================================================================
 
@@ -360,6 +334,7 @@
         console.log("This is the Taskee Purchased History array", purchasedHistoryArray);
         console.log("This is the Inprogess  array", in_progressArray);
         console.log("This is the Completed array", completedArray);
+        dossier1()
     })
 
 //END=======================================================================================================================================================================================================================================================================================
@@ -605,6 +580,149 @@
             }
     })
 //END=============================================================================================================================================================================================================================
+
+//When user clicks on Tasks Dossier icon=============================================================================================================================
+
+   
+    function dossier1() {
+        for (let i = 0; i < tasksArray.length; i++) {
+            if (tasksArray[i].taskrAccept == false && tasksArray[i].requesterAccept == false) {
+                dossierTasksArray.push(tasksArray[i])
+            }
+        }
+
+        for (let i = 0; i < in_progressArray.length; i++) {
+            if (in_progressArray[i].taskrAccept == true && in_progressArray[i].requesterAccept == true) {
+                dossierIn_progressArray.push(in_progressArray[i])
+            }
+            if (in_progressArray[i].taskrMarkComplete == true && in_progressArray[i].taskPaid == false) {
+                dossierIn_progressArray.push(in_progressArray[i])
+            }    
+        }
+
+        for (let i = 0; i < purchasedArray.length; i++) {
+            if (purchasedArray[i].taskrMarkComplete == true && purchasedArray[i].taskPaid == false) {
+                dossierPurchasedArray.push(purchasedArray[i])
+            }
+            if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true) {
+                dossierPurchasedArray.push(purchasedArray[i])
+            }           
+        }
+
+        console.log(dossierTasksArray); 
+        console.log(dossierIn_progressArray);   
+        console.log(dossierPurchasedArray);          
+   
+    
+
+  
+        $("#taskrHomeView").on("click", "#tasksDossier", function (event) {
+                event.preventDefault();
+                let inProgess = [];
+                let awaitingPayment = [];
+                let workForme = [];
+                let paythem = [];
+
+
+                for (let i = 0; i < dossierIn_progressArray.length; i++) {
+                    if (dossierIn_progressArray[i].taskrAccept == true && dossierIn_progressArray[i].requesterAccept == true) {
+                        inProgess.push(dossierIn_progressArray[i])
+                    }
+                    if (dossierIn_progressArray[i].taskrMarkComplete == true && dossierIn_progressArray[i].taskPaid == false) {
+                        awaitingPayment.push(dossierIn_progressArray[i])
+                    }
+
+                }           
+            
+                for (let i = 0; i < dossierPurchasedArray.length; i++) {
+                    if (dossierPurchasedArray[i].taskrMarkComplete == true && dossierPurchasedArray[i].taskPaid == false) {
+                        workForme.push(dossierPurchasedArray[i])
+                    }
+                    if (dossierPurchasedArray[i].taskrAccept == true && dossierPurchasedArray[i].requesterAccept == true) {
+                        paythem.push(dossierPurchasedArray[i])
+                    }  
+
+                }           
+                           
+            
+                let tasksUnbooked = dossierTasksArray.length;
+                let workInprogress= inProgess.length
+                let pleasePay = awaitingPayment.length;
+                let hiredThem = workForme.length;
+                let payThemCash = paythem.length;
+                let taskrName = sessionStorage.getItem("username");
+
+                console.log(tasksUnbooked);
+                console.log(workInprogress);
+                console.log(pleasePay);
+                console.log(hiredThem);
+                console.log(payThemCash); 
+                
+            modal.style.display = "block";
+            $("#modalBody").empty();
+            $("#modalBody").append(`
+                        <div class="text-center modal-content-head-img-bottom-space2">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                        <div class="container">                           
+                            <div class="row modal-content-button-space">
+                                <div class="col-md-5">
+                                     <img src=${taskrPhoto} alt="" class="imglock ">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="row text-left">
+                                        <div class="col-md-12">
+                                        <h3 class="text-center marginBottom1" > TASKr: ${taskrName}</h3 >
+                                        </div>
+                                        <div class="offset-md-1 col-md-5 marginBottom">
+                                            <h3>Posted Task Unbooked:</h3>
+                                        </div>
+                                        <div class="col-md-6 marginBottom">
+                                            <h4>${tasksUnbooked}</h4>
+                                        </div>
+                                        <div class="offset-md-1 col-md-5 marginBottom">
+                                            <h3>Your Inprogress Tasks:</h3>
+                                        </div>
+                                        <div class="col-md-6 marginBottom">
+                                            <h4>${workInprogress}</h4>
+                                        </div>
+                                        <div class="offset-md-1 col-md-5 marginBottom">
+                                            <h3>Task Awaiting $:</h3>
+                                        </div>
+                                        <div class="col-md-6 marginBottom">
+                                            <h4>${pleasePay}</h4>
+                                        </div>
+                                        <div class="offset-md-1 col-md-5 marginBottom">
+                                            <h3>Purchased Inprogress Tasks:</h3>
+                                        </div>
+                                        <div class="col-md-6 marginBottom">
+                                            <h4>${hiredThem}</h4>
+                                        </div>
+                                        <div class="offset-md-1 col-md-5 marginBottom">
+                                            <h3>Purchased Task Awaiting $:</h3>
+                                        </div>
+                                        <div class="col-md-6 marginBottom">
+                                            <h4>${payThemCash}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col rowSpace">
+                                    <button onclick="modelClose()" class="btn btn-primary" href="/home">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    `)               
+
+                
+            })
+        }
+
+//END=============================================================================================================================================================================================================================
+
+
+
 
 //When user clicks on Edit icon=============================================================================================================================
 
@@ -1027,6 +1145,7 @@
             var cancel = {
                 id: taskId,
                 taskeeId: 0,
+                taskeeName: null,
                 requesterAccept: false,
                 taskrAccept: false,
             }
@@ -1322,6 +1441,9 @@
     function modelClose(){
         modal.style.display = "none";
     }
+
+
+
 
 </script>
 

@@ -20,7 +20,7 @@ $(document).ready(function () {
     $("#forgotPassSubmit").on("click", function(event) {
       event.preventDefault();
 
-        if ($("#usernameForgotPass").val()) {
+        if ($("#usernameForgotPass").val().length>0) {
 
           var usernameEntered = $("#usernameForgotPass").val().toLowerCase();
           console.log(usernameEntered);
@@ -145,16 +145,11 @@ $(document).ready(function () {
 
                       //STEP 6.  After users enters passwords.  Checking to see if the match.  If they matching up User Id with the new password.
 
-                      $("#forgotPassSubmit2").on(
-                        "click",
+                      $("#forgotPassSubmit2").on("click",
                         function(event) {
                           event.preventDefault();
-                          var newPass1 = $("#passUpdate1")
-                            .val()
-                            .trim();
-                          var newPass2 = $("#passUpdate2")
-                            .val()
-                            .trim();
+                          var newPass1 = $("#passUpdate1").val().trim();
+                          var newPass2 = $("#passUpdate2").val().trim();
 
                           if (newPass1 === newPass2) {
                             var newUserPassword = {
@@ -173,6 +168,7 @@ $(document).ready(function () {
                                     <img class="model-content-head-img" src="images/taskr.png" alt="">
                                 </div>
                                     <h4 class="text-center">Password Successfully Changed!</h4>
+                                    <h4 class="text-center">Please login with your new password!</h4>
                                 `);
                               setTimeout(() => {
                                 location.href = "/";
@@ -180,17 +176,12 @@ $(document).ready(function () {
 
                               //STEP 7. Clear out input boxes values
 
-                              $("#usernameForgotPass").val(
-                                ""
-                              );
+                              $("#usernameForgotPass").val( "");
                               $("#secQuestAnswer1").val("");
                               $("#secQuestAnswer2").val("");
                               $("#secQuestAnswer3").val("");
                               $("#passUpdate1").val("");
                               $("#passUpdate2").val("");
-
-                              // Reload the page to get the updated list
-                              // location.href="/home";
                             });
                           } else $("#modal1Body").empty();
                           modal1.style.display = "block";
@@ -198,7 +189,7 @@ $(document).ready(function () {
                                 <div class="text-center modal-content-head-img-bottom-space2">
                                     <img class="model-content-head-img" src="images/taskr.png" alt="">
                                 </div>
-                                    <h4 class="text-center">Passwords do not match</h4>
+                                    <h4 class="text-center">Your Passwords do not match</h4>
                                 `);
                           setTimeout(() => {
                             $("#modal1Body").empty();
@@ -206,20 +197,22 @@ $(document).ready(function () {
                           }, 4000);
                         }
                       );
-                    } else // if security questions answers don't match
-                      $("#modal1Body").empty();
-                    modal1.style.display = "block";
-                    $("#modal1Body").append(`
-                        <div class="text-center modal-content-head-img-bottom-space2">
-                            <img class="model-content-head-img" src="images/taskr.png" alt="">
-                        </div>
-                            <h4 class="text-center">The Security Question Answers entered do not</h4>
-                            <h4 class="text-center">match the previous Security Question Answers</h4>
-                        `);
-                    setTimeout(() => {
-                    $("#modal1Body").empty();
-                      modal1.style.display = "none";
-                    }, 4000);
+                    } else{// if security questions answers don't match
+                        $("#modal1Body").empty();
+                        modal1.style.display = "block";
+                        $("#modal1Body").append(`
+                            <div class="text-center modal-content-head-img-bottom-space2">
+                                <img class="model-content-head-img" src="images/taskr.png" alt="">
+                            </div>
+                                <h4 class="text-center">The Security Question Answers entered do not</h4>
+                                <h4 class="text-center">match the previous Security Question Answers</h4>
+                            `);
+                        setTimeout(() => {
+                        $("#modal1Body").empty();
+                        modal1.style.display = "none";
+                        $("#modal1Body").empty();
+                        }, 4000);
+                    }
                 });
             }    
           });
@@ -237,5 +230,5 @@ $(document).ready(function () {
             }, 4000);
         }
     });
-// End of Forgot Password ========================================================================================================
 })
+// End of Forgot Password ========================================================================================================
