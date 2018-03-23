@@ -28,10 +28,10 @@
     </div>
     <div class="offset-md-1 col-md-5">
         <div class="row">
-            <div class="offset-md-1 col-md-6  homePageBtnPosition">
+            <div id="headerbar" class=" col-md-9  homePageBtnPosition">
                 <a class="btn btn-primary btnLength homePageBtnSpace" href="/create">+ Task</a>    
                 <a class="btn btn-primary homePageBtnSpace" href="/settings">Settings</a>         
-                <button id="logoutSubmit" class="btn btn-primary">Logout</button>           
+                <button id="logoutSubmit" class="btn btn-primary homePageBtnSpace ">Logout</button>
             </div>
         </div>
     </div>
@@ -58,10 +58,10 @@
             <a class="nav-link" id="purchasedHistory" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">History</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="viewAllTasks" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">All Taskr Tasks</a>
+            <a class="nav-link" id="tasksDossier" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Task Dossier</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="tasksDossier" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Task Dossier</a>
+            <a class="nav-link" id="viewAllTasks" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">All Taskr Tasks</a>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -242,8 +242,21 @@
     var dossierTasksArray = [];
     var dossierIn_progressArray = [];
     var dossierPurchasedArray = [];
+    var taskrPhoto
 
-
+            $.ajax("/api/taskrs1/" + sessionStorage.getItem("id"), {
+                type: "GET",
+                id: sessionStorage.getItem("id"),
+            }).then(function (dbTaskr) {
+                console.log(dbTaskr);
+                taskrName = dbTaskr.username;
+                if (dbTaskr.taskrPhoto !== '') {
+                    taskrPhoto = dbTaskr.taskrPhoto;
+                } else {
+                    taskrPhoto = "/images/userTempPic.jpg";
+                }
+                $("#headerbar").append(`<img class="taskrLogoHeader" src=${taskrPhoto} alt="">`)
+            })
 
 
     
@@ -292,7 +305,6 @@
             newrow.append($("<td><span onclick=editTask(" + taskid + ") i class='fas fa-edit glypiconSpace2 ficon' data-key='" + taskid + "'></i></span><span onclick=deleteTask(" + taskid + ") i class='fas fa-trash-alt glypiconSpace2 ficon' data-key='" + taskid + "'></i></span></td>"))
             $("#userTasks").append(newrow);
         }
-        // dossier1()
     })
 
 //END=======================================================================================================================================================================================================================================================================================
@@ -655,7 +667,7 @@
                         <div class="container">                           
                             <div class="row modal-content-button-space">
                                 <div class="col-md-5">
-                                     <img src="images/taskr.png" alt="" class="imglock ">
+                                     <img src=${taskrPhoto} alt="" class="imglock ">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="row text-left">

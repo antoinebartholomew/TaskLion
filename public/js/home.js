@@ -169,8 +169,8 @@ $("#userNameCreate").on("keyup", function() {
 //Start of create user account ========================================================================================================
     $("#signupSubmit").on("click", function (event) {
         event.preventDefault();
-        if ($("#userNameCreate").val() && $("#userPasswordCreate").val() && $("#userPasswordCreate2").val()
-            && $("#secQuestionOneAnswer").val() && $("#secQuestionTwoAnswer").val() && $("#secQuestionThreeAnswer").val() ) {
+        if ($("#userNameCreate").val().length>0 && $("#userPasswordCreate").val().length>0 && $("#userPasswordCreate2").val().length>0
+            && $("#secQuestionOneAnswer").val().length>0 && $("#secQuestionTwoAnswer").val().length>0 && $("#secQuestionThreeAnswer").val().length>0 ) {
 
 
             if (userNameOk === true) {
