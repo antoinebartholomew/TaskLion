@@ -52,7 +52,7 @@ var userNamesArray = [];
                     `);
                     setTimeout(() => {
                         modal1.style.display = "none";
-                    }, 6000)
+                    }, 5000)
                 } else {
                     console.log("LINE 25" + dbTaskr);
                     console.log("My password is" + dbTaskr.password);
@@ -76,7 +76,7 @@ var userNamesArray = [];
                             `);
                             setTimeout(() => {
                                 modal1.style.display = "none";
-                            }, 6000)
+                            }, 5000)
                         } else{
                             // AJax Put to update LoggedIn to True
                             var login = {
