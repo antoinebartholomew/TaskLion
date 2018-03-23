@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Welcome to Taskr!</title>
     <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,8 +29,8 @@
     <div class="offset-md-1 col-md-5">
         <div class="row">
             <div id="headerbar" class=" col-md-9  homePageBtnPosition">
-                <a class="btn btn-primary btnLength homePageBtnSpace" href="/create">+ Task</a>    
-                <a class="btn btn-primary homePageBtnSpace" href="/settings">Settings</a>         
+                <a class="btn btn-primary btnLength homePageBtnSpace" href="/create">+ Task</a>
+                <a class="btn btn-primary homePageBtnSpace" href="/settings">Settings</a>
                 <button id="logoutSubmit" class="btn btn-primary homePageBtnSpace ">Logout</button>
             </div>
         </div>
@@ -39,7 +39,7 @@
 
 <div class="row navRow3"></div>
 
-    
+
 <div class="container rowBackground ">
     <ul class="nav nav-tabs row marginTop" id="taskrHomeView" role="tablist">
         <li class="nav-item">
@@ -72,7 +72,7 @@
         <div class="tab-pane fade" id="purchasedHistory" role="tabpanel" aria-labelledby="contact-tab"></div>
         <div class="tab-pane fade" id="viewAllTasks" role="tabpanel" aria-labelledby="contact-tab"></div>
     </div>
-               
+
         <div id="taskeeHomeView" class="row marginTop rowHeight">
 
             <ul class="nav nav-tabs" role="tablist">
@@ -93,7 +93,7 @@
                 </select>
             </div>
 
-            
+
             <button id='categorySubmit' type="submit" class="btn btn-primary btnHeight">Filter</button>
         </div>
 
@@ -259,7 +259,7 @@
             })
 
 
-    
+
 
 
 
@@ -291,10 +291,10 @@
             let cat = tasksArray[i].category;
             let pic;
             if (tasksArray[i].taskPhoto !== "") {
-                 pic = tasksArray[i].taskPhoto;                
+                 pic = tasksArray[i].taskPhoto;
             } else {
                  pic = "/images/work.jpg";
-            }           
+            }
             var newrow = $("<tr>");
             newrow.append($("<td class='text-left'> <img src =" + pic + " alt ='Task Photo'  class='imgTable'></td>"));
             newrow.append($("<td class='text-left'>" + title + "</td>"));
@@ -583,7 +583,7 @@
 
 //When user clicks on Tasks Dossier icon=============================================================================================================================
 
-   
+
     function dossier1() {
         for (let i = 0; i < tasksArray.length; i++) {
             if (tasksArray[i].taskrAccept == false && tasksArray[i].requesterAccept == false) {
@@ -597,7 +597,7 @@
             }
             if (in_progressArray[i].taskrMarkComplete == true && in_progressArray[i].taskPaid == false) {
                 dossierIn_progressArray.push(in_progressArray[i])
-            }    
+            }
         }
 
         for (let i = 0; i < purchasedArray.length; i++) {
@@ -606,16 +606,16 @@
             }
             if (purchasedArray[i].taskrAccept == true && purchasedArray[i].requesterAccept == true) {
                 dossierPurchasedArray.push(purchasedArray[i])
-            }           
+            }
         }
 
-        console.log(dossierTasksArray); 
-        console.log(dossierIn_progressArray);   
-        console.log(dossierPurchasedArray);          
-   
-    
+        console.log(dossierTasksArray);
+        console.log(dossierIn_progressArray);
+        console.log(dossierPurchasedArray);
 
-  
+
+
+
         $("#taskrHomeView").on("click", "#tasksDossier", function (event) {
                 event.preventDefault();
                 let inProgess = [];
@@ -632,19 +632,19 @@
                         awaitingPayment.push(dossierIn_progressArray[i])
                     }
 
-                }           
-            
+                }
+
                 for (let i = 0; i < dossierPurchasedArray.length; i++) {
                     if (dossierPurchasedArray[i].taskrMarkComplete == true && dossierPurchasedArray[i].taskPaid == false) {
                         workForme.push(dossierPurchasedArray[i])
                     }
                     if (dossierPurchasedArray[i].taskrAccept == true && dossierPurchasedArray[i].requesterAccept == true) {
                         paythem.push(dossierPurchasedArray[i])
-                    }  
+                    }
 
-                }           
-                           
-            
+                }
+
+
                 let tasksUnbooked = dossierTasksArray.length;
                 let workInprogress= inProgess.length
                 let pleasePay = awaitingPayment.length;
@@ -656,15 +656,15 @@
                 console.log(workInprogress);
                 console.log(pleasePay);
                 console.log(hiredThem);
-                console.log(payThemCash); 
-                
+                console.log(payThemCash);
+
             modal.style.display = "block";
             $("#modalBody").empty();
             $("#modalBody").append(`
                         <div class="text-center modal-content-head-img-bottom-space2">
                             <img class="model-content-head-img" src="images/taskr.png" alt="">
                         </div>
-                        <div class="container">                           
+                        <div class="container">
                             <div class="row modal-content-button-space">
                                 <div class="col-md-5">
                                      <img src=${taskrPhoto} alt="" class="imglock ">
@@ -713,9 +713,9 @@
                                 </div>
                             </div>
                         </div>
-                    `)               
+                    `)
 
-                
+
             })
         }
 
@@ -1059,7 +1059,7 @@
                     $("#modalBody").append(`
                     <div class="text-center modal-content-head-img-bottom-space">
                         <img class="model-content-head-img" src="images/taskr.png" alt="">
-                    </div>        
+                    </div>
                         <h4 class="text-center">Task Booked!</h4>
                      `)
                     setTimeout(() => {
@@ -1094,8 +1094,8 @@
                             <img class="model-content-head-img" src="images/taskr.png" alt="">
                         </div>
                             <h4 class="text-center">Payment Sent! Thanks</h4>
-                            <h4 class="text-center">Don't forget to Leave your Taskr some</h4> 
-                            <h4 class="text-center">feedback, under your Purchased History.</h4>                        
+                            <h4 class="text-center">Don't forget to Leave your Taskr some</h4>
+                            <h4 class="text-center">feedback, under your Purchased History.</h4>
                      `)
                     setTimeout(() => {
                         location.href = "/home";
@@ -1227,7 +1227,7 @@
                         <div class="text-center modal-content-head-img-bottom-space2">
                             <img class="model-content-head-img" src="images/taskr.png" alt="">
                         </div>
-                        <div class="container">                           
+                        <div class="container">
                             <div class="row modal-content-button-space">
                                 <div class="col-md-5">
                                      <img src="${taskrPhoto}" alt="" class="imglock imgBorder">
@@ -1259,13 +1259,13 @@
 
                     for (let i = 0; i < taskCompArray.length; i++) {
                         if (taskCompArray[i].taskComment !== null) {
-                            $("#comments").append(`                           
+                            $("#comments").append(`
                             <div class="offset-md-1 col-md-3 text-right marginBottom2">
                                 <h5>${taskCompArray[i].taskeeName}:</h5>
                             </div>
                             <div class="col-md-8 marginBottom2">
                                 <h5>${taskCompArray[i].taskComment}</h5>
-                            </div>                     
+                            </div>
                             `)
                         }
 
@@ -1400,7 +1400,7 @@
             let taskID = $("#taskid1");
             taskID.val(taskid);
             console.log(taskID.val())
-                
+
 
 
         $("#modalBody").on("click", "#addComment", function (event) {
