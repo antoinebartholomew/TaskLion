@@ -26,12 +26,15 @@ Run Remotely:
 Getting Started:
 
 Step 1: Create your Taskr account
-<img src="/public/images/readme/signup.jpg" width="600">
+
+<img src="/public/images/readme/signup.jpg" width="500">
 
 Step 2: Post Tasks that you can do
+
 ![CreateTask](/public/images/readme/create.jpg)
 
-Step 2: Search for Tasks that you need helpvwith
+Step 2: Search for Tasks that you need help with
+
 ![CreateTask](/public/images/readme/search.jpg)
 
 #### Who maintains Taskr?
