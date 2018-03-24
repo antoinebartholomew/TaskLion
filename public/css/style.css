@@ -12,6 +12,7 @@ body {
     background-image: url("../images/backgroundHomePage2.jpg");
     background-size: 100%;
     font-size: 17px;
+    background-repeat: repeat-y;
 }
 
 .bodyBG {
@@ -162,6 +163,16 @@ li:hover {
 
 .accountSettingsBG {
     background-image: url("../images/pass2.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: .9;
+    /* background-color: #e478e8  */
+}
+
+.aboutBG {
+    background-image: url("../images/whitebg.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -379,6 +390,11 @@ footer,
     height: 100px;
 }
 
+.footerFont {
+    color: white;
+    font-size: 12px;
+}
+
 footer {
     /* Box-model */
     padding: 30px 0;
@@ -391,6 +407,12 @@ footer {
     /* Visual */
     background: #666;
     border-top: 8px solid #4aaaa5;
+}
+
+.footerDown {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .hover-image {
@@ -733,4 +755,134 @@ button.link:hover {
     height: 200px;
     display: inline-block;
     width: 205px;
+}
+
+.team {
+    padding: 75px 0;
+}
+
+.jumbotron {
+    background-color: white;
+}
+
+h6.description {
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: black;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 5px;
+    font-size: 35px;
+}
+
+.profile {
+    margin-top: 25px;
+}
+
+.profile h1 {
+    font-weight: normal;
+    font-size: 20px;
+    margin: 10px 0 0 0;
+}
+
+.profile h2 {
+    font-size: 14px;
+    font-weight: lighter;
+    margin-top: 5px;
+}
+
+.profile .img-box {
+    opacity: 1;
+    display: block;
+    position: relative;
+}
+
+.profile .img-box:after {
+    content: "";
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.img-box ul {
+    position: absolute;
+    z-index: 2;
+    bottom: 50px;
+    text-align: center;
+    width: 100%;
+    padding-left: 0px;
+    height: 0px;
+    margin: 0px;
+    opacity: 0;
+}
+
+.profile .img-box:after,
+.img-box ul,
+.img-box ul li {
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    transition: all 0.5s ease-in-out 0s;
+}
+
+.img-box ul i {
+    font-size: 20px;
+    letter-spacing: 10px;
+}
+
+.img-box ul li {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #88C425;
+    margin: 2px;
+    padding: 5px;
+    display: inline-block;
+}
+
+.img-box a {
+    color: #fff;
+}
+
+.img-box:hover:after {
+    opacity: 1;
+}
+
+.img-box:hover ul {
+    opacity: 1;
+}
+
+.img-box ul a {
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.img-box a:hover li {
+    border-color: #fff;
+    color: #88C425;
+}
+
+a {
+    color: #88C425;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #519548;
+}
+
+i.red {
+    color: #BC0213;
+}
+
+.hover-image {
+    margin: 10px;
+    height: 200px;
+    width: 200px;
+    -webkit-transition: all 1s ease-in-out;
+    /* color: green; */
+    /* padding: 20px; */
 }
