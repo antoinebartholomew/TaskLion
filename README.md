@@ -11,7 +11,7 @@ Taskr is a fun way to earn extra income and get tasks done that you aren't able 
 - Anime.js: animation engine
 
 #### How to use Taskr?
-Local usage:
+Run Locally:
 1. Clone this repo
 1. Create an SQL database
 1. Enter your database name and credentials in the development section of the /config/config.json file (our db name is 'groupProject2')
@@ -19,14 +19,14 @@ Local usage:
 1. Navigate to localhost:8080 in your browser
 1. Begin Tasking
 
-Remote Usage:
+Run Remotely:
 1. Navigate to [GitHub Pages](https://pages.github.com/) https://pacific-crag-90348.herokuapp.com/ in your browser
 1. Begin Tasking
 
 Getting Started:
 
 Step 1: Create your Taskr account
-![CreateAccount](/public/images/readme/signup.jpg)
+<img src="/public/images/readme/signup.jpg" width="600">
 
 Step 2: Post Tasks that you can do
 ![CreateTask](/public/images/readme/create.jpg)
