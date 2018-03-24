@@ -3,6 +3,13 @@
 #### What is Taskr?
 Taskr is a fun way to earn extra income and get tasks done that you aren't able to do or just don't have the time to complete yourself. Once you create an account you can post tasks that you can do for others or search for tasks that you need help with. Taskr is built on a Node.js server using the Express.js framework and utilizes an SQL database.
 
+#### What notable technologies does Taskr use?
+- Node.js: server framework
+- SQL and JawsDB: databases
+- Jade: HTML templating engine
+- Swiper: mobile slider framework
+- Anime.js: animation engine
+
 #### How to use Taskr?
 Local usage:
 1. Clone this repo
@@ -13,7 +20,7 @@ Local usage:
 1. Begin Tasking
 
 Remote Usage:
-1. Navigate to https://pacific-crag-90348.herokuapp.com/ in your browser
+1. Navigate to [GitHub Pages](https://pages.github.com/) https://pacific-crag-90348.herokuapp.com/ in your browser
 1. Begin Tasking
 
 Getting Started:
@@ -24,7 +31,7 @@ Step 1: Create your Taskr account
 Step 2: Post Tasks that you can do
 ![CreateTask](/public/images/readme/create.jpg)
 
-Step 2: Serach for Tasks that you need done
+Step 2: Search for Tasks that you need helpvwith
 ![CreateTask](/public/images/readme/search.jpg)
 
 #### Who maintains Taskr?
