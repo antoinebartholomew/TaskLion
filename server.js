@@ -17,26 +17,17 @@ app.set("view engine", "jade");
 app.set("views", __dirname + "/views");
 
 app.use(express.static(path.join(__dirname, '/public')));
-// app.use(express.static("public"));
 app.use(express.static("nodules/bootstrap/dist"));
-
-//for pictures upload
-// var pics = require("./fileUpload/fileUpload.js");
-// app.use(pics)
 
 // Routes ====================================================================================================
 
-var taskrs = require("./routes/taskrs-api-routes.js");
-var test = require("./routes/test-api.js");
-var taskees = require("./routes/taskees-api-routes.js");
-// var tasks = require("./routes/tasks-api-routes.js");
 var htmlRoutes = require("./routes/html-routes.js");
-app.use(taskrs);
-app.use(test);
-// app.use(tasks);
-app.use(taskees);
+var taskrs = require("./routes/taskrs-api-routes.js");
+var tasks = require("./routes/tasks-api.js");
 
 app.use(htmlRoutes);
+app.use(taskrs);
+app.use(tasks);
 
 // Initialize the Express app =====================================================================================================
 
