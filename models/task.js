@@ -100,5 +100,12 @@ module.exports = function(sequelize, DataTypes) {
     });
   };
 
+
+   Task.associate = function(models) {
+   // A Task must belong to a Taskr; a Task can't be created without a Taskr due to the foreign key constraint
+    Task.hasMany(models.Message, {
+      onDelete: "cascade"
+    });
+  };
   return Task;
 };

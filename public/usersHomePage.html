@@ -57,6 +57,9 @@
         <li class="nav-item">
             <a class="nav-link" id="purchasedHistory" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">History</a>
         </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link" id="taskMessages" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Messages</a>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link" id="tasksDossier" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Task Dossier</a>
         </li>
@@ -185,6 +188,20 @@
                 </tbody>
             </table>
 
+            <table id="taskrMessagesRowView" class="table rowBackground">
+                <thead>
+                    <tr class="text-left">
+                        <th scope="col">Task ID:</th>
+                        <th style="width: 40%">Message</th>
+                        <th scope="col">From</th>
+                        <th scope="col">Sent/Received</th>                        
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="userMessages">
+                </tbody>
+            </table>
+
 
                 <table id="allTasksRowView" class="table rowBackground">
                     <thead>
@@ -233,6 +250,8 @@
     $("#taskrCompletedRowView").hide()
     $("#taskrPurchasedRowView").hide()
     $("#taskrPurchasedHistoryRowView").hide()
+    $("#taskrMessagesRowView").hide()
+
 
     var tasksArray = [];
     var in_progressArray = [];
@@ -242,6 +261,7 @@
     var dossierTasksArray = [];
     var dossierIn_progressArray = [];
     var dossierPurchasedArray = [];
+    var messagesArray = [];
     var taskrPhoto
 
             $.ajax("/api/taskrs1/" + sessionStorage.getItem("id"), {
@@ -339,6 +359,33 @@
 
 //END=======================================================================================================================================================================================================================================================================================
 
+// Getting all messages associated with Taskr =====================================================================================================================================================
+
+    $.ajax("/api/messages/" + sessionStorage.getItem("id"), {
+        type: "GET",
+        taskrId: sessionStorage.getItem("id")
+    }).then(function (dbTaskr) {
+
+        for (let i = 0; i < dbTaskr.length; i++) {
+            messagesArray.push(dbTaskr[i])
+        }
+        // console.log("This is the Messages array",messagesArray);
+        
+    })
+
+    $.ajax("/api/messages1/" + sessionStorage.getItem("id"), {
+            type: "GET",
+            taskeeId: sessionStorage.getItem("id")
+        }).then(function (dbTaskr) {
+
+            for (let i = 0; i < dbTaskr.length; i++) {
+                messagesArray.push(dbTaskr[i])
+            }
+            console.log("This is the Messages array", messagesArray);
+
+    })
+
+//END=======================================================================================================================================================================================================================================================================================
 
 
 //On click getting all task associated with Taskr =====================================================================================================================================================
@@ -350,6 +397,7 @@
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskrMessagesRowView").hide()
            $("#taskeeHomeView").hide()
            $("#allTasksRowView").hide()
         $("#userTasks").empty()
@@ -390,6 +438,7 @@
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskrMessagesRowView").hide()
            $("#taskeeHomeView").hide()
            $("#allTasksRowView").hide()
            $("#userPendingTasks").empty()
@@ -441,6 +490,7 @@
            $("#taskrCompletedRowView").show()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskrMessagesRowView").hide()
            $("#taskeeHomeView").hide()
            $("#allTasksRowView").hide()
         $("#userCompletedTasks").empty()
@@ -486,6 +536,7 @@
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").show()
            $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskrMessagesRowView").hide()
            $("#taskeeHomeView").hide()
            $("#allTasksRowView").hide()
         $("#userPurchasedTasks").empty()
@@ -541,6 +592,7 @@
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").show()
+           $("#taskrMessagesRowView").hide()
            $("#taskeeHomeView").hide()
            $("#allTasksRowView").hide()
            $("#userPurchasedTasks").empty()
@@ -580,6 +632,73 @@
             }
     })
 //END=============================================================================================================================================================================================================================
+
+        $("#taskMessages").on("click", function (event) {
+            $("#userPurchasedHistory").empty()
+            //    $("#taskrHomeView").hide()
+            $("#taskrPostedRowView").hide()
+            $("#taskrPendingRowView").hide()
+            $("#taskrCompletedRowView").hide()
+            $("#taskrPurchasedRowView").hide()
+            $("#taskrPurchasedHistoryRowView").hide()
+            $("#taskrMessagesRowView").show()
+            $("#taskeeHomeView").hide()
+            $("#allTasksRowView").hide()
+            $("#userMessages").empty()
+            event.preventDefault();
+            console.log("abcde",messagesArray);
+            // // let seen = [];
+            // let result = [];
+
+            // messagesArray.forEach(e => {
+            //     if (seen.indexOf(e.taskeeName) === -1) {
+            //         seen.push(e.taskeeName);
+            //         result.push(e);
+            //     }               
+            // })
+            // console.log(seen);
+            // console.log(result);
+                
+
+            for (let i = 0; i < messagesArray.length; i++) {
+                
+                if (messagesArray[i].taskrId == sessionStorage.getItem("id")) {
+                    let taskidNumber = messagesArray[i].TaskId;
+                    let messageId = messagesArray[i].id;
+                    let taskeeName = messagesArray[i].taskeeName;                    
+                    let taskid = "<button onclick=taskInfo(" + taskidNumber + ") class=link>" + taskidNumber + "</button>";
+                    let body = "<button onclick=getMessages(" + messageId + ") class=link>" + messagesArray[i].message + "</button>";        
+                    let from = "<button onclick=userProfile(" + messagesArray[i].taskeeId + ") class=link>" + messagesArray[i].taskeeName + "</button>";
+                    var newrow = $("<tr>");
+                    newrow.append($("<td class='text-left'>" + taskid + "</td>"));
+                    newrow.append($("<td class='text-left'>" + body + "</td>"));
+                    newrow.append($("<td class='text-left'>" + from + "</td>"));
+                    newrow.append($("<td class='text-left'>Sent</td>"));
+                    newrow.append($("<td><span onclick=deleteTask(" + messageId +") i class='fas fa-trash-alt glypiconSpace2 ficon' data-key='" + taskidNumber + "'></i></span></td>"))
+                    $("#userMessages").append(newrow);
+                } else if (messagesArray[i].taskeeId == sessionStorage.getItem("id")) {
+                    let taskidNumber = messagesArray[i].TaskId;
+                    let messageId = messagesArray[i].id;
+                    let taskeeName = messagesArray[i].taskeeName;
+                    let taskid = "<button onclick=taskInfo(" + taskidNumber + ") class=link>" + taskidNumber + "</button>";
+                    let body = "<button onclick=getMessages(" + messageId + ") class=link>" + messagesArray[i].message + "</button>";
+                    let from = "<button onclick=userProfile(" + messagesArray[i].taskeeId + ") class=link>" + messagesArray[i].taskeeName + "</button>";
+                    var newrow = $("<tr>");
+                    newrow.append($("<td class='text-left'>" + taskid + "</td>"));
+                    newrow.append($("<td class='text-left'>" + body + "</td>"));
+                    newrow.append($("<td class='text-left'>" + from + "</td>"));
+                    newrow.append($("<td class='text-left'>Received</td>"));
+                    newrow.append($("<td><span onclick=deleteTask(" + messageId + ") i class='fas fa-trash-alt glypiconSpace2 ficon' data-key='" + taskidNumber + "'></i></span></td>"))
+                    $("#userMessages").append(newrow);
+                } 
+
+            }
+
+
+        })
+
+
+
 
 //When user clicks on Tasks Dossier icon=============================================================================================================================
 
@@ -909,6 +1028,7 @@
            $("#taskrCompletedRowView").hide()
            $("#taskrPurchasedRowView").hide()
            $("#taskrPurchasedHistoryRowView").hide()
+           $("#taskrMessagesRowView").hide()
            $("#taskeeHomeView").show()
            $("#allTasksRowView").show()
 
@@ -969,6 +1089,7 @@
             $("#taskrCompletedRowView").hide()
             $("#taskrPurchasedRowView").hide()
             $("#taskrPurchasedHistoryRowView").hide()
+            $("#taskrMessagesRowView").hide()
             $("#taskeeHomeView").hide()
             $("#allTasksRowView").hide()
          })
@@ -1064,7 +1185,7 @@
                      `)
                     setTimeout(() => {
                         location.href = "/home";
-                    }, 1000);
+                    }, 10000);
                 }
             );
         }
@@ -1297,9 +1418,11 @@
                 } else {
                     pic = "/images/work.jpg";
                 }
-                let taskrid = task.id;
+                let taskrid = task.TaskrId;
                 let taskrName = task.taskrName
                 let dbTaskrName = "<button onclick=userProfile(" + taskrid + ") class=link>" + taskrName + "</button>";
+                let taskeeMessageClick ="<button onclick=taskeeMessage(" + id + ") class=link>Message " + taskrName + " About This Task</button>";
+
 
             modal.style.display = "block";
             $("#modalBody").empty();
@@ -1348,6 +1471,9 @@
                                 </div>
                                 <div class="col-md-9">
                                     <p>${cat}</p>
+                                </div>
+                                <div class="offset-md-1 col-md-8">
+                                    ${taskeeMessageClick}
                                 </div>
                             </div>
                         </div>
@@ -1435,16 +1561,238 @@
             );
         })
     }
+//New Function=======================================================================================================================================================================================================================================================================================
+ 
+    function taskeeMessage(taskid,){
+        // console.log(taskid);
+        var id = taskid;
+        $.ajax("/api/tasks1/" + id, {
+            type: "GET",
+            data: id
+        }).then(function (task) {
+            console.log(task);         
+        modal.style.display = "block";
+        $("#modalBody").empty();
+        $("#modalBody").append(`
+        <div class="text-center modal-content-head-img-bottom-space">
+            <img class="model-content-head-img" src="images/taskr.png" alt="">
+        </div>
+            <h5 class="text-center">Message about Task ${taskid}</h5>
+            <div id="taskrName"></div>
+            <div id="taskrid"></div>
+            <div id="taskid"></div>                 
+            <div class="row">
+                <div class="offset-md-3 col-md-6">
+                    <form>
+                        <div class="form-group">
+                            <label for="Title">Enter your Message</label>
+                            <input class="form-control" id="taskMsg" maxlength="300" type="text" placeholder="John about your task...." />
+                            <small class="form-text text-muted">300 Character Max</small>
+                        </div>
+                    </form>
+                </div>
+                <div class="offset-md-5 col-md-1">
+                    <button class="btn btn-primary" id="addMessage" type="submit">Submit</button>
+                </div>
+                <div class="col-md-1">
+                        <button onclick="modelClose()" class="btn btn-primary">Close</button>
+                </div>
+            </div>
+        `)
+
+        let taskrName1 = $("#taskrName");
+        let taskrID1 = $("#taskrid");
+        let taskID1 = $("#taskid");
+
+        taskrName1.val(task.taskrName);
+        taskrID1.val(task.TaskrId)
+        taskID1.val(id)
+
+        console.log(taskrID1.val());
+        console.log(taskrName1.val());
+        
+      })
+    }
 
 
+
+    $("#modalBody").on("click", "#addMessage", function (event) {
+            event.preventDefault();
+            if ($("#taskMsg").val().length>0) {
+                var msgCreate = {
+                    message: $("#taskMsg").val(),
+                    newMessageTrue: true,
+                    taskrName: $("#taskrName").val(),
+                    taskrId: $("#taskrid").val(),
+                    taskeeName: sessionStorage.getItem("username"),
+                    taskeeId: sessionStorage.getItem("id"),
+                    TaskId: $("#taskid").val()
+                };
+                    console.log(msgCreate);
+                //query taskrs for username and password and check if they match
+                $.ajax("/api/messages", {
+                    type: "POST",
+                    data: msgCreate
+                }).then(function (dbTaskr) {
+
+                    console.log(dbTaskr);
+
+                    $("#modalBody").empty();
+                        modal.style.display = "block";
+                        $("#modalBody").append(`
+                        <div class="text-center modal-content-head-img-bottom-space2">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                            <h4 class="text-center">Message Sent!</h4>
+                    `);
+                    setTimeout(() => {
+                        modal.style.display = "none";
+                    }, 2000);
+                });
+            } else {
+                //end of if statement
+                $("#modalBody").empty();
+                modal.style.display = "block";
+                $("#modalBody").append(`
+                    <div class="text-center modal-content-head-img-bottom-space2">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>
+                    <h4 class="text-center">Please enter your message</h4>
+                `);
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 3000);
+            }
+        });
+//New Function=======================================================================================================================================================================================================================================================================================
 
     function modelClose(){
         modal.style.display = "none";
     }
 
 
+        function getMessages(messageId) {
+            // console.log(taskid);
+            
+            var id = messageId;
+            $.ajax("/api/messages2/" + id , {
+                type: "GET",
+                data: id
+            }).then(function (tasks) {
+                console.log(tasks);
+                let message = tasks[0].message
+                modal.style.display = "block";
+                $("#modalBody").empty();
+                $("#modalBody").append(`
+                    <div class="text-center modal-content-head-img-bottom-space">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>
+                        <h5 class="text-center">Message about Task</h5>
+                        <div id="taskrName"></div>
+                        <div id="taskrId"></div>
+                        <div id="taskeeName"></div> 
+                        <div id="taskeeId"></div> 
+                        <div id="TaskId"></div> 
+                        <div id="newMessageTrue"></div>                 
+                        <div class="row">
+                            <div class="offset-md-3 col-md-6">
+                                <form>
+                                    <div>
+                                        <p>Message: ${message} </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Title">Enter your Reply</label>
+                                        <input class="form-control" id="taskMsg" maxlength="300" type="text"placeholder="John about your task...." />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="offset-md-5 col-md-1">
+                                <button class="btn btn-primary" id="replyMessage" type="submit">Submit</button>
+                            </div>
+                            <div class="col-md-1">
+                                    <button onclick="modelClose()" class="btn btn-primary">Close</button>
+                            </div>
+                        </div>
+                    `)
+       
+                let taskrName1 = $("#taskrName");
+                let taskrId1= $("#taskrId");
+                let taskeeName1 = $("#taskeeName");
+                let taskeeId1 = $("#taskeeId");
+                let TaskId1 = $("#TaskId");
+                let newMessageTrue1 = $("#newMessageTrue");
+
+
+                taskrName1.val(tasks[0].taskrName);
+                taskrId1.val(tasks[0].taskrId);
+                taskeeName1.val(tasks[0].taskeeName);
+                taskeeId1.val(tasks[0].taskeeId);
+                TaskId1.val(tasks[0].id);
+                newMessageTrue1.val(tasks[0].newMessageTrue);
+                console.log(TaskId1.val());
+                console.log(taskeeId1.val());
+                
+                
+                
+                 
+            })
+        }
+
+    $("#modalBody").on("click", "#replyMessage", function (event) {
+        event.preventDefault();
+        if ($("#taskMsg").val().length > 0) {
+            var msgCreate = {
+                message: $("#taskMsg").val(),
+                newMessageTrue: true,
+                taskrName: $("#taskrName").val(),
+                taskrId:  $("#taskrId").val(),
+                taskeeName:  sessionStorage.getItem("username"),
+                taskeeId: sessionStorage.getItem("id"),
+                TaskId: $("#TaskId").val()
+            };
+            console.log(msgCreate);
+            //query taskrs for username and password and check if they match
+            $.ajax("/api/messages", {
+                type: "POST",
+                data: msgCreate
+            }).then(function (dbTaskr) {
+
+                console.log(dbTaskr);
+
+                $("#modalBody").empty();
+                modal.style.display = "block";
+                $("#modalBody").append(`
+                        <div class="text-center modal-content-head-img-bottom-space2">
+                            <img class="model-content-head-img" src="images/taskr.png" alt="">
+                        </div>
+                            <h4 class="text-center">Message Sent!</h4>
+                    `);
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 2000);
+            });
+        } else {
+            //end of if statement
+            $("#modalBody").empty();
+            modal.style.display = "block";
+            $("#modalBody").append(`
+                    <div class="text-center modal-content-head-img-bottom-space2">
+                        <img class="model-content-head-img" src="images/taskr.png" alt="">
+                    </div>
+                    <h4 class="text-center">Please enter your message</h4>
+                `);
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 3000);
+        }
+    });
+
 
 
 </script>
 
 </html>
+
+
+
+ 

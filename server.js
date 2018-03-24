@@ -21,10 +21,24 @@ app.use(express.static("nodules/bootstrap/dist"));
 
 // Routes ====================================================================================================
 
+<<<<<<< HEAD
+var taskrs = require("./routes/taskrs-api-routes.js");
+var test = require("./routes/test-api.js");
+var taskees = require("./routes/taskees-api-routes.js");
+var messages = require("./routes/messages-api-routes.js");
+// var tasks = require("./routes/tasks-api-routes.js");
+var htmlRoutes = require("./routes/html-routes.js");
+app.use(taskrs);
+app.use(test);
+// app.use(tasks);
+app.use(taskees);
+app.use(messages);
+=======
 var htmlRoutes = require("./routes/html-routes.js");
 var taskrs = require("./routes/taskrs-api-routes.js");
 var tasks = require("./routes/tasks-api.js");
 
+>>>>>>> 1e6fceb7796e81b2550927b67c2a78d48c235b4d
 app.use(htmlRoutes);
 app.use(taskrs);
 app.use(tasks);
