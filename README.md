@@ -1,7 +1,10 @@
 # Taskr
 
 #### What is Taskr?
-Taskr is a fun way to earn extra income and get tasks done that you aren't able to do or just don't have the time to complete yourself. Once you create an account you can post tasks that you can do for others or search for tasks that you need help with. Taskr is built on a Node.js server using the Express.js framework and utilizes an SQL database.
+Taskr is a fun way to earn extra income and get tasks done that you aren't able to do or just don't have the time to complete yourself. Once you create an account you can post tasks that you can do for others or search for tasks that you need help with.
+
+###### Need extra cash, just post a task!
+
 
 #### What notable technologies does Taskr use?
 - Node.js: server framework
