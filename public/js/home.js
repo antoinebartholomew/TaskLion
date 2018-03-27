@@ -20,6 +20,11 @@ var userNameOk = false;
 var userNamesArray = [];
 
   //Start of user login ========================================================================================================
+    $("#userPassword").keyup(function(event) {
+        if (event.keyCode === 13) {
+          $("#loginSubmit").click();
+        }
+      });
 
     $("#loginSubmit").on("click", function(event){
         event.preventDefault();
@@ -128,7 +133,7 @@ var userNamesArray = [];
                     type: "PUT",
                     data: logout
                 }
-            ).then(function(dbTaskr) {         
+            ).then(function(dbTaskr) {
         //end of if statement
                 sessionStorage.clear();
             // Redirect to Login Page
@@ -185,7 +190,7 @@ $("#userNameCreate").on("keyup", function() {
                             secQuestion3: $("#secQuestionThree").val(),
                             secQuestionAnswer3: $("#secQuestionThreeAnswer").val().toLowerCase(),
                             taskrPhoto: $("#userPic").val(),
-                            loggedIn: true 
+                            loggedIn: true
                         }
 
                             console.log(createUser)
@@ -204,7 +209,7 @@ $("#userNameCreate").on("keyup", function() {
                                         <h4 class="text-center">Account successfully created! *</h4>
                                     `);
                                     setTimeout(() => {
-                                        location.href = "/";}, 3000);  
+                                        location.href = "/";}, 3000);
                                 });
 
 
@@ -230,7 +235,7 @@ $("#userNameCreate").on("keyup", function() {
                             setTimeout(() => {
                         modal1.style.display = "none";
                         }, 4000)
-                    } 
+                    }
             }  else{
                         $("#modal1Body").empty();
                         modal1.style.display = "block";
@@ -244,7 +249,7 @@ $("#userNameCreate").on("keyup", function() {
                             setTimeout(() => {
                         modal1.style.display = "none";
                         }, 4000)
-                    } 
+                    }
 
         }//if any boxes left empty
         else{
@@ -258,7 +263,7 @@ $("#userNameCreate").on("keyup", function() {
             `);
             setTimeout(() => {
                 modal1.style.display = "none";
-            }, 4000);   
+            }, 4000);
         }
     })
 
@@ -271,7 +276,7 @@ $("#userNameCreate").on("keyup", function() {
 
 
       if ($("#taskName").val() && $("#taskPrice").val() && $("#taskCategories").val() && $("#taskBody").val()&& $("#taskDayOfWeek").val()) {
-          
+
                 var taskCreate = {
                     title: $("#taskName").val(),
                     taskPhoto: $("#taskPic").val(),
@@ -310,7 +315,7 @@ $("#userNameCreate").on("keyup", function() {
             `);
             setTimeout(() => {
                 location.href = "/home";
-            }, 2000);  
+            }, 2000);
         });
       } else {
         //end of if statement
@@ -324,7 +329,7 @@ $("#userNameCreate").on("keyup", function() {
             `);
             setTimeout(() => {
               modal1.style.display = "none";
-            }, 4000);   
+            }, 4000);
       }
     });
 // End of create Post ========================================================================================================
@@ -346,7 +351,7 @@ $("#userNameCreate").on("keyup", function() {
                         </div>
                         <div class="row modal-content-button-space">
                             <div class="col-md-12">
-                                <h5><span style="color:red">Warning: </span>Clicking the "Confirm" Button below will delete your account and all associated Tasks. This action is final!</h5>         
+                                <h5><span style="color:red">Warning: </span>Clicking the "Confirm" Button below will delete your account and all associated Tasks. This action is final!</h5>
                             </div>
                         </div>
                         <div class="row">
@@ -362,7 +367,7 @@ $("#userNameCreate").on("keyup", function() {
             });
 
     $("#myModal").on("click", "#deleteConfirm", function(event) {
-     event.preventDefault();     
+     event.preventDefault();
       var id = sessionStorage.getItem("id");
       console.log(id);
 
@@ -371,7 +376,7 @@ $("#userNameCreate").on("keyup", function() {
             }).then(function(dbTaskr) {
                 deleteUser(id);
                 setTimeout(() => {
-                }, 4000);  
+                }, 4000);
             })
 
 
@@ -390,12 +395,12 @@ $("#userNameCreate").on("keyup", function() {
                     `);
                     setTimeout(() => {
                         location.href = "/";
-                    }, 6000);  
+                    }, 6000);
                 });
             }
     });
 
-    
+
 // End of Delete ========================================================================================================
 
 // Update Acct ========================================================================================================
@@ -410,7 +415,7 @@ let secQuestion3 = $("#secQuestionThreeUp");
 let secQuestionAnswer3 = $("#secQA3");
 let userPic = $("#userPic");
 let id = $("#accountID");
-    
+
 
 
 $("#editAccountSubmit").on("click", function(event) {
@@ -424,7 +429,7 @@ $("#editAccountSubmit").on("click", function(event) {
         data: id
       }).then(function(dbTaskr) {
         console.log("LINE 25", dbTaskr);
- 
+
         $("#modal1Body").empty();
         modal1.style.display = "block";
         $("#modal1Body").append(`
@@ -519,7 +524,7 @@ secQuestion3 = $("#secQuestionThreeUp");
 secQuestionAnswer3 = $("#secQA3");
 userPic = $("#userPic");
 id = $("#accountID");
-    
+
 
 
         password.val(dbTaskr.password);
@@ -533,8 +538,8 @@ id = $("#accountID");
         userPic.val(dbTaskr.taskrPhoto);
         id.val(dbTaskr.id);
         username.val(dbTaskr.username);
-        
-      }); 
+
+      });
 
 })
 
@@ -556,7 +561,7 @@ id = $("#accountID");
                             secQuestionAnswer3: $("#secQA3").val().toLowerCase(),
                             taskrPhoto: $("#userPic").val(),
                             id: $("#accountID").val(),
-                            loggedIn: true  
+                            loggedIn: true
                         }
 
                             //query taskrs for username and password and check if they match
@@ -576,8 +581,8 @@ id = $("#accountID");
                                         `);
                                         setTimeout(() => {
                                             location.href = "/home";
-                                        }, 3000);  
-                                     });                                               
+                                        }, 3000);
+                                     });
                             } else
                                 $("#modal1Body").empty();
                                     modal1.style.display = "block";
@@ -589,7 +594,7 @@ id = $("#accountID");
                                 `);
                                 setTimeout(() => {
                                     modal1.style.display = "none";
-                                }, 2000); 
+                                }, 2000);
 
                      }//end of if statement
                     else{
@@ -603,13 +608,12 @@ id = $("#accountID");
                         `);
                         setTimeout(() => {
                             modal1.style.display = "none";
-                        }, 2000); 
-                    } 
-                })    
+                        }, 2000);
+                    }
+                })
 
 
 
 // End of Update Acct ========================================================================================================
 
 });
-
